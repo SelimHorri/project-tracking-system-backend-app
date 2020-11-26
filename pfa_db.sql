@@ -4,6 +4,8 @@ DROP DATABASE IF EXISTS pfa_db;
 CREATE DATABASE pfa_db;
 USE pfa_db;
 
+
+
 CREATE TABLE assignments (
   employee_id INT(11) NOT NULL,
   project_id INT(11) NOT NULL,
@@ -12,16 +14,36 @@ CREATE TABLE assignments (
   commit_mgr_desc VARCHAR(255) DEFAULT NULL
 );
 
+
+
+INSERT INTO assignments (employee_id, project_id, commit_date, commit_emp_desc, commit_mgr_desc) VALUES
+(1, 1, '2020-11-26 14:50:09', 'Inject elements', NULL),
+(1, 1, '2020-11-26 17:14:22', 'set up some configs', 'you need to implement sec solution'),
+(1, 2, '2020-11-26 14:51:59', 'set envvvvvvvvvvvvvvvvv', NULL),
+(1, 2, '2020-11-26 17:14:22', 'generate xml file', 'check out marshaling correctness'),
+(2, 1, '2020-11-26 14:51:44', 'set up Tomcat configs hhh', NULL),
+(2, 5, '2020-11-26 14:52:32', 'fawer l kosksi :P', NULL),
+(3, 1, '2020-11-26 14:51:25', 'creating views', NULL),
+(3, 5, '2020-11-26 14:52:19', '9assit l bsal', NULL),
+(6, 1, '2020-11-26 14:49:41', 'init', NULL),
+(6, 1, '2020-11-26 14:50:53', 'SET UP DIFFERENT LAYERS', NULL);
+
+
+
 CREATE TABLE departments (
   department_id INT(11) NOT NULL,
   department_name VARCHAR(255) DEFAULT NULL,
   location_id INT(11) DEFAULT NULL
 );
 
+
+
 INSERT INTO departments (department_id, department_name, location_id) VALUES
 (4, 'DWH', 1),
 (5, 'Digital', 1),
 (6, 'Billing', 1);
+
+
 
 CREATE TABLE employees (
   employee_id INT(11) NOT NULL,
@@ -31,10 +53,12 @@ CREATE TABLE employees (
   phone VARCHAR(50) DEFAULT NULL,
   hiredate DATE DEFAULT NULL,
   job VARCHAR(255) DEFAULT NULL,
-  salary decimal(7,2) DEFAULT NULL,
+  salary DECIMAL(7,2) DEFAULT NULL,
   manager_id INT(11) DEFAULT NULL,
   department_id INT(11) DEFAULT NULL
 );
+
+
 
 INSERT INTO employees (employee_id, first_name, last_name, email, phone, hiredate, job, salary, manager_id, department_id) VALUES
 (1, 'Selim', 'Horri', 'selim.horri@ooredoo.tn', '22125144', '2019-04-15', 'Billing', '5000.00', 4, 6),
@@ -47,6 +71,8 @@ INSERT INTO employees (employee_id, first_name, last_name, email, phone, hiredat
 (8, 'Malek', 'Aissa', 'malek.aissa@ooredoo.tn', '2212', '2020-09-01', 'Billing', '5000.00', 4, 6),
 (9, 'John', 'Doe', 'john.doe@ooredoo.tn', '2212', NULL, 'Chef service digital', '6000.00', NULL, 5);
 
+
+
 CREATE TABLE locations (
   location_id INT(11) NOT NULL,
   adr VARCHAR(255) DEFAULT NULL,
@@ -54,9 +80,13 @@ CREATE TABLE locations (
   city VARCHAR(255) DEFAULT NULL
 );
 
+
+
 INSERT INTO locations (location_id, adr, postal_code, city) VALUES
 (1, 'RUE DE LA BOURSE', '2016', 'LAC2'),
 (2, 'RUE DE BLA BLA', '2016', 'CHARGUIA');
+
+
 
 CREATE TABLE projects (
   project_id INT(11) NOT NULL,
@@ -66,6 +96,8 @@ CREATE TABLE projects (
   status VARCHAR(255) DEFAULT NULL
 );
 
+
+
 INSERT INTO projects (project_id, title, start_date, end_date, status) VALUES
 (1, 'TRANSBSCS', '2020-09-28', '2020-11-04', 'COMPLETED'),
 (2, 'SYNCH_BSCS_IMX', '2020-11-26', NULL, 'IN_PROGRESS'),
@@ -73,14 +105,18 @@ INSERT INTO projects (project_id, title, start_date, end_date, status) VALUES
 (4, 'MACHYA_RANDONNEE', NULL, NULL, 'NOT_STARTED'),
 (5, 'TATIB LEFTOUR', '2020-11-08', '2020-11-14', 'IN_PROGRESS');
 
+
+
 CREATE TABLE user_credentials (
   user_id INT(11) NOT NULL,
   username VARCHAR(255) DEFAULT NULL,
   password VARCHAR(255) DEFAULT NULL,
-  enabled tinyINT(1) DEFAULT 1,
+  enabled BOOLEAN DEFAULT true,
   role VARCHAR(255) DEFAULT NULL,
   employee_id INT(11) DEFAULT NULL
 );
+
+
 
 INSERT INTO user_credentials (user_id, username, password, enabled, role, employee_id) VALUES
 (1, 'imentouk', '$2a$04$itGCczcleGS8jlTCSCBkH.BgXBXWVPm5vV/JOe4PNh9IcReXtrp.W', 1, 'ROLE_EMP', 3),
@@ -95,8 +131,19 @@ INSERT INTO user_credentials (user_id, username, password, enabled, role, employ
 
 
 
+
+
+
+
+SELECT '===========================>> Setting PRIMARY KEYs && UNIQUE CONSTRAINTs <<===========================' AS DESC_SCRIPT
+FROM DUAL;
+
+
+
+
+
 ALTER TABLE assignments
-  ADD PRIMARY KEY (employee_id,project_id,commit_date),
+  ADD PRIMARY KEY (employee_id, project_id, commit_date),
   ADD KEY fk1_assign (project_id);
 
 ALTER TABLE departments
@@ -124,6 +171,13 @@ ALTER TABLE user_credentials
 
 
 
+SELECT '===========================>> Setting AUTO_INCREMENTs <<===========================' AS DESC_SCRIPT
+FROM DUAL;
+
+
+
+
+
 ALTER TABLE departments
   MODIFY department_id INT(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
@@ -143,6 +197,13 @@ ALTER TABLE user_credentials
 
 
 
+SELECT '===========================>> Setting FOREIGN KEY CONSTRAINTs <<===========================' AS DESC_SCRIPT
+FROM DUAL;
+
+
+
+
+
 ALTER TABLE assignments
   ADD CONSTRAINT fk1_assign FOREIGN KEY (project_id) REFERENCES projects (project_id),
   ADD CONSTRAINT fk2_assign FOREIGN KEY (employee_id) REFERENCES employees (employee_id);
@@ -156,6 +217,13 @@ ALTER TABLE employees
 
 ALTER TABLE user_credentials
   ADD CONSTRAINT fk1_u FOREIGN KEY (employee_id) REFERENCES employees (employee_id);
+
+
+
+
+
+SELECT '===========================>> COMMIT <<===========================' AS DESC_SCRIPT
+FROM DUAL;
 
 
 
