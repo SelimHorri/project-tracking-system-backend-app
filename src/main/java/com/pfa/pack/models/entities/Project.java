@@ -2,6 +2,7 @@ package com.pfa.pack.models.entities;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -24,7 +25,7 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 
 @Entity(name = "projects")
 @Table(name = "projects")
-public class Project implements Serializable {
+public final class Project implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -75,7 +76,7 @@ public class Project implements Serializable {
 		return title;
 	}
 
-	public void setTitle(String title) {
+	public void setTitle(final String title) {
 		this.title = title;
 	}
 
@@ -83,7 +84,7 @@ public class Project implements Serializable {
 		return startDate;
 	}
 
-	public void setStartDate(LocalDate startDate) {
+	public void setStartDate(final LocalDate startDate) {
 		this.startDate = startDate;
 	}
 
@@ -91,7 +92,7 @@ public class Project implements Serializable {
 		return endDate;
 	}
 
-	public void setEndDate(LocalDate endDate) {
+	public void setEndDate(final LocalDate endDate) {
 		this.endDate = endDate;
 	}
 
@@ -99,18 +100,29 @@ public class Project implements Serializable {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(final String status) {
 		this.status = status;
 	}
 
 	public Set<Assignment> getAssignments() {
-		return assignments;
+		return Collections.unmodifiableSet(this.assignments);
 	}
 
-	public void setAssignments(Set<Assignment> assignments) {
+	public void setAssignments(final Set<Assignment> assignments) {
 		this.assignments = assignments;
 	}
 	
 	
 	
 }
+
+
+
+
+
+
+
+
+
+
+

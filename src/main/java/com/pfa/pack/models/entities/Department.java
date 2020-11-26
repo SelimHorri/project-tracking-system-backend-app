@@ -1,6 +1,7 @@
 package com.pfa.pack.models.entities;
 
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -17,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity(name = "departments")
 @Table(name = "departments")
-public class Department implements Serializable {
+public final class Department implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -51,7 +52,7 @@ public class Department implements Serializable {
 		return departmentName;
 	}
 
-	public void setDepartmentName(String departmentName) {
+	public void setDepartmentName(final String departmentName) {
 		this.departmentName = departmentName;
 	}
 
@@ -59,15 +60,15 @@ public class Department implements Serializable {
 		return location;
 	}
 
-	public void setLocation(Location location) {
+	public void setLocation(final Location location) {
 		this.location = location;
 	}
 
 	public Set<Employee> getEmployees() {
-		return employees;
+		return Collections.unmodifiableSet(this.employees);
 	}
 
-	public void setEmployees(Set<Employee> employees) {
+	public void setEmployees(final Set<Employee> employees) {
 		this.employees = employees;
 	}
 

@@ -1,6 +1,7 @@
 package com.pfa.pack.models.entities;
 
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -15,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity(name = "locations")
 @Table(name = "locations")
-public class Location implements Serializable {
+public final class Location implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -51,7 +52,7 @@ public class Location implements Serializable {
 		return adr;
 	}
 
-	public void setAdr(String adr) {
+	public void setAdr(final String adr) {
 		this.adr = adr;
 	}
 
@@ -59,7 +60,7 @@ public class Location implements Serializable {
 		return postalCode;
 	}
 
-	public void setPostalCode(String postalCode) {
+	public void setPostalCode(final String postalCode) {
 		this.postalCode = postalCode;
 	}
 
@@ -67,15 +68,15 @@ public class Location implements Serializable {
 		return city;
 	}
 
-	public void setCity(String city) {
+	public void setCity(final String city) {
 		this.city = city;
 	}
 
 	public Set<Department> getDepartments() {
-		return departments;
+		return Collections.unmodifiableSet(this.departments);
 	}
 
-	public void setDepartments(Set<Department> departments) {
+	public void setDepartments(final Set<Department> departments) {
 		this.departments = departments;
 	}
 

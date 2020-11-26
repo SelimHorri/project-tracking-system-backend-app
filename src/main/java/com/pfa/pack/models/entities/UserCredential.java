@@ -8,14 +8,16 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@Entity
-@Table(name = "user_credentials" /*, indexes = {@Index(name = "user_credentials_username_IX", columnList = "username", unique = true) }*/)
-public class UserCredential implements Serializable {
+@Entity(name = "user_credentials")
+@Table(name = "user_credentials", indexes = {@Index(name = "user_credentials_username_IX", columnList = "username", unique = true)})
+public final class UserCredential implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -38,6 +40,7 @@ public class UserCredential implements Serializable {
 	
 	@JsonIgnore
 	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "employee_id")
 	private Employee employee;
 	
 	public UserCredential() {
@@ -54,7 +57,7 @@ public class UserCredential implements Serializable {
 		return username;
 	}
 
-	public void setUsername(String username) {
+	public void setUsername(final String username) {
 		this.username = username;
 	}
 
@@ -62,7 +65,7 @@ public class UserCredential implements Serializable {
 		return password;
 	}
 
-	public void setPassword(String password) {
+	public void setPassword(final String password) {
 		this.password = password;
 	}
 
@@ -70,7 +73,7 @@ public class UserCredential implements Serializable {
 		return enabled;
 	}
 
-	public void setEnabled(Boolean enabled) {
+	public void setEnabled(final Boolean enabled) {
 		this.enabled = enabled;
 	}
 
@@ -78,7 +81,7 @@ public class UserCredential implements Serializable {
 		return role;
 	}
 
-	public void setRole(String role) {
+	public void setRole(final String role) {
 		this.role = role;
 	}
 
@@ -86,7 +89,7 @@ public class UserCredential implements Serializable {
 		return employee;
 	}
 
-	public void setEmployee(Employee employee) {
+	public void setEmployee(final Employee employee) {
 		this.employee = employee;
 	}
 
@@ -97,3 +100,16 @@ public class UserCredential implements Serializable {
 	
 	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
