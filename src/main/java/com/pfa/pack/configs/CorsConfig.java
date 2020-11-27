@@ -1,4 +1,4 @@
-package com.selimhorri.app.pack.configs;
+package com.pfa.pack.configs;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

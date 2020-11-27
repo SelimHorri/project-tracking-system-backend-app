@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+<html xmlns:th = "http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Forbidden Error</title>
+	<link th:replace = "layouts :: stylish" />
+</head>
+
+<body>
+	<br><br><br><br><br>
+		
+	<div class='container container-fluid'>
+		
+		<div class="jumbotron">
+			<h1 class="display-3">Forbidden Error 403!</h1>
+			<p class="lead text-danger"><i>Accessing the page or resource you were trying to reach is absolutely <strong>forbidden</strong> for some reason.</i></p>
+			<hr class="my-4">
+			<p class="lead">
+				<a class="btn btn-info btn-lg" th:href="@{/}" role="button">Back Home ?</a>
+			</p>
+		</div>
+		
+	</div>
+	
+	<br><br><br><br><br>
+	
+</body>
+</html>
+
+
