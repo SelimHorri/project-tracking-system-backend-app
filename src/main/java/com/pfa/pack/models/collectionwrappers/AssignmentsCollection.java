@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.pfa.pack.models.entities.Assignment;
 
-public class AssignmentsCollection implements Serializable {
+public final class AssignmentsCollection implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	

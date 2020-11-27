@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.pfa.pack.models.entities.Employee;
 
-public class EmployeesCollection implements Serializable {
+public final class EmployeesCollection implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	

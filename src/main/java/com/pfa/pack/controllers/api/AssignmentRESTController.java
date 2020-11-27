@@ -2,6 +2,8 @@ package com.pfa.pack.controllers.api;
 
 import java.time.LocalDateTime;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -24,6 +26,11 @@ import com.pfa.pack.services.AssignmentService;
 public class AssignmentRESTController {
 	
 	private final AssignmentService service;
+	private static final Logger logger = LoggerFactory.getLogger(AssignmentRESTController.class);
+	
+	static {
+		logger.info("************ entering " + AssignmentRESTController.class.getName() + " ************");
+	}
 	
 	@Autowired
 	public AssignmentRESTController(final AssignmentService service) {

@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.pfa.pack.models.entities.Department;
 
-public class DepartmentsCollection implements Serializable {
+public final class DepartmentsCollection implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	

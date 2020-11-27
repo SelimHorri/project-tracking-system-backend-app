@@ -5,6 +5,8 @@ import java.util.NoSuchElementException;
 
 import javax.transaction.Transactional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,11 @@ import com.pfa.pack.services.DepartmentService;
 public class DepartmentServiceImpl implements DepartmentService {
 	
 	private final DepartmentRepository rep;
+	private static final Logger logger = LoggerFactory.getLogger(DepartmentServiceImpl.class);
+	
+	static {
+		logger.info("************ entering " + DepartmentServiceImpl.class.getName() + " ************");
+	}
 	
 	@Autowired
 	public DepartmentServiceImpl(final DepartmentRepository rep) {

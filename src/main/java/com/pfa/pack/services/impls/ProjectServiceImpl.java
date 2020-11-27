@@ -5,6 +5,8 @@ import java.util.NoSuchElementException;
 
 import javax.transaction.Transactional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,11 @@ import com.pfa.pack.services.ProjectService;
 public class ProjectServiceImpl implements ProjectService {
 	
 	private final ProjectRepository rep;
+	private static final Logger logger = LoggerFactory.getLogger(ProjectServiceImpl.class);
+	
+	static {
+		logger.info("************ entering " + ProjectServiceImpl.class.getName() + " ************");
+	}
 	
 	@Autowired
 	public ProjectServiceImpl(final ProjectRepository rep) {

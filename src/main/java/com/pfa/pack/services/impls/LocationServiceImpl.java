@@ -5,6 +5,8 @@ import java.util.NoSuchElementException;
 
 import javax.transaction.Transactional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,11 @@ import com.pfa.pack.services.LocationService;
 public class LocationServiceImpl implements LocationService {
 	
 	private final LocationRepository rep;
+	private static final Logger logger = LoggerFactory.getLogger(LocationServiceImpl.class);
+	
+	static {
+		logger.info("************ entering " + LocationServiceImpl.class.getName() + " ************");
+	}
 	
 	@Autowired
 	public LocationServiceImpl(final LocationRepository rep) {

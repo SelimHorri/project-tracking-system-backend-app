@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.pfa.pack.models.entities.Location;
 
-public class LocationsCollection implements Serializable {
+public final class LocationsCollection implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	

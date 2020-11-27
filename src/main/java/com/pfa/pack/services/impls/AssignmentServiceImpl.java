@@ -6,6 +6,8 @@ import java.util.NoSuchElementException;
 
 import javax.transaction.Transactional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +21,11 @@ import com.pfa.pack.services.AssignmentService;
 public class AssignmentServiceImpl implements AssignmentService {
 	
 	private final AssignmentRepository rep;
+	private static final Logger logger = LoggerFactory.getLogger(AssignmentServiceImpl.class);
+	
+	static {
+		logger.info("************ entering " + AssignmentServiceImpl.class.getName() + " ************");
+	}
 	
 	@Autowired
 	public AssignmentServiceImpl(final AssignmentRepository rep) {

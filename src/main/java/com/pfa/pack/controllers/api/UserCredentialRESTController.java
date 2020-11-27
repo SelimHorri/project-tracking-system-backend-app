@@ -1,5 +1,7 @@
 package com.pfa.pack.controllers.api;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +23,11 @@ import com.pfa.pack.services.UserCredentialService;
 public class UserCredentialRESTController {
 	
 	private final UserCredentialService service;
+	private static final Logger logger = LoggerFactory.getLogger(UserCredentialRESTController.class);
+	
+	static {
+		logger.info("************ entering " + UserCredentialRESTController.class.getName() + " ************");
+	}
 	
 	@Autowired
 	public UserCredentialRESTController(final UserCredentialService service) {

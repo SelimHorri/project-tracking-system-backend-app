@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.pfa.pack.models.entities.UserCredential;
 
-public class UserCredentialsCollection implements Serializable {
+public final class UserCredentialsCollection implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	

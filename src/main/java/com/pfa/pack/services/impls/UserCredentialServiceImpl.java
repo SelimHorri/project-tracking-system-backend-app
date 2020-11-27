@@ -5,6 +5,8 @@ import java.util.NoSuchElementException;
 
 import javax.transaction.Transactional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,11 @@ import com.pfa.pack.services.UserCredentialService;
 public class UserCredentialServiceImpl implements UserCredentialService {
 	
 	private final UserCredentialRepository rep;
+	private static final Logger logger = LoggerFactory.getLogger(UserCredentialServiceImpl.class);
+	
+	static {
+		logger.info("************ entering " + UserCredentialServiceImpl.class.getName() + " ************");
+	}
 	
 	@Autowired
 	public UserCredentialServiceImpl(final UserCredentialRepository rep) {
