@@ -2,14 +2,6 @@
 
 <html xmlns:th="http://www.thymeleaf.org">
 	
-	<!--
-	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-	
-	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-	-->
-	
 	<link th:fragment = "stylish" rel="stylesheet"
 		href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/flatly/bootstrap.min.css"
 		integrity="sha384-qF/QmIAj5ZaYFAeQcrQ6bfVMAh4zZlrGwTPY7T/M+iTTLJqJBJjwwnsE5Y0mV7QK"
@@ -17,7 +9,7 @@
 	/>
 	
 	
-<div th:fragment = "navbar" >
+	<div th:fragment = "navbar" >
 		<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
 		<a class="navbar-brand" th:href="@{/}">App</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -29,14 +21,14 @@
 			<div class="collapse navbar-collapse" id="navbarColor01">
 				<ul class="navbar-nav mr-auto">
 					<li class="nav-item active"><a class="nav-link" th:href="@{/}">Home<span class="sr-only">(current)</span></a></li>
-					<li class="nav-item"><a class="nav-link" th:href="@{/app/employees/employees-list}">Employees</a></li>
-					<li class="nav-item"><a class="nav-link" th:href="@{/app/departments/departments-list}">Departments</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">About</a></li>
+					<li class="nav-item"><a class="nav-link" th:href="@{/}">Employees</a></li>
+					<li class="nav-item"><a class="nav-link" th:href="@{/}">Departments</a></li>
+					<li class="nav-item"><a class="nav-link" th:href="@{/}">About</a></li>
 				</ul>
 				<div class="my-2 my-lg-0">
 					<ul class="navbar-nav mr-auto">
-						<li class="nav-item"><a class="nav-link my-2 my-sm-0" href="#">Login</a></li>
-						<li class="nav-item"><a class="nav-link my-2 my-sm-0" href="#">Register</a></li>
+						<li class="nav-item"><a class="nav-link my-2 my-sm-0" th:href="@{/}">Login</a></li>
+						<li class="nav-item"><a class="nav-link my-2 my-sm-0" th:href="@{/}">Register</a></li>
 					</ul>
 				</div>
 			</div>
@@ -47,37 +39,6 @@
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-
 </html>
 
 

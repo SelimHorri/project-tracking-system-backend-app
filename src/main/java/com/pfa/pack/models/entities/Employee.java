@@ -17,6 +17,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -39,15 +41,20 @@ public final class Employee implements Serializable {
 	@Column(name = "employee_id", unique = true, nullable = false, precision = 10)
 	private Integer employeeId;
 	
+	@NotBlank(message = "** Must give a firstname **")
 	@Column(name = "first_name", length = 200)
 	private String firstName;
 	
+	@NotBlank(message = "** Must give a lastname **")
 	@Column(name = "last_name", length = 200)
 	private String lastName;
 	
+	@Email(message = "*Must be in an email form")
+	@NotBlank
 	@Column(name = "email", unique = true, length = 200)
 	private String email;
 	
+	@NotBlank(message = "** Must give a phone number **")
 	@Column(name = "phone", length = 20)
 	private String phone;
 	
@@ -58,9 +65,11 @@ public final class Employee implements Serializable {
 	@Column(name = "hiredate")
 	private LocalDate hiredate;
 	
+	@NotBlank(message = "** Must give a job **")
 	@Column(name = "job", length = 200)
 	private String job;
 	
+	@NotBlank(message = "** Must give a salary **")
 	@Column(name = "salary", precision = 7, scale = 2)
 	private Double salary;
 	
