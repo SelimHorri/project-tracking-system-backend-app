@@ -42,7 +42,7 @@ public final class Assignment implements Serializable {
 	@JsonSerialize(using = LocalDateTimeSerializer.class)
 	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
 	@Column(name = "commit_date", unique = true, nullable = false)
-	private LocalDateTime commitDate; // LocalDateTime.now()
+	private LocalDateTime commitDate; // = LocalDateTime.now();
 	
 	@Column(name = "commit_emp_desc", length = 200)
 	private String commitEmpDesc;

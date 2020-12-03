@@ -1,28 +1,31 @@
 package com.pfa.pack.models.ids;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
-public class AssignmentId implements Serializable {
+public final class AssignmentId implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
 	private Integer employeeId;
 	private Integer projectId;
+	private LocalDateTime commitDate;
 	
 	public AssignmentId() {
 		
 	}
-
-	public AssignmentId(final Integer employeeId, final Integer projectId) {
+	
+	public AssignmentId(final Integer employeeId, final Integer projectId, final LocalDateTime commitDate) {
 		this.employeeId = employeeId;
 		this.projectId = projectId;
+		this.commitDate = commitDate;
 	}
 	
 	public Integer getEmployeeId() {
 		return employeeId;
 	}
 	
-	public void setEmployeeId(Integer employeeId) {
+	public void setEmployeeId(final Integer employeeId) {
 		this.employeeId = employeeId;
 	}
 	
@@ -30,14 +33,23 @@ public class AssignmentId implements Serializable {
 		return projectId;
 	}
 	
-	public void setProjectId(Integer projectId) {
+	public void setProjectId(final Integer projectId) {
 		this.projectId = projectId;
+	}
+	
+	public LocalDateTime getCommitDate() {
+		return commitDate;
+	}
+	
+	public void setCommitDate(final LocalDateTime commitDate) {
+		this.commitDate = commitDate;
 	}
 	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((commitDate == null) ? 0 : commitDate.hashCode());
 		result = prime * result + ((employeeId == null) ? 0 : employeeId.hashCode());
 		result = prime * result + ((projectId == null) ? 0 : projectId.hashCode());
 		return result;
@@ -52,6 +64,11 @@ public class AssignmentId implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		AssignmentId other = (AssignmentId) obj;
+		if (commitDate == null) {
+			if (other.commitDate != null)
+				return false;
+		} else if (!commitDate.equals(other.commitDate))
+			return false;
 		if (employeeId == null) {
 			if (other.employeeId != null)
 				return false;
@@ -64,7 +81,7 @@ public class AssignmentId implements Serializable {
 			return false;
 		return true;
 	}
-	
+
 	
 	
 }
