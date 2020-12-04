@@ -5,21 +5,29 @@
 <head>
 	<meta charset="UTF-8">
 	<title></title>
-	<link th:replace = "layouts :: stylish" />
+	<div th:replace = "layouts :: stylish"></div>
 </head>
 
 <body>
 	
-	<div th:replace = "layouts :: navbar"></div>
 	<br><br><br><br><br>
 		
 	<div class='container container-fluid'>
 		
-		
+		<div class="jumbotron">
+			<h1 class="display-3">Welcome foxes!</h1>
+			<hr class="my-4">
+			<p class="lead">
+				<a class="btn btn-primary btn-lg" th:href="@{/app/employees/employee-index}" role="button">Login </a> <br>
+				<a class=" " th:href="@{/app/managers/manager-index}" role="button">are you a manager ?</a>
+			</p>
+		</div>
 		
 	</div>
 	
 	<br><br><br><br><br>
+	
+	<div th:replace = "layouts :: javascript"></div>
 	
 </body>
 </html>

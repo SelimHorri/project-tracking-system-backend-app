@@ -10,24 +10,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.pfa.pack.services.EmployeeService;
 
 @Controller
-@RequestMapping(value = {"/app/employees"})
-public class EmployeeController {
+@RequestMapping(value = {"/app/managers"})
+public class ManagerController {
 	
 	private final EmployeeService service;
-	private static final Logger logger = LoggerFactory.getLogger(EmployeeController.class);
+	private static final Logger logger = LoggerFactory.getLogger(ManagerController.class);
 	
 	static {
-		logger.info("************ entering " + EmployeeController.class.getName() + " ************");
+		logger.info("************ entering " + ManagerController.class.getName() + " ************");
 	}
 	
 	@Autowired
-	public EmployeeController(final EmployeeService service) {
+	public ManagerController(final EmployeeService service) {
 		this.service = service;
 	}
 	
-	@GetMapping(value = {"/employee-index"})
+	@GetMapping(value = {"/manager-index"})
 	public String displayEmployeeIndex() {
-		return "employees/employee-index";
+		return "managers/manager-index";
 	}
 	
 	
