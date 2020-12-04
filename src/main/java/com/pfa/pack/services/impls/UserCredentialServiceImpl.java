@@ -8,6 +8,7 @@ import javax.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.pfa.pack.models.collectionwrappers.UserCredentialsCollection;
@@ -54,6 +55,11 @@ public class UserCredentialServiceImpl implements UserCredentialService {
 	@Override
 	public void delete(final Integer userCredentialId) {
 		this.rep.delete(this.findById(userCredentialId));
+	}
+	
+	@Override
+	public UserCredential findByUsername(final String username) {
+		return this.rep.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("\n-------------- NO SUCH ELEMENT by username: " + username + " --------------\n"));
 	}
 	
 	

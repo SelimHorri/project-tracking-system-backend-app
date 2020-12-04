@@ -119,13 +119,13 @@ CREATE TABLE user_credentials (
 
 
 INSERT INTO user_credentials (user_id, username, password, enabled, role, employee_id) VALUES
-(1, 'imentouk', '$2a$04$itGCczcleGS8jlTCSCBkH.BgXBXWVPm5vV/JOe4PNh9IcReXtrp.W', 1, 'ROLE_EMP', 3),
-(2, 'badridoudi', '$2a$04$8WmxdwyZbTrYitZ4fbrYoOKE7ZkU1R//DMKA.Uyq1qpNkHhL1z3cG', 1, 'ROLE_EMP', 2),
-(3, 'selimhorri', '$2a$04$n7VuAe284sF7fKzHuIrjPemfly5HZrBKqAsAENKw9qI17U2n9ryxy', 1, 'ROLE_EMP', 1),
-(4, 'admin', '$2a$04$7LWGXhf.7BtZVeycAZHCQOuqdVvyQuP3u6KVnpW6ovZWzAgcNsTzK', 1, 'ROLE_ADMIN', NULL),
-(5, 'soumayahajjem', '$2a$04$i0f5KDnYzT3ePEzNqTQIPew1VUqrMOuWVkiNxSPmAoHZUVMGY3Nea', 1, 'ROLE_MGR', 4),
-(6, 'nourlarguech', '$2a$04$yKXSqlRcZBi160H00awwzOnGZzLRfou8shQNiQapy0J3Ze9tCKEfe', 1, 'ROLE_MGR', 5),
-(7, 'johndoe', '$2a$04$SgQRzuXukck2vcM1dadai.9ZP3/1ENwROD5Uij0Fe6xMBuQPqV2D2', 1, 'ROLE_MGR', 9);
+(1, 'imentouk', '$2y$04$8jC1Xb/fKB3EQIHy0XoFUunQNhjiVpvuMZys6iCOkphCAsyBkmCTC', 1, 'ROLE_EMP', 3),
+(2, 'badridoudi', '$2y$04$c09yvJ4rcadTRGaoVQRRZugld/9z377uaIHwRCWxexBADCVT.jC4S', 1, 'ROLE_EMP', 2),
+(3, 'selimhorri', '$2y$04$WmddgY6/UU/vOqsh.6CIe.80/DiPJcvtEopEDk/6EkyOP5APcYWsy', 1, 'ROLE_EMP', 1),
+(4, 'admin', '$2y$04$HLi44N6cb6xmLYHdABF/euCgpk0LofYk4VdIeO1DAn.Ol1Bnaj3vW', 1, 'ROLE_ADMIN', NULL),
+(5, 'soumayahajjem', '$2y$04$ljw6KJaAkzMzJZOf8eU6qOoq7jV2SXRqeg7uHS7tQb6x86SBS/oEW', 1, 'ROLE_MGR', 4),
+(6, 'nourlarguech', '$2y$04$ngbUBXKPaTRFAUFEifgPpuqmBTf4VjUJL.eGpeEIGwI/iiE18ZSny', 1, 'ROLE_MGR', 5),
+(7, 'johndoe', '$2y$04$CT3Jad4jrOq1zGt0Q4maEeTV57rdLtYNVnBM96vyVaGbaE4YgwfvO', 1, 'ROLE_MGR', 9);
 
 
 

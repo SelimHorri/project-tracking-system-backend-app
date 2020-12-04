@@ -11,4 +11,6 @@ public interface UserCredentialService {
 	public abstract UserCredential update(final UserCredential userCredential);
 	public abstract void delete(final Integer userCredentialId);
 	
+	public abstract UserCredential findByUsername(final String username);
+	
 }
