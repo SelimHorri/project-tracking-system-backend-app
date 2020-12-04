@@ -14,22 +14,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
-	/*
-	private UserDetailsService userDetailsService;
-	private BCryptPasswordEncoder bCryptPasswordEncoder;
-	
-	@Autowired
-	public SecurityConfig(final UserDetailsService userDetailsService, final BCryptPasswordEncoder bCryptPasswordEncoder) {
-		this.userDetailsService = userDetailsService;
-		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-	}
-	
-	@Override
-	protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(userDetailsService).passwordEncoder(this.bCryptPasswordEncoder);
-	}
-	*/
-	
 	private DataSource dataSource;
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
@@ -52,15 +36,34 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(final HttpSecurity http) throws Exception {
 		http.csrf().disable()
 			.authorizeRequests()
-			.antMatchers("**/css/**").hasAnyRole("EMP", "MGR", "ADMIN")
-			.antMatchers("**/js/**").hasRole("ADMIN")
-			.antMatchers("/app/api/**").hasAnyRole("EMP", "MGR", "ADMIN")
-			// .antMatchers("/app/**").hasRole("ADMIN")
-			.antMatchers("/app/**/employees/**").hasAnyRole("EMP", "ADMIN") // pay attention to roles here
-			.antMatchers("/app/**/managers/**").hasAnyRole("MGR", "ADMIN")
+			// .antMatchers("/app/api/employees/**").hasAnyRole("EMP", "ADMIN")
+			// .antMatchers("/app/api/managers/**").hasAnyRole("MGR", "ADMIN")
+			.antMatchers("/app/employees/**").hasAnyRole("EMP", "ADMIN")
+			.antMatchers("/app/managers/**").hasAnyRole("MGR", "ADMIN")
+			.antMatchers("/app/api/**").permitAll()
+			.antMatchers("**/css/**").permitAll()
+			.antMatchers("**/js/**").permitAll()
 			.antMatchers("/", "/app").permitAll()
 		.and().formLogin();
 	}
+	
+	
+	
+	/*
+	private UserDetailsService userDetailsService;
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	
+	@Autowired
+	public SecurityConfig(final UserDetailsService userDetailsService, final BCryptPasswordEncoder bCryptPasswordEncoder) {
+		this.userDetailsService = userDetailsService;
+		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+	}
+	
+	@Override
+	protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
+		auth.userDetailsService(userDetailsService).passwordEncoder(this.bCryptPasswordEncoder);
+	}
+	*/
 	
 	
 	
