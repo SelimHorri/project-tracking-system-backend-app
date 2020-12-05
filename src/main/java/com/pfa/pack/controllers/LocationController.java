@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.pfa.pack.services.LocationService;
 
 @Controller
-@RequestMapping(value = {})
+@RequestMapping(value = {"/app/locations"})
 public class LocationController {
 	
 	private final LocationService service;

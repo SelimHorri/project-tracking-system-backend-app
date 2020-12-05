@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.pfa.pack.services.AssignmentService;
 
 @Controller
-@RequestMapping(value = {})
+@RequestMapping(value = {"/app/assignments"})
 public class AssignmentController {
 	
 	private final AssignmentService service;

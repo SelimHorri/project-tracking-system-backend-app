@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.pfa.pack.services.ProjectService;
 
 @Controller
-@RequestMapping(value = {})
+@RequestMapping(value = {"/app/projects"})
 public class ProjectController {
 	
 	private final ProjectService service;

@@ -46,7 +46,7 @@ public class AssignmentRESTController {
 	@GetMapping(value = {"/{employeeId}/{projectId}/{commitDate}"})
 	public ResponseEntity<Assignment> findByCompositeIds(@PathVariable("employeeId") final String employeeId, 
 														 @PathVariable("projectId") final String projectId,
-														 @PathVariable("commitDate") @DateTimeFormat(pattern = "dd-MM-yyyy#HH:mm:ss") final String commitDate
+														 @PathVariable("commitDate") @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss") final String commitDate
 												  		) {
 		final int id1 = Integer.parseInt(employeeId);
 		final int id2 = Integer.parseInt(projectId);
@@ -64,11 +64,17 @@ public class AssignmentRESTController {
 	}
 	
 	@DeleteMapping(value = {"", "/delete"})
-	public void delete(@PathVariable("employeeId") final String employeeId, @PathVariable("projectId") final String projectId, @PathVariable("commitDate") @DateTimeFormat(pattern = "dd-MM-yyyy") final LocalDateTime commitDate) {
+	public void delete(@PathVariable("employeeId") final String employeeId, @PathVariable("projectId") final String projectId, @PathVariable("commitDate") @DateTimeFormat(pattern = "dd-MM-yyyy##HH:mm:ss") final LocalDateTime commitDate) {
 		final int id1 = Integer.parseInt(employeeId);
 		final int id2 = Integer.parseInt(projectId);
 		
 		this.service.delete(id1, id2, commitDate);
+	}
+	
+	// TODO: create this method in order to get a list of assignment by employeeId & managerId
+	@GetMapping(value = {"/{employeeId}/{projectId}"})
+	public ResponseEntity<AssignmentsCollection> findAllByEmployeeIdAndManagerId(@PathVariable("employeeId") final String employeeId, @PathVariable("projectId") final String managerId) {
+		return new ResponseEntity<>(null, null);
 	}
 	
 	

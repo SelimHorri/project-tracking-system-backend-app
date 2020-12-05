@@ -1,6 +1,7 @@
 package com.pfa.pack.services.impls;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import javax.transaction.Transactional;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pfa.pack.models.collectionwrappers.ProjectsCollection;
+import com.pfa.pack.models.dto.ChartData;
 import com.pfa.pack.models.entities.Project;
 import com.pfa.pack.repositories.ProjectRepository;
 import com.pfa.pack.services.ProjectService;
@@ -54,6 +56,11 @@ public class ProjectServiceImpl implements ProjectService {
 	@Override
 	public void delete(final Integer projectId) {
 		this.rep.delete(this.findById(projectId));
+	}
+
+	@Override
+	public List<ChartData> getProjectStatus() {
+		return this.rep.getProjectStatus();
 	}
 	
 	

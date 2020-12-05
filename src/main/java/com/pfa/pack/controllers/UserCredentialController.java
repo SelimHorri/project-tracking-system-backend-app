@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.pfa.pack.services.UserCredentialService;
 
 @Controller
-@RequestMapping(value = {})
+@RequestMapping(value = {"/app/usercredentials"})
 public class UserCredentialController {
 	
 	private final UserCredentialService service;

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.pfa.pack.services.DepartmentService;
 
 @Controller
-@RequestMapping(value = {})
+@RequestMapping(value = {"/app/departments"})
 public class DepartmentController {
 	
 	private final DepartmentService service;

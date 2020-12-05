@@ -1,6 +1,9 @@
 package com.pfa.pack.services;
 
+import java.util.List;
+
 import com.pfa.pack.models.collectionwrappers.ProjectsCollection;
+import com.pfa.pack.models.dto.ChartData;
 import com.pfa.pack.models.entities.Project;
 
 public interface ProjectService {
@@ -11,4 +14,14 @@ public interface ProjectService {
 	public abstract Project update(final Project project);
 	public abstract void delete(final Integer projectId);
 	
+	public abstract List<ChartData> getProjectStatus();
+	
 }
+
+
+
+
+
+
+
+
