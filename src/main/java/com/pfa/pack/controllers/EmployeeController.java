@@ -46,7 +46,7 @@ public class EmployeeController {
 		final UserCredential userCredential = this.userCredentialService.findByUsername(authentication.getName());
 		final List<EmployeeProjectData> employeeProjectData = this.assignmentService.findByEmployeeId(userCredential.getEmployee().getEmployeeId());
 		
-		model.addAttribute("username", authentication.getName());
+		model.addAttribute("fnameAndLname", userCredential.getEmployee().getFirstName().toUpperCase() + " " + userCredential.getEmployee().getLastName().toUpperCase());
 		model.addAttribute("employeeProjectData", employeeProjectData);
 		
 		return "employees/employee-index";

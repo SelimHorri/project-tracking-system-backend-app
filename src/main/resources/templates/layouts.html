@@ -14,7 +14,7 @@
 	
 	<div th:fragment = "employeeNavbar" >
 		<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-			<a class="navbar-brand" th:href="@{/}">Project Tracker</a>
+			<a class="navbar-brand" th:href="@{/app/employees/employee-index}">Project Tracker</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#navbarColor01" aria-controls="navbarColor01"
 				aria-expanded="false" aria-label="Toggle navigation">
@@ -23,14 +23,14 @@
 		
 			<div class="collapse navbar-collapse" id="navbarColor01">
 				<ul class="navbar-nav mr-auto">
-					<li class="nav-item active"><a class="nav-link" th:href="@{/}">Home<span class="sr-only">(current)</span></a></li>
-					<li class="nav-item"><a class="nav-link" th:href="@{/}">Employees</a></li>
-					<li class="nav-item"><a class="nav-link" th:href="@{/}">Departments</a></li>
-					<li class="nav-item"><a class="nav-link" th:href="@{/}">About</a></li>
+ 					<!--<li class="nav-item active"><a class="nav-link" th:href="@{/app/employees/employee-index}">Home<span class="sr-only">(current)</span></a></li> -->
+					<li class="nav-item"><a class="nav-link" th:href="@{/app/employees/employee-index}">Employees</a></li>
+					<li class="nav-item"><a class="nav-link" th:href="@{/app/employees/employee-index}">Departments</a></li>
+					<li class="nav-item"><a class="nav-link" th:href="@{/app/employees/employee-index}">About</a></li>
 				</ul>
 				<div class="my-2 my-lg-0">
 					<ul class="navbar-nav mr-auto">
-						<li class="nav-item"><a class="nav-link my-2 my-sm-0" th:href="@{/logout}">Logout</a></li>
+						<li class="nav-item"><a class="nav-link my-2 my-sm-0" th:href="@{/logout}">=>Logout</a></li>
 						<!-- <li class="nav-item"><a class="nav-link my-2 my-sm-0" th:href="@{/}">Register</a></li> -->
 					</ul>
 				</div>
@@ -40,7 +40,7 @@
 	
 	<div th:fragment = "managerNavbar" >
 		<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-			<a class="navbar-brand" th:href="@{/}">Project Tracker</a>
+			<a class="navbar-brand" th:href="@{/app/managers/manager-index}">Project Tracker</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#navbarColor01" aria-controls="navbarColor01"
 				aria-expanded="false" aria-label="Toggle navigation">
@@ -49,14 +49,14 @@
 		
 			<div class="collapse navbar-collapse" id="navbarColor01">
 				<ul class="navbar-nav mr-auto">
-					<li class="nav-item active"><a class="nav-link" th:href="@{/}">Home<span class="sr-only">(current)</span></a></li>
-					<li class="nav-item"><a class="nav-link" th:href="@{/}">Employees</a></li>
-					<li class="nav-item"><a class="nav-link" th:href="@{/}">Departments</a></li>
-					<li class="nav-item"><a class="nav-link" th:href="@{/}">About</a></li>
+ 					<!--<li class="nav-item active"><a class="nav-link" th:href="@{/}">Home<span class="sr-only">(current)</span></a></li> -->
+					<li class="nav-item"><a class="nav-link" th:href="@{/app/managers/manager-index}">Managers</a></li>
+					<li class="nav-item"><a class="nav-link" th:href="@{/app/managers/manager-index}">Departments</a></li>
+					<li class="nav-item"><a class="nav-link" th:href="@{/app/managers/manager-index}">About</a></li>
 				</ul>
 				<div class="my-2 my-lg-0">
 					<ul class="navbar-nav mr-auto">
-						<li class="nav-item"><a class="nav-link my-2 my-sm-0" th:href="@{/logout}">Logout</a></li>
+						<li class="nav-item"><a class="nav-link my-2 my-sm-0" th:href="@{/logout}">=>Logout</a></li>
 						<!-- <li class="nav-item"><a class="nav-link my-2 my-sm-0" th:href="@{/}">Register</a></li> -->
 					</ul>
 				</div>

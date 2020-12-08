@@ -16,41 +16,41 @@
 	<div class='container container-fluid'>
 		
 		<div class='container container-fluid'>
-		
-<!--   		<div align = 'center'><h4 th:text = "number of records : ${size}" ></h4></div> -->
-		
-		<br><br>
-		
-		<div th:switch="${employeeProjectData}">
-	    <h2 th:case="null">No Records yet!</h2>
-	        <div th:case="*">
-	            <h2 th:text = '${size}' ></h2>  <br>
-	            <table class="table table-striped table-hover ">
-	                <thead>
-	                    <tr>
-	                        <th>FirstName</th>
-	                        <th>LastName</th>
-	                        <th>Project title</th>
-	                        <th>Project status</th>
-	                        
-	                        <th class='text-warning'><i>=>Edit</i></th>
-	                        <th class='text-warning'>=>Delete</th>
-	                    </tr>
-	                </thead>
-	                <tbody>
-	                <tr th:each = "e : ${employeeProjectData}">
-	                    <td th:text="${e.firstName}"></td>
-	                    <td th:text="${e.lastName}"></td>
-	                    <td th:text="${e.title}"></td>
-	                    <td th:text="${e.status}"></td>
-	                    <td><a class='btn btn btn-outline-success' th:href="@{/app/employees/employees-edit(id=${username})}">Edit</a></td>
-	                    <td><a class='btn btn btn-outline-danger' th:href="@{/app/employees/employees-delete(id=${username})}" onClick="if (!(confirm('Are you sure you want to delete this record?'))) return false" > Delete</a></td>
-	                </tr>
-	            </tbody>
-	        </table>
-	    </div>      
-	    <h4><a th:href="@{/app/employees/employees-add}">Add a new employee</a></h4>
-	</div>
+			
+			<div align='center' >
+				<h4><i>Logged in as :</i></h4> &nbsp; <h2 class='text-warning' th:text="${fnameAndLname}" ></h2>
+			</div>
+
+			<br><br>
+			
+			<div th:switch="${employeeProjectData}">
+		    	<h2 th:case="null">No Records yet!</h2>
+		        <div th:case="*">
+		            <h2 th:text = '${size}' ></h2>  <br>
+		            <table class="table table-striped table-hover ">
+		                <thead>
+		                    <tr>
+		                    	<th>Project title</th>
+		                        <th>Start_Date</th>
+		                        <th>End_Date</th>
+		                        <th>Project status</th>
+		                        
+		                        <th class='text-warning'><i>=>COMMIT</i></th>
+		                    </tr>
+		                </thead>
+		                <tbody>
+		                <tr th:each = "e : ${employeeProjectData}">
+		                    <td th:text="${e.title}"></td>
+		                    <td th:text="${e.startDate}"></td>
+		                    <td th:text="${e.endDate}"></td>
+		                    <td th:text="${e.status}"></td>
+		                    <td><a class='btn btn btn-warning' th:href="@{/app/employees/employee-commit(projectId=${projectId})}">New Commit?</a></td>
+		                </tr>
+		            </tbody>
+		        </table>
+		    </div>      
+ 		    <!--<h4><a th:href="@{/app/employees/employees-add}">Add a new employee</a></h4> -->
+		</div>
 
 	</div>
 		
