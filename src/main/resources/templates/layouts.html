@@ -13,19 +13,19 @@
 	
 	
 	<div th:fragment = "employeeNavbar" >
-		<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+		<nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top ">
 			<a class="navbar-brand" th:href="@{/app/employees/employee-index}">Project Tracker</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#navbarColor01" aria-controls="navbarColor01"
 				aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
-		
+			
 			<div class="collapse navbar-collapse" id="navbarColor01">
 				<ul class="navbar-nav mr-auto">
  					<!--<li class="nav-item active"><a class="nav-link" th:href="@{/app/employees/employee-index}">Home<span class="sr-only">(current)</span></a></li> -->
-					<li class="nav-item"><a class="nav-link" th:href="@{/app/employees/employee-index}">Employees</a></li>
-					<li class="nav-item"><a class="nav-link" th:href="@{/app/employees/employee-index}">Departments</a></li>
+					<li class="nav-item"><a class="nav-link" th:href="@{/app/employees/employee-info}">Account info</a></li>
+					<li class="nav-item"><a class="nav-link" th:href="@{/app/employees/employee-team}">My Team members</a></li>
 					<li class="nav-item"><a class="nav-link" th:href="@{/app/employees/employee-index}">About</a></li>
 				</ul>
 				<div class="my-2 my-lg-0">
@@ -39,7 +39,7 @@
 	</div>
 	
 	<div th:fragment = "managerNavbar" >
-		<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+		<nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top ">
 			<a class="navbar-brand" th:href="@{/app/managers/manager-index}">Project Tracker</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#navbarColor01" aria-controls="navbarColor01"
@@ -69,8 +69,8 @@
 	
 	
 	<div th:fragment = "javascript">
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-		<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	</div>
 	
 

@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import com.pfa.pack.models.collectionwrappers.AssignmentsCollection;
 import com.pfa.pack.models.dto.EmployeeProjectData;
+import com.pfa.pack.models.dto.ProjectCommit;
 import com.pfa.pack.models.entities.Assignment;
 import com.pfa.pack.repositories.AssignmentRepository;
 import com.pfa.pack.services.AssignmentService;
@@ -62,6 +63,11 @@ public class AssignmentServiceImpl implements AssignmentService {
 	@Override
 	public List<EmployeeProjectData> findByEmployeeId(final Integer employeeId) {
 		return this.rep.findByEmployeeId(employeeId);
+	}
+	
+	@Override
+	public List<ProjectCommit> findByEmployeeIdAndProjectId(final Integer employeeId, final Integer projectId) {
+		return this.rep.findByEmployeeIdAndProjectId(employeeId, projectId);
 	}
 	
 	
