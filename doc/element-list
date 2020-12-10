@@ -1,0 +1,13 @@
+com.pfa.pack
+com.pfa.pack.configs
+com.pfa.pack.configs.swagger
+com.pfa.pack.controllers
+com.pfa.pack.controllers.api
+com.pfa.pack.models.collectionwrappers
+com.pfa.pack.models.dto
+com.pfa.pack.models.entities
+com.pfa.pack.models.ids
+com.pfa.pack.repositories
+com.pfa.pack.security
+com.pfa.pack.services
+com.pfa.pack.services.impls
