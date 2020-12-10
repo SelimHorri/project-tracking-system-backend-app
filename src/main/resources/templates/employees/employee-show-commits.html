@@ -12,35 +12,44 @@
 	
 	<div th:replace = "layouts :: employeeNavbar"></div>
 	<br><br><br><br><br>
-		
+	
 	<div class='container container-fluid'>
 		
 		
+		<h1 class='text-info' > My Project list of commits :</h1>
+		<br><br>
 		
-		<div align='center' th:each = "pc : ${projectCommits}">
+		<div class='jumbotron ' >
 			
-			<div class = 'jumbotron '>
+			<div class='col-sm-5' ><h4><a th:href="@{/app/employees/employee-add-commit(projectId=${project.projectId})}" >Add new commit?</a></h4></div>
+			
+			<div align='center' th:each = "pc : ${projectCommits}">
 				
-				<div class="card border-success mb-9  " style="max-width: 50rem;">
-					<div class="card-header"><h4 class='text-info'><i>Commit</i></h4></div>
-					<div align="left">
-						<div class="card-body card-header">
-							<table>
-								<thead></thead>
-								<tbody>
-									<tr><td>commitDate: </td><td><h5 th:text="${pc.commitDate}"></h5></td> </tr>
-									<tr><td>My Description: </td><td><h5 th:text="${pc.commitEmpDesc}"></h5></td></tr>
-									<tr><td>Manager Description: </td><td><h5 th:text="${pc.commitMgrDesc}"></h5></td></tr>
-								</tbody>
-							</table>
-  							<!--<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+				<div class = 'jumbotron '>
+					
+					<div class="card border-success mb-9  " style="max-width: 50rem;">
+						<div class="card-header"><h4 class='text-danger' th:text="${project.title}" ></h4></div>
+						<div align="left">
+							<div class="card-body card-header">
+								<table>
+									<thead></thead>
+									<tbody>
+										<tr><td><h6 class='text-info' >Committed at : </h6></td><td><h5 th:text="${pc.commitDate}"></h5></td> </tr>
+										<tr><td><h6 class='text-info' >My Description: </h6></td><td><h5 th:text="${pc.commitEmpDesc}"></h5></td></tr>
+										<tr><td><h6 class='text-info' >Manager Description: </h6></td><td><h5 th:text="${pc.commitMgrDesc}"></h5></td></tr>
+									</tbody>
+								</table>
+	  							<!--<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+							</div>
 						</div>
 					</div>
+					
+					
 				</div>
-				<br>
+				
+				<hr>
 				
 			</div>
-			
 		</div>
 		
 	</div>
