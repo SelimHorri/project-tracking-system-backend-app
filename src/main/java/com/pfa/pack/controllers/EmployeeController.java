@@ -16,9 +16,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.pfa.pack.models.dto.EmployeeProjectData;
 import com.pfa.pack.models.dto.ProjectCommit;
 import com.pfa.pack.models.entities.Assignment;
+import com.pfa.pack.models.entities.Employee;
 import com.pfa.pack.models.entities.Project;
 import com.pfa.pack.models.entities.UserCredential;
 import com.pfa.pack.services.AssignmentService;
+import com.pfa.pack.services.EmployeeService;
 import com.pfa.pack.services.ProjectService;
 import com.pfa.pack.services.UserCredentialService;
 
@@ -26,6 +28,7 @@ import com.pfa.pack.services.UserCredentialService;
 @RequestMapping(value = {"/app/employees"})
 public class EmployeeController {
 	
+	private final EmployeeService employeeService;
 	private final UserCredentialService userCredentialService;
 	private final AssignmentService assignmentService;
 	private final ProjectService projectService;
@@ -36,7 +39,8 @@ public class EmployeeController {
 	}
 	
 	@Autowired
-	public EmployeeController(final UserCredentialService userCredentialService, final ProjectService projectService, final AssignmentService assignmentService) {
+	public EmployeeController(final EmployeeService employeeService, final UserCredentialService userCredentialService, final ProjectService projectService, final AssignmentService assignmentService) {
+		this.employeeService = employeeService;
 		this.userCredentialService = userCredentialService;
 		this.assignmentService = assignmentService;
 		this.projectService = projectService;
@@ -45,7 +49,8 @@ public class EmployeeController {
 	@GetMapping(value = {"/employee-info"})
 	public String displayEmployeeInfo(final Authentication authentication, final Model model) {
 		
-		
+		final Employee employee = this.employeeService.findById(this.userCredentialService.findByUsername(authentication.getName()).getEmployee().getEmployeeId());
+		model.addAttribute("e", employee);
 		
 		return "employees/employee-info";
 	}
@@ -53,7 +58,10 @@ public class EmployeeController {
 	@GetMapping(value = {"/employee-team"})
 	public String displayEmployeeTeam(final Authentication authentication, final Model model) {
 		
+		final UserCredential userCredential = this.userCredentialService.findByUsername(authentication.getName());
+		final List<Employee> team = this.employeeService.findByDepartmentId(userCredential.getEmployee().getDepartment().getDepartmentId());
 		
+		model.addAttribute("team", team);
 		
 		return "employees/employee-team";
 	}
@@ -79,6 +87,7 @@ public class EmployeeController {
 		
 		model.addAttribute("projectCommits", projectCommits);
 		model.addAttribute("project", project);
+		
 		return "employees/employee-show-commits";
 	}
 	

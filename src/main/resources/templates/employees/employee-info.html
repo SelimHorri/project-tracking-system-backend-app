@@ -17,7 +17,26 @@
 		
 		<div class = 'row'>
 			
-			
+			<div class="card" style="max-width: 100rem;">
+				<div class="card-body" style="max-width: 100rem;">
+					<h2 class="card-title text-warning" th:text="${e.firstName + ' ' + e.lastName}" ></h2>
+					<h5 class="card-subtitle mb-2 text-muted" th:text="${'Service : ' + e.job}" ></h5>
+					<hr>
+					<h4 class="card-title text-primary" th:text="${'Username : ' + e.userCredential.username}" ></h4>
+					<h4 class="card-title text-primary" th:text="${'isActive : ' + e.userCredential.enabled}" ></h4>
+					<h4 class="card-title text-primary" th:text="${'Email : ' + e.email}" ></h4>
+					<h4 class="card-title text-primary" th:text="${'Department : ' + e.department.departmentName}" ></h4>
+					<h4 class="card-title text-primary" th:text="${'Phone number : ' + e.phone}" ></h4>
+					<h4 class="card-title text-primary" th:text="${'Hiredate : ' + e.hiredate}" ></h4>
+					<h4 class="card-title text-primary" th:text="${'Salary : ' + e.salary}" ></h4>
+ 					<!--<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+ 					<hr>
+					<a th:href="@{/app/employees/employee-index}" class="card-link">Show assigned projects ?</a>
+ 					<!--<a href="#" class="card-link">Another link</a> -->
+ 					<hr>
+ 					<a th:href="@{/app/credentials/credential-edit(employeeId=${e.employeeId})}" class='btn btn-outline-danger' >Edit credentials ?</a>
+				</div>
+			</div>
 			
 		</div>
 		
