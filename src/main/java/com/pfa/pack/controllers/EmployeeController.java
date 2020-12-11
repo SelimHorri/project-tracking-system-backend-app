@@ -113,7 +113,6 @@ public class EmployeeController {
 	@GetMapping(value = {"/employee-show-all-commits"})
 	public String displayEmployeeShowAllCommits(@RequestParam("projectId") final String projectId, final Authentication authentication, final Model model) {
 		
-		// final UserCredential userCredential = this.userCredentialService.findByUsername(authentication.getName());
 		final List<ProjectCommit> allProjectCommits = this.assignmentService.findByProjectId(Integer.parseInt(projectId));
 		final Project project = this.projectService.findById(Integer.parseInt(projectId));
 		
@@ -133,7 +132,6 @@ public class EmployeeController {
 	@GetMapping(value = {"/employee-show-my-commits"})
 	public String displayEmployeeShowMyCommits(@RequestParam("projectId") final String projectId, final Authentication authentication, final Model model) {
 		
-		// final UserCredential userCredential = this.userCredentialService.findByUsername(authentication.getName());
 		final List<ProjectCommit> myProjectCommits = this.assignmentService.findByEmployeeIdAndProjectId(this.userCredentialService.findByUsername(authentication.getName()).getEmployee().getEmployeeId(), Integer.parseInt(projectId));
 		final Project project = this.projectService.findById(Integer.parseInt(projectId));
 		
@@ -145,7 +143,12 @@ public class EmployeeController {
 	
 	// TODO: implement correct logic to display employee-add-commit view
 	@GetMapping(value = {"/employee-add-commit"})
-	public String displayEmployeeAddCommit(final Model model) {
+	public String displayEmployeeAddCommit(@RequestParam("projectId") String projectId, final Model model) {
+		
+		projectId = projectId.trim();
+		
+		
+		
 		model.addAttribute("", new Assignment());
 		return "employees/employee-add-commit";
 	}
@@ -156,7 +159,7 @@ public class EmployeeController {
 		
 		
 		
-		return "employees/employee-add-commit";
+		return "redirect:/app/employees/employee-show-all-commits";
 	}
 	
 	
