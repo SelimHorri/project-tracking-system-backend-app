@@ -38,6 +38,13 @@ public class EmployeeController {
 		logger.info("************ entering " + EmployeeController.class.getName() + " ************");
 	}
 	
+	/**
+	 * Injected dependencies
+	 * @param employeeService
+	 * @param userCredentialService
+	 * @param projectService
+	 * @param assignmentService
+	 */
 	@Autowired
 	public EmployeeController(final EmployeeService employeeService, final UserCredentialService userCredentialService, final ProjectService projectService, final AssignmentService assignmentService) {
 		this.employeeService = employeeService;
@@ -46,6 +53,12 @@ public class EmployeeController {
 		this.projectService = projectService;
 	}
 	
+	/**
+	 * display employee-info view
+	 * @param authentication
+	 * @param model
+	 * @return employee-info
+	 */
 	@GetMapping(value = {"/employee-info"})
 	public String displayEmployeeInfo(final Authentication authentication, final Model model) {
 		
@@ -55,6 +68,12 @@ public class EmployeeController {
 		return "employees/employee-info";
 	}
 	
+	/**
+	 * display employee-team view
+	 * @param authentication
+	 * @param model
+	 * @return employee-team
+	 */
 	@GetMapping(value = {"/employee-team"})
 	public String displayEmployeeTeam(final Authentication authentication, final Model model) {
 		
@@ -66,6 +85,12 @@ public class EmployeeController {
 		return "employees/employee-team";
 	}
 	
+	/**
+	 * display employee-index view
+	 * @param authentication
+	 * @param model
+	 * @return employee-index
+	 */
 	@GetMapping(value = {"", "/", "/employee-index"})
 	public String displayEmployeeIndex(final Authentication authentication, final Model model) {
 		
@@ -78,6 +103,13 @@ public class EmployeeController {
 		return "employees/employee-index";
 	}
 	
+	/**
+	 * display employee-show-commits view to show all users' commits on a specific project by this url : /employee-show-all-commits
+	 * @param projectId
+	 * @param authentication
+	 * @param model
+	 * @return employee-show-commits
+	 */
 	@GetMapping(value = {"/employee-show-all-commits"})
 	public String displayEmployeeShowAllCommits(@RequestParam("projectId") final String projectId, final Authentication authentication, final Model model) {
 		
@@ -91,6 +123,13 @@ public class EmployeeController {
 		return "employees/employee-show-commits";
 	}
 	
+	/**
+	 * display employee-show-commits view to show current user commits on a specific project by this url : /employee-show-my-commits
+	 * @param projectId
+	 * @param authentication
+	 * @param model
+	 * @return employee-show-commits
+	 */
 	@GetMapping(value = {"/employee-show-my-commits"})
 	public String displayEmployeeShowMyCommits(@RequestParam("projectId") final String projectId, final Authentication authentication, final Model model) {
 		
@@ -104,12 +143,14 @@ public class EmployeeController {
 		return "employees/employee-show-commits";
 	}
 	
+	// TODO: implement correct logic to display employee-add-commit view
 	@GetMapping(value = {"/employee-add-commit"})
 	public String displayEmployeeAddCommit(final Model model) {
 		model.addAttribute("", new Assignment());
 		return "employees/employee-add-commit";
 	}
 	
+	// TODO: implement correct logic to handle employee-add-commit view in order to commit a new work
 	@PostMapping(value = {"/employee-add-commits"})
 	public String handleEmployeeAddCommit(@RequestParam("projectId") final String projectId, final Authentication authentication, final Model model) {
 		

@@ -30,6 +30,12 @@ public class UserCredentialController {
 		logger.info("************ entering " + UserCredentialController.class.getName() + " ************");
 	}
 	
+	/**
+	 * Inject dependencies
+	 * @param userCredentialService
+	 * @param employeeService
+	 * @param bCryptPasswordEncoder
+	 */
 	@Autowired
 	public UserCredentialController(final UserCredentialService userCredentialService, final EmployeeService employeeService, final BCryptPasswordEncoder bCryptPasswordEncoder) {
 		this.userCredentialService = userCredentialService;
@@ -37,12 +43,26 @@ public class UserCredentialController {
 		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
 	}
 	
+	/**
+	 * display credential-edit view
+	 * @param employeeId
+	 * @param model
+	 * @return credential-edit
+	 */
 	@GetMapping(value = {"/credential-edit"})
 	public String displayCredentialEdit(@RequestParam("employeeId") final String employeeId, final Model model) {
 		model.addAttribute("username", this.employeeService.findById(Integer.parseInt(employeeId)).getUserCredential().getUsername());
 		return "credentials/credential-edit";
 	}
 	
+	/**
+	 * handle credential-edit business logic in order to change credentials
+	 * @param username
+	 * @param pwd1
+	 * @param pwd2
+	 * @param model
+	 * @return credential-edit
+	 */
 	@PostMapping(value = {"/credential-edit"})
 	public String handleCredentialEdit(@RequestParam("username") String username, @RequestParam("pwd1") final String pwd1, @RequestParam("pwd2") final String pwd2, final Model model) {
 		
@@ -67,7 +87,7 @@ public class UserCredentialController {
 		userCredential.setUsername(username);
 		userCredential.setPassword(this.bCryptPasswordEncoder.encode(pwd1));
 		
-		this.userCredentialService.save(userCredential);
+		this.userCredentialService.update(userCredential);
 		model.addAttribute("msg", "Credentials updated successfully");
 		model.addAttribute("msgColour", "success");
 		

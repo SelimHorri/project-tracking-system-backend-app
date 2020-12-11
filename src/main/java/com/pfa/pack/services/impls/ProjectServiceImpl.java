@@ -57,7 +57,11 @@ public class ProjectServiceImpl implements ProjectService {
 	public void delete(final Integer projectId) {
 		this.rep.delete(this.findById(projectId));
 	}
-
+	
+	/**
+	 * get project status for pie chart
+	 * @return list of ChartData
+	 */
 	@Override
 	public List<ChartData> getProjectStatus() {
 		return this.rep.getProjectStatus();

@@ -35,41 +35,77 @@ public class AssignmentServiceImpl implements AssignmentService {
 		this.rep = rep;
 	}
 	
+	/**
+	 * @return: all assignments
+	 */
 	@Override
 	public AssignmentsCollection findAll() {
 		return new AssignmentsCollection(Collections.unmodifiableList(this.rep.findAll()));
 	}
 	
+	/**
+	 * retrieve a specific assignment by its composite ids
+	 * @param employeeId
+	 * @param projectId
+	 * @param commitDate
+	 * @return a specific assignment
+	 */
 	@Override
 	public Assignment findByCompositeIds(final Integer employeeId, final Integer projectId, final LocalDateTime commitDate) {
 		return this.rep.findByCompositeIds(employeeId, projectId, commitDate).orElseThrow(() -> new NoSuchElementException("\\n------------ NO ELEMENT FOUND !!!!! ------------\\n"));
 	}
 	
+	/**
+	 * @param assignment
+	 * @return the saved assignment
+	 */
 	@Override
 	public Assignment save(final Assignment assignment) {
 		return this.rep.save(assignment);
 	}
 	
+	/**
+	 * @param assignment
+	 * @return the updated assignment
+	 */
 	@Override
 	public Assignment update(final Assignment assignment) {
 		return this.rep.save(assignment);
 	}
 	
+	/**
+	 * @param employeeId
+	 * @param projectId
+	 * @param commitDate
+	 */
 	@Override
 	public void delete(final Integer employeeId, final Integer projectId, final LocalDateTime commitDate) {
 		this.rep.delete(this.findByCompositeIds(employeeId, projectId, commitDate));
 	}
 	
+	/**
+	 * @param employeeId
+	 * @return list of EmployeeProjectData
+	 */
 	@Override
 	public List<EmployeeProjectData> findByEmployeeId(final Integer employeeId) {
 		return this.rep.findByEmployeeId(employeeId);
 	}
 	
+	/**
+	 * @param projectId
+	 * @return list of ProjectCommit
+	 */
 	@Override
 	public List<ProjectCommit> findByProjectId(final Integer projectId) {
 		return this.rep.findByProjectId(projectId);
 	}
 	
+	/**
+	 * @param employeeId
+	 * @param projectId
+	 * @return list of ProjectCommit
+	 */
 	@Override
 	public List<ProjectCommit> findByEmployeeIdAndProjectId(final Integer employeeId, final Integer projectId) {
 		return this.rep.findByEmployeeIdAndProjectId(employeeId, projectId);

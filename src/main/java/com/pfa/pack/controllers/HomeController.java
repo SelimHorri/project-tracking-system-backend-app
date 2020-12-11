@@ -8,6 +8,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping(value = {"/", "/app"})
 public class HomeController {
 	
+	/**
+	 * get to entry point
+	 * @return home
+	 */
 	@GetMapping(value = {"", "/"})
 	public String displayHome() {
 		return "home/home";

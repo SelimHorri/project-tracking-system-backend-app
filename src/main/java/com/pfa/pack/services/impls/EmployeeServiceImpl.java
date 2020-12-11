@@ -56,7 +56,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 	public void delete(final Integer employeeId) {
 		this.rep.delete(this.findById(employeeId));
 	}
-
+	
+	/**
+	 * @param departmentId
+	 * @return a list of employees
+	 */
 	@Override
 	public List<Employee> findByDepartmentId(final Integer departmentId) {
 		return this.rep.findByDepartmentId(departmentId);

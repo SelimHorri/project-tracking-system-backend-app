@@ -57,6 +57,10 @@ public class UserCredentialServiceImpl implements UserCredentialService {
 		this.rep.delete(this.findById(userCredentialId));
 	}
 	
+	/**
+	 * @param username
+	 * @return a userCredential instance
+	 */
 	@Override
 	public UserCredential findByUsername(final String username) {
 		return this.rep.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("\n-------------- NO SUCH ELEMENT by username: " + username + " --------------\n"));
