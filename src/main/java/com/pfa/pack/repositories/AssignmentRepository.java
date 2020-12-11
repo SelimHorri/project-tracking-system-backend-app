@@ -22,6 +22,9 @@ public interface AssignmentRepository extends JpaRepository<Assignment, Integer>
 	@Query(name = "List.findByEmployeeId", nativeQuery = true)
 	public abstract List<EmployeeProjectData> findByEmployeeId(@Param("employeeId") final int employeeId);
 	
+	@Query(name = "List.findByProjectId", nativeQuery = true)
+	public abstract List<ProjectCommit> findByProjectId(@Param("projectId") final int projectId);
+	
 	@Query(name = "List.findByEmployeeIdAndProjectId", nativeQuery = true)
 	public abstract List<ProjectCommit> findByEmployeeIdAndProjectId(@Param("employeeId") final int employeeId, @Param("projectId") final int projectId);
 	

@@ -78,14 +78,27 @@ public class EmployeeController {
 		return "employees/employee-index";
 	}
 	
-	@GetMapping(value = {"/employee-show-commits"})
-	public String displayEmployeeShowCommits(@RequestParam("projectId") final String projectId, final Authentication authentication, final Model model) {
+	@GetMapping(value = {"/employee-show-all-commits"})
+	public String displayEmployeeShowAllCommits(@RequestParam("projectId") final String projectId, final Authentication authentication, final Model model) {
 		
-		final UserCredential userCredential = this.userCredentialService.findByUsername(authentication.getName());
-		final List<ProjectCommit> projectCommits = this.assignmentService.findByEmployeeIdAndProjectId(userCredential.getEmployee().getEmployeeId(), Integer.parseInt(projectId));
+		// final UserCredential userCredential = this.userCredentialService.findByUsername(authentication.getName());
+		final List<ProjectCommit> allProjectCommits = this.assignmentService.findByProjectId(Integer.parseInt(projectId));
 		final Project project = this.projectService.findById(Integer.parseInt(projectId));
 		
-		model.addAttribute("projectCommits", projectCommits);
+		model.addAttribute("commits", allProjectCommits);
+		model.addAttribute("project", project);
+		
+		return "employees/employee-show-commits";
+	}
+	
+	@GetMapping(value = {"/employee-show-my-commits"})
+	public String displayEmployeeShowMyCommits(@RequestParam("projectId") final String projectId, final Authentication authentication, final Model model) {
+		
+		// final UserCredential userCredential = this.userCredentialService.findByUsername(authentication.getName());
+		final List<ProjectCommit> myProjectCommits = this.assignmentService.findByEmployeeIdAndProjectId(this.userCredentialService.findByUsername(authentication.getName()).getEmployee().getEmployeeId(), Integer.parseInt(projectId));
+		final Project project = this.projectService.findById(Integer.parseInt(projectId));
+		
+		model.addAttribute("commits", myProjectCommits);
 		model.addAttribute("project", project);
 		
 		return "employees/employee-show-commits";

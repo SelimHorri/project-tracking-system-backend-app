@@ -66,6 +66,11 @@ public class AssignmentServiceImpl implements AssignmentService {
 	}
 	
 	@Override
+	public List<ProjectCommit> findByProjectId(final Integer projectId) {
+		return this.rep.findByProjectId(projectId);
+	}
+	
+	@Override
 	public List<ProjectCommit> findByEmployeeIdAndProjectId(final Integer employeeId, final Integer projectId) {
 		return this.rep.findByEmployeeIdAndProjectId(employeeId, projectId);
 	}

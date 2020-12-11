@@ -23,7 +23,7 @@
 			
 			<div class='col-sm-5' ><h4><a th:href="@{/app/employees/employee-add-commit(projectId=${project.projectId})}" >Add new commit?</a></h4></div>
 			
-			<div align='center' th:each = "pc : ${projectCommits}">
+			<div align='center' th:each = "c : ${commits}">
 				
 				<div class = 'jumbotron '>
 					
@@ -34,9 +34,10 @@
 								<table>
 									<thead></thead>
 									<tbody>
-										<tr><td><h6 class='text-info' >Committed at : </h6></td><td><h5 th:text="${pc.commitDate}"></h5></td> </tr>
-										<tr><td><h6 class='text-info' >My Description: </h6></td><td><h5 th:text="${pc.commitEmpDesc}"></h5></td></tr>
-										<tr><td><h6 class='text-info' >Manager Description: </h6></td><td><h5 th:text="${pc.commitMgrDesc}"></h5></td></tr>
+										<tr><td><h6 class='text-info' >Committed at : </h6></td><td><h5 th:text="${c.commitDate}"></h5></td> </tr>
+										<tr><td><h6 class='text-info' >By : </h6></td><td><h5 th:text="${c.firstName + ' ' + c.lastName}"></h5></td> </tr>
+										<tr><td><h6 class='text-info' >My Description : </h6></td><td><h5 th:text="${c.commitEmpDesc}"></h5></td></tr>
+										<tr><td><h6 class='text-info' >Manager Description : </h6></td><td><h5 th:text="${c.commitMgrDesc}"></h5></td></tr>
 									</tbody>
 								</table>
 	  							<!--<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->

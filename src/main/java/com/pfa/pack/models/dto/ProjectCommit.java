@@ -6,6 +6,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 public interface ProjectCommit {
 	
+	public abstract String getFirstName();
+	public abstract String getLastName();
 	public abstract Integer getProjectId();
 	
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
