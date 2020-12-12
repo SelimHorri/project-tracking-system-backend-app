@@ -1,5 +1,6 @@
 package com.pfa.pack.controllers;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.pfa.pack.models.dto.EmployeeProjectData;
 import com.pfa.pack.models.dto.ProjectCommit;
+import com.pfa.pack.models.dto.ProjectCommitInfoDTO;
 import com.pfa.pack.models.entities.Assignment;
 import com.pfa.pack.models.entities.Employee;
 import com.pfa.pack.models.entities.Project;
@@ -140,26 +143,59 @@ public class EmployeeController {
 		
 		return "employees/employee-show-commits";
 	}
-	
-	// TODO: implement correct logic to display employee-add-commit view
+	/**
+	 * display employee-add-commit with the current username and specific project
+	 * @param projectId
+	 * @param authentication
+	 * @param model
+	 * @return employee-add-commit view
+	 */
 	@GetMapping(value = {"/employee-add-commit"})
-	public String displayEmployeeAddCommit(@RequestParam("projectId") String projectId, final Model model) {
+	public String displayEmployeeAddCommit(@RequestParam("projectId") String projectId, final Authentication authentication, final Model model) {
 		
 		projectId = projectId.trim();
 		
+		// final UserCredential userCredential = this.userCredentialService.findByUsername(authentication.getName());
+		final ProjectCommitInfoDTO projectCommitInfoDTO = this.projectService.findByUsernameAndProjectId(authentication.getName(), Integer.parseInt(projectId));
 		
-		
-		model.addAttribute("", new Assignment());
+		model.addAttribute("projectId", projectId);
+		model.addAttribute("c", projectCommitInfoDTO);
 		return "employees/employee-add-commit";
 	}
 	
-	// TODO: implement correct logic to handle employee-add-commit view in order to commit a new work
-	@PostMapping(value = {"/employee-add-commits"})
-	public String handleEmployeeAddCommit(@RequestParam("projectId") final String projectId, final Authentication authentication, final Model model) {
+	/**
+	 * handle employee-add-commit view to make new commit on this specific project
+	 * @param projectId
+	 * @param commitEmpDesc
+	 * @param authentication
+	 * @param model
+	 * @return employee-add-commit view
+	 */
+	@PostMapping(value = {"/employee-add-commit"})
+	public String handleEmployeeAddCommit(@RequestParam(value = "projectId", required = true) String projectId, @RequestParam("commitEmpDesc") final String commitEmpDesc, final Authentication authentication, final Model model) {
 		
+		projectId = projectId.trim();
 		
+		final ProjectCommitInfoDTO projectCommitInfoDTO = this.projectService.findByUsernameAndProjectId(authentication.getName(), Integer.parseInt(projectId));
 		
-		return "redirect:/app/employees/employee-show-all-commits";
+		// to get employeeId from userCredential
+		final UserCredential userCredential = this.userCredentialService.findByUsername(authentication.getName());
+		
+		final Assignment assignment = new Assignment();
+		assignment.setEmployeeId(userCredential.getEmployee().getEmployeeId());
+		assignment.setProjectId(Integer.parseInt(projectId));
+		assignment.setEmployee(userCredential.getEmployee());
+		assignment.setProject(this.projectService.findById(Integer.parseInt(projectId)));
+		assignment.setCommitEmpDesc(commitEmpDesc);
+		
+		this.assignmentService.save(assignment);
+		
+		model.addAttribute("projectId", projectId);
+		model.addAttribute("c", projectCommitInfoDTO);
+		model.addAttribute("msg", "new commit created at :" + LocalDateTime.now());
+		model.addAttribute("msgColour", "success");
+		
+		return "employees/employee-add-commit";
 	}
 	
 	

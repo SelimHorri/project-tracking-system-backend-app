@@ -66,15 +66,23 @@ public final class Assignment implements Serializable {
 	
 	@Override
 	public String toString() {
-		return "Assignment [employeeId=" + employeeId + ", projectId=" + projectId + ", commitDate=" + commitDate
+		return "Assignment [employeeId=" + getEmployeeId() + ", projectId=" + getProjectId() + ", commitDate=" + commitDate
 				+ ", commitEmpDesc=" + commitEmpDesc + ", commitMgrDesc=" + commitMgrDesc + ", employeeId=" + employee.getEmployeeId()
 				+ ", projectId=" + project.getProjectId() + "]";
 	}
-
+	
+	public void setEmployeeId(final Integer employeeId) {
+		this.employeeId = employeeId;
+	}
+	
+	public void setProjectId(final Integer projectId) {
+		this.projectId = projectId;
+	}
+	
 	public LocalDateTime getCommitDate() {
 		return commitDate;
 	}
-
+	
 	public void setCommitDate(final LocalDateTime commitDate) {
 		this.commitDate = commitDate;
 	}
