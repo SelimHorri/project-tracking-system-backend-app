@@ -49,9 +49,9 @@ public final class Employee implements Serializable {
 	@Column(name = "last_name", length = 200)
 	private String lastName;
 	
-	@Email(message = "*Must be in an email form")
+	@Email
 	@NotBlank
-	@Column(name = "email", unique = true, length = 200)
+	@Column(name = "email", length = 200)
 	private String email;
 	
 	@NotBlank(message = "** Must give a phone number **")

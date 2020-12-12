@@ -1,5 +1,7 @@
 package com.pfa.pack.controllers;
 
+import java.time.LocalDateTime;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.pfa.pack.models.entities.UserCredential;
 import com.pfa.pack.services.EmployeeService;
 import com.pfa.pack.services.UserCredentialService;
+import com.pfa.pack.utils.email.EmailUtil;
 
 @Controller
 @Lazy
@@ -24,6 +27,7 @@ public class UserCredentialController {
 	private final UserCredentialService userCredentialService;
 	private final EmployeeService employeeService;
 	private final BCryptPasswordEncoder bCryptPasswordEncoder;
+	private final EmailUtil emailUtil;
 	private static final Logger logger = LoggerFactory.getLogger(UserCredentialController.class);
 	
 	static {
@@ -37,10 +41,11 @@ public class UserCredentialController {
 	 * @param bCryptPasswordEncoder
 	 */
 	@Autowired
-	public UserCredentialController(final UserCredentialService userCredentialService, final EmployeeService employeeService, final BCryptPasswordEncoder bCryptPasswordEncoder) {
+	public UserCredentialController(final UserCredentialService userCredentialService, final EmployeeService employeeService, final BCryptPasswordEncoder bCryptPasswordEncoder, final EmailUtil emailUtil) {
 		this.userCredentialService = userCredentialService;
 		this.employeeService = employeeService;
 		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+		this.emailUtil = emailUtil;
 	}
 	
 	/**
@@ -87,7 +92,14 @@ public class UserCredentialController {
 		userCredential.setUsername(username);
 		userCredential.setPassword(this.bCryptPasswordEncoder.encode(pwd1));
 		
+		final String msg = "You've changed some credentials : " + LocalDateTime.now() + "\n" + "Username" + username + "\n" + "Password : " + pwd1;
+		
 		this.userCredentialService.update(userCredential);
+		logger.info("Credentials updated successfully");
+		
+		this.emailUtil.sendEmail(userCredential.getEmployee().getEmail(), "Project-Tracker-Sys", msg);
+		logger.info("Email sent successfully");
+		
 		model.addAttribute("msg", "Credentials updated successfully");
 		model.addAttribute("msgColour", "success");
 		

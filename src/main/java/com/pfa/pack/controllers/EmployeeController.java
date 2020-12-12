@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +25,7 @@ import com.pfa.pack.services.AssignmentService;
 import com.pfa.pack.services.EmployeeService;
 import com.pfa.pack.services.ProjectService;
 import com.pfa.pack.services.UserCredentialService;
+import com.pfa.pack.utils.email.EmailUtil;
 
 @Controller
 @RequestMapping(value = {"/app/employees"})
@@ -35,6 +35,7 @@ public class EmployeeController {
 	private final UserCredentialService userCredentialService;
 	private final AssignmentService assignmentService;
 	private final ProjectService projectService;
+	private final EmailUtil emailUtil;
 	private static final Logger logger = LoggerFactory.getLogger(EmployeeController.class);
 	
 	static {
@@ -49,11 +50,12 @@ public class EmployeeController {
 	 * @param assignmentService
 	 */
 	@Autowired
-	public EmployeeController(final EmployeeService employeeService, final UserCredentialService userCredentialService, final ProjectService projectService, final AssignmentService assignmentService) {
+	public EmployeeController(final EmployeeService employeeService, final UserCredentialService userCredentialService, final ProjectService projectService, final AssignmentService assignmentService, final EmailUtil emailUtil) {
 		this.employeeService = employeeService;
 		this.userCredentialService = userCredentialService;
 		this.assignmentService = assignmentService;
 		this.projectService = projectService;
+		this.emailUtil = emailUtil;
 	}
 	
 	/**
@@ -188,11 +190,16 @@ public class EmployeeController {
 		assignment.setProject(this.projectService.findById(Integer.parseInt(projectId)));
 		assignment.setCommitEmpDesc(commitEmpDesc);
 		
-		this.assignmentService.save(assignment);
+		final String msg = "You've created a new COMMIT at : " + LocalDateTime.now();
 		
-		model.addAttribute("projectId", projectId);
+		this.assignmentService.save(assignment);
+		logger.info("COMMIT created successfully");
+		
+		this.emailUtil.sendEmail(userCredential.getEmployee().getEmail(), "Project-Tracker-Sys", msg + "\n it says : \n" + commitEmpDesc);
+		logger.info("Email sent successfully");
+		
+		model.addAttribute("msg", msg);
 		model.addAttribute("c", projectCommitInfoDTO);
-		model.addAttribute("msg", "new commit created at :" + LocalDateTime.now());
 		model.addAttribute("msgColour", "success");
 		
 		return "employees/employee-add-commit";

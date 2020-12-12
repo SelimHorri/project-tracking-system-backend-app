@@ -17,16 +17,40 @@ CREATE TABLE assignments (
 
 
 INSERT INTO assignments (employee_id, project_id, commit_date, commit_emp_desc, commit_mgr_desc) VALUES
-(1, 1, '2020-11-26 14:50:09', 'Inject elements', NULL),
-(1, 1, '2020-11-26 17:14:22', 'set up some configs', 'you need to implement sec solution'),
-(1, 2, '2020-11-26 14:51:59', 'set envvvvvvvvvvvvvvvvv', NULL),
-(1, 2, '2020-11-26 17:14:22', 'generate xml file', 'check out marshaling correctness'),
-(2, 1, '2020-11-26 14:51:44', 'set up Tomcat configs hhh', NULL),
-(2, 5, '2020-11-26 14:52:32', 'fawer l kosksi :P', NULL),
-(3, 1, '2020-11-26 14:51:25', 'creating views', NULL),
-(3, 5, '2020-11-26 14:52:19', '9assit l bsal', NULL),
-(6, 1, '2020-11-26 14:49:41', 'init', NULL),
-(6, 1, '2020-11-26 14:50:53', 'SET UP DIFFERENT LAYERS', NULL);
+(1, 1, '2020-11-26 13:50:09', 'Inject elements', NULL),
+(1, 1, '2020-11-26 16:14:22', 'set up some configs', 'you need to implement sec solution'),
+(1, 1, '2020-12-12 19:49:42', 'implement customer by invoice', NULL),
+(1, 1, '2020-12-12 20:04:14', 'suspend customers...', NULL),
+(1, 1, '2020-12-12 20:04:30', 'suspe', NULL),
+(1, 1, '2020-12-12 20:25:48', 'created new customer suspension', NULL),
+(1, 2, '2020-11-26 13:51:59', 'set envvvvvvvvvvvvvvvvv', NULL),
+(1, 2, '2020-11-26 16:14:22', 'generate xml file', 'check out marshaling correctness'),
+(1, 2, '2020-12-12 14:57:18', 'files on CRMIMX', NULL),
+(1, 2, '2020-12-12 15:13:51', '00000', NULL),
+(1, 2, '2020-12-12 15:23:39', 'Set up xml for CRMIMX1', NULL),
+(1, 2, '2020-12-12 15:30:14', 'implement BSCSIMX2 business layer', NULL),
+(1, 2, '2020-12-12 15:37:53', 'synchronize BSCSIMX2', NULL),
+(1, 2, '2020-12-12 19:40:17', 'create a simple xml file for IMX CX', NULL),
+(1, 2, '2020-12-12 19:43:48', 'synchronize xml and Java file', NULL),
+(2, 1, '2020-11-26 13:51:44', 'set up Tomcat configs hhh', NULL),
+(2, 1, '2020-12-12 18:14:05', 'implement invoice menu logic for mass category', NULL),
+(2, 1, '2020-12-12 18:14:21', 'have new interface ', NULL),
+(2, 1, '2020-12-12 18:26:03', 'design border menu', NULL),
+(2, 5, '2020-11-26 13:52:32', 'fawer l kosksi :P', NULL),
+(2, 5, '2020-12-12 18:10:28', 'samtan l ma9rouna', NULL),
+(2, 5, '2020-12-12 18:10:57', 'sa9i l ma9rouna fel keskess', NULL),
+(2, 5, '2020-12-12 18:12:10', '7ot salsa 3al ma9rouna', NULL),
+(3, 1, '2020-11-26 13:51:25', 'creating views', NULL),
+(3, 1, '2020-12-12 18:07:23', 'implement invoice menu', NULL),
+(3, 1, '2020-12-12 18:09:02', 'design invoice menu', NULL),
+(3, 5, '2020-11-26 13:52:19', '9assit l bsal', NULL),
+(3, 5, '2020-12-12 18:01:49', '9asan l sfénéria', NULL),
+(3, 5, '2020-12-12 18:04:37', '9asan l batata', NULL),
+(3, 5, '2020-12-12 18:06:39', 'tajmirrrrr', NULL),
+(6, 1, '2020-11-26 13:49:41', 'init', NULL),
+(6, 1, '2020-11-26 13:50:53', 'SET UP DIFFERENT LAYERS', NULL),
+(6, 1, '2020-12-12 18:16:55', 'import new libs', NULL),
+(6, 1, '2020-12-12 18:17:31', 'set exception payload', NULL);
 
 
 
@@ -49,7 +73,7 @@ CREATE TABLE employees (
   employee_id INT(11) NOT NULL,
   first_name VARCHAR(255) DEFAULT NULL,
   last_name VARCHAR(255) DEFAULT NULL,
-  email VARCHAR(255) DEFAULT NULL,
+  email VARCHAR(255) DEFAULT 'springabcxyzboot@gmail.com',
   phone VARCHAR(50) DEFAULT NULL,
   hiredate DATE DEFAULT NULL,
   job VARCHAR(255) DEFAULT NULL,
@@ -60,16 +84,16 @@ CREATE TABLE employees (
 
 
 
-INSERT INTO employees (employee_id, first_name, last_name, email, phone, hiredate, job, salary, manager_id, department_id) VALUES
-(1, 'Selim', 'Horri', 'selim.horri@ooredoo.tn', '22125144', '2019-04-15', 'Billing', '5000.00', 4, 6),
-(2, 'Badr', 'Idoudi', 'badr.idoudi@ooredo.tn', '22125195', '2019-04-15', 'Digital', '5000.00', 9, 5),
-(3, 'Imen', 'Touk', 'imen.touk@ooredoo.tn', '22124788', '2019-04-15', 'Data Warehouse', '5000.00', 5, 4),
-(4, 'Soumaya', 'Hajjem', 'soumaya.hajjem@ooredoo.tn', '22124823', NULL, 'Chef service Billing', '6000.00', NULL, 6),
-(5, 'Nour', 'Larguech', 'nour.larguech@ooredoo.tn', NULL, NULL, 'Chef service Data Warehouse', '6000.00', NULL, 4),
-(6, 'Khdija', 'Ben Ghachame', 'khdija.benghachame@ooredoo.tn', NULL, '2559-01-01', 'Billing', '5000.50', 4, 6),
-(7, 'Maryem', 'Tlemseni', 'maryem.tlemseni@ooredoo.tn', '2212', NULL, 'Billing', '5000.00', 4, 6),
-(8, 'Malek', 'Aissa', 'malek.aissa@ooredoo.tn', '2212', '2020-09-01', 'Billing', '5000.00', 4, 6),
-(9, 'John', 'Doe', 'john.doe@ooredoo.tn', '2212', NULL, 'Chef service digital', '6000.00', NULL, 5);
+INSERT INTO employees (employee_id, first_name, last_name, phone, hiredate, job, salary, manager_id, department_id) VALUES
+(1, 'Selim', 'Horri', '22125144', '2019-04-15', 'Billing', '5000.00', 4, 6),
+(2, 'Badr', 'Idoudi', '22125195', '2019-04-15', 'Digital', '5000.00', 9, 5),
+(3, 'Imen', 'Touk', '22124788', '2019-04-15', 'Data Warehouse', '5000.00', 5, 4),
+(4, 'Soumaya', 'Hajjem', '22124823', NULL, 'Chef service Billing', '6000.00', NULL, 6),
+(5, 'Nour', 'Larguech', NULL, NULL, 'Chef service Data Warehouse', '6000.00', NULL, 4),
+(6, 'Khdija', 'Ben Ghachame', NULL, '2559-01-01', 'Billing', '5000.50', 4, 6),
+(7, 'Maryem', 'Tlemseni', '2212', NULL, 'Billing', '5000.00', 4, 6),
+(8, 'Malek', 'Aissa', '2212', '2020-09-01', 'Billing', '5000.00', 4, 6),
+(9, 'John', 'Doe', '2212', NULL, 'Chef service digital', '6000.00', NULL, 5);
 
 
 
@@ -157,7 +181,6 @@ ALTER TABLE departments
 
 ALTER TABLE employees
   ADD PRIMARY KEY (employee_id),
-  ADD UNIQUE KEY uk1_emp (email),
   ADD KEY fk1_emp (department_id),
   ADD KEY fk2_emp (manager_id);
 
