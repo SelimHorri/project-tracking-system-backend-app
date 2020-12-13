@@ -74,7 +74,7 @@ CREATE TABLE employees (
   first_name VARCHAR(255) DEFAULT NULL,
   last_name VARCHAR(255) DEFAULT NULL,
   email VARCHAR(255) DEFAULT 'springabcxyzboot@gmail.com',
-  phone VARCHAR(50) DEFAULT NULL,
+  phone VARCHAR(50) DEFAULT '22125144',
   hiredate DATE DEFAULT NULL,
   job VARCHAR(255) DEFAULT NULL,
   salary DECIMAL(7,2) DEFAULT NULL,
@@ -86,14 +86,14 @@ CREATE TABLE employees (
 
 INSERT INTO employees (employee_id, first_name, last_name, phone, hiredate, job, salary, manager_id, department_id) VALUES
 (1, 'Selim', 'Horri', '22125144', '2019-04-15', 'Billing', '5000.00', 4, 6),
-(2, 'Badr', 'Idoudi', '22125195', '2019-04-15', 'Digital', '5000.00', 9, 5),
-(3, 'Imen', 'Touk', '22124788', '2019-04-15', 'Data Warehouse', '5000.00', 5, 4),
-(4, 'Soumaya', 'Hajjem', '22124823', NULL, 'Chef service Billing', '6000.00', NULL, 6),
-(5, 'Nour', 'Larguech', NULL, NULL, 'Chef service Data Warehouse', '6000.00', NULL, 4),
-(6, 'Khdija', 'Ben Ghachame', NULL, '2559-01-01', 'Billing', '5000.50', 4, 6),
-(7, 'Maryem', 'Tlemseni', '2212', NULL, 'Billing', '5000.00', 4, 6),
-(8, 'Malek', 'Aissa', '2212', '2020-09-01', 'Billing', '5000.00', 4, 6),
-(9, 'John', 'Doe', '2212', NULL, 'Chef service digital', '6000.00', NULL, 5);
+(2, 'Badr', 'Idoudi', '22125144', '2019-04-15', 'Digital', '5000.00', 9, 5),
+(3, 'Imen', 'Touk', '22125144', '2019-04-15', 'Data Warehouse', '5000.00', 5, 4),
+(4, 'Soumaya', 'Hajjem', '22125144', NULL, 'Chef service Billing', '6000.00', NULL, 6),
+(5, 'Nour', 'Larguech', '22125144', NULL, 'Chef service Data Warehouse', '6000.00', NULL, 4),
+(6, 'Khdija', 'Ben Ghachame', '22125144', '2559-01-01', 'Billing', '5000.50', 4, 6),
+(7, 'Maryem', 'Tlemseni', '22125144', NULL, 'Billing', '5000.00', 4, 6),
+(8, 'Malek', 'Aissa', '22125144', '2020-09-01', 'Billing', '5000.00', 4, 6),
+(9, 'John', 'Doe', '22125144', NULL, 'Chef service digital', '6000.00', NULL, 5);
 
 
 
