@@ -39,9 +39,9 @@
 	                        <th>Start_Date</th>
 	                        <th>End_Date</th>
 	                        <th>Project status</th>
+	                        <th class='text-info'><i>=>SHOW</i></th>
+	                        <th class='text-info'><i>=>SHOW</i></th>
 	                        <th class='text-info'><i>=>ADD</i></th>
-	                        <th class='text-info'><i>=>SHOW</i></th>
-	                        <th class='text-info'><i>=>SHOW</i></th>
 	                    </tr>
 	                </thead>
 					<tbody>
@@ -50,9 +50,9 @@
 							<td th:text="${e.startDate}"></td>
 							<td th:text="${e.endDate}"></td>
 							<td th:text="${e.status}"></td>
-							<td><a class='btn btn btn-warning' th:href="@{/app/employees/employee-add-commit(projectId=${e.projectId})}">New commit?</a></td>
-							<td><a class='btn btn btn-warning' th:href="@{/app/employees/employee-show-my-commits(projectId=${e.projectId})}">My commits</a></td>
-							<td><a class='btn btn btn-warning' th:href="@{/app/employees/employee-show-all-commits(projectId=${e.projectId})}">All commits</a></td>
+							<td><a class='btn btn btn-outline-info' th:href="@{/app/employees/employee-show-my-commits(projectId=${e.projectId})}">My commits</a></td>
+							<td><a class='btn btn btn-outline-info' th:href="@{/app/employees/employee-show-all-commits(projectId=${e.projectId})}">All commits</a></td>
+							<td><a class='btn btn btn-outline-info' th:href="@{/app/employees/employee-add-commit(projectId=${e.projectId})}">New commit?</a></td>
 		                </tr>
 	            	</tbody>
 	        	</table>
