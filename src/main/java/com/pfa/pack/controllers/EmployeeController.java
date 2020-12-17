@@ -26,6 +26,8 @@ import com.pfa.pack.services.EmployeeService;
 import com.pfa.pack.services.ProjectService;
 import com.pfa.pack.services.UserCredentialService;
 import com.pfa.pack.utils.email.EmailUtil;
+import com.pfa.pack.utils.sms.Sms;
+import com.pfa.pack.utils.sms.SmsUtil;
 
 @Controller
 @RequestMapping(value = {"/app/employees"})
@@ -36,6 +38,7 @@ public class EmployeeController {
 	private final AssignmentService assignmentService;
 	private final ProjectService projectService;
 	private final EmailUtil emailUtil;
+	private final SmsUtil smsUtil;
 	private static final Logger logger = LoggerFactory.getLogger(EmployeeController.class);
 	
 	static {
@@ -48,14 +51,17 @@ public class EmployeeController {
 	 * @param userCredentialService
 	 * @param projectService
 	 * @param assignmentService
+	 * @param emailUtil
+	 * @param smsUtil
 	 */
 	@Autowired
-	public EmployeeController(final EmployeeService employeeService, final UserCredentialService userCredentialService, final ProjectService projectService, final AssignmentService assignmentService, final EmailUtil emailUtil) {
+	public EmployeeController(final EmployeeService employeeService, final UserCredentialService userCredentialService, final ProjectService projectService, final AssignmentService assignmentService, final EmailUtil emailUtil, final SmsUtil smsUtil) {
 		this.employeeService = employeeService;
 		this.userCredentialService = userCredentialService;
 		this.assignmentService = assignmentService;
 		this.projectService = projectService;
 		this.emailUtil = emailUtil;
+		this.smsUtil = smsUtil;
 	}
 	
 	/**
@@ -190,13 +196,16 @@ public class EmployeeController {
 		assignment.setProject(this.projectService.findById(Integer.parseInt(projectId)));
 		assignment.setCommitEmpDesc(commitEmpDesc);
 		
-		final String msg = "You've created a new COMMIT at : " + LocalDateTime.now();
+		final String msg = "\nProject-Tracker-Sys:\n" + this.projectService.findById(Integer.parseInt(projectId)).getTitle() + "\nYou've created a new COMMIT at : " + LocalDateTime.now();
 		
 		this.assignmentService.save(assignment);
-		logger.info("COMMIT created successfully");
+		logger.info("COMMIT created successfully at : " + LocalDateTime.now());
 		
 		this.emailUtil.sendEmail(userCredential.getEmployee().getEmail(), "Project-Tracker-Sys", msg + "\n it says : \n" + commitEmpDesc);
-		logger.info("Email sent successfully");
+		logger.info("MAIL successfully sent to {}", userCredential.getEmployee().getEmail());
+		
+		this.smsUtil.sendSms(new Sms(userCredential.getEmployee().getPhone(), msg));
+		logger.info("SMS successfully sent to {}", userCredential.getEmployee().getPhone());
 		
 		model.addAttribute("msg", msg);
 		model.addAttribute("c", projectCommitInfoDTO);

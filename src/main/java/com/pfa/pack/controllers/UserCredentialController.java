@@ -18,6 +18,8 @@ import com.pfa.pack.models.entities.UserCredential;
 import com.pfa.pack.services.EmployeeService;
 import com.pfa.pack.services.UserCredentialService;
 import com.pfa.pack.utils.email.EmailUtil;
+import com.pfa.pack.utils.sms.Sms;
+import com.pfa.pack.utils.sms.SmsUtil;
 
 @Controller
 @Lazy
@@ -28,6 +30,7 @@ public class UserCredentialController {
 	private final EmployeeService employeeService;
 	private final BCryptPasswordEncoder bCryptPasswordEncoder;
 	private final EmailUtil emailUtil;
+	private final SmsUtil smsUtil;
 	private static final Logger logger = LoggerFactory.getLogger(UserCredentialController.class);
 	
 	static {
@@ -39,13 +42,16 @@ public class UserCredentialController {
 	 * @param userCredentialService
 	 * @param employeeService
 	 * @param bCryptPasswordEncoder
+	 * @param emailUtil
+	 * @param smsUtil
 	 */
 	@Autowired
-	public UserCredentialController(final UserCredentialService userCredentialService, final EmployeeService employeeService, final BCryptPasswordEncoder bCryptPasswordEncoder, final EmailUtil emailUtil) {
+	public UserCredentialController(final UserCredentialService userCredentialService, final EmployeeService employeeService, final BCryptPasswordEncoder bCryptPasswordEncoder, final EmailUtil emailUtil, final SmsUtil smsUtil) {
 		this.userCredentialService = userCredentialService;
 		this.employeeService = employeeService;
 		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
 		this.emailUtil = emailUtil;
+		this.smsUtil = smsUtil;
 	}
 	
 	/**
@@ -92,13 +98,16 @@ public class UserCredentialController {
 		userCredential.setUsername(username);
 		userCredential.setPassword(this.bCryptPasswordEncoder.encode(pwd1));
 		
-		final String msg = "You've changed some credentials : " + LocalDateTime.now() + "\n" + "Username" + username + "\n" + "Password : " + pwd1;
+		final String msg = "You've changed some credentials : " + LocalDateTime.now() + "\n" + "Username : " + username + "\n" + "Password : " + pwd1;
 		
 		this.userCredentialService.update(userCredential);
 		logger.info("Credentials updated successfully");
 		
 		this.emailUtil.sendEmail(userCredential.getEmployee().getEmail(), "Project-Tracker-Sys", msg);
-		logger.info("Email sent successfully");
+		logger.info("MAIL successfully sent to {}", userCredential.getEmployee().getEmail());
+		
+		this.smsUtil.sendSms(new Sms(userCredential.getEmployee().getPhone(), msg));
+		logger.info("SMS successfully sent to {}", userCredential.getEmployee().getPhone());
 		
 		model.addAttribute("msg", "Credentials updated successfully");
 		model.addAttribute("msgColour", "success");

@@ -93,6 +93,11 @@
 		    <artifactId>jfreechart</artifactId>
 		    <version>1.5.0</version>
 		</dependency>
+		<dependency>
+			<groupId>com.twilio.sdk</groupId>
+			<artifactId>twilio</artifactId>
+			<version>8.5.0</version>
+		</dependency>
 		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

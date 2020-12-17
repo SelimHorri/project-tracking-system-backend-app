@@ -1,0 +1,45 @@
+package com.pfa.pack.utils.sms;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import com.pfa.pack.configs.twilio.TwilioConfig;
+import com.twilio.rest.api.v2010.account.Message;
+import com.twilio.type.PhoneNumber;
+
+@Component
+public class SmsUtilImpl implements SmsUtil {
+	
+	private TwilioConfig twilioConfig;
+	private static final Logger logger = LoggerFactory.getLogger(SmsUtilImpl.class);
+	
+	static {
+		logger.info("************ entering " + SmsUtilImpl.class.getName() + " ************");
+	}
+	
+	@Autowired
+	public SmsUtilImpl(final TwilioConfig twilioConfig) {
+		this.twilioConfig = twilioConfig;
+	}
+	
+	@Override
+	public void sendSms(final Sms sms) {
+		Message.creator(new PhoneNumber("+216" + sms.getTo()), new PhoneNumber(this.twilioConfig.getTrialNumber()), sms.getMsg()).create();
+	}
+	
+	
+	
+}
+
+
+
+
+
+
+
+
+
+
+

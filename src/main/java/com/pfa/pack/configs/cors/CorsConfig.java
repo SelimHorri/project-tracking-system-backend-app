@@ -1,4 +1,4 @@
-package com.pfa.pack.configs;
+package com.pfa.pack.configs.cors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
