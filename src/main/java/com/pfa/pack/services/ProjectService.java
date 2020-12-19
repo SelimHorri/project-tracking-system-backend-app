@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.pfa.pack.models.collectionwrappers.ProjectsCollection;
 import com.pfa.pack.models.dto.ChartData;
+import com.pfa.pack.models.dto.ManagerProjectData;
 import com.pfa.pack.models.dto.ProjectCommitInfoDTO;
 import com.pfa.pack.models.entities.Project;
 
@@ -16,6 +17,7 @@ public interface ProjectService {
 	public abstract void delete(final Integer projectId);
 	public abstract List<ChartData> getProjectStatus();
 	public abstract ProjectCommitInfoDTO findByUsernameAndProjectId(final String username, final Integer projectId);
+	public abstract List<ManagerProjectData> findByEmployeeId(final int employeeId);
 	
 }
 

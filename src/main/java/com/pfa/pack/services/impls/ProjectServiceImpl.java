@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.pfa.pack.models.collectionwrappers.ProjectsCollection;
 import com.pfa.pack.models.dto.ChartData;
+import com.pfa.pack.models.dto.ManagerProjectData;
 import com.pfa.pack.models.dto.ProjectCommitInfoDTO;
 import com.pfa.pack.models.entities.Project;
 import com.pfa.pack.repositories.ProjectRepository;
@@ -71,6 +72,11 @@ public class ProjectServiceImpl implements ProjectService {
 	@Override
 	public ProjectCommitInfoDTO findByUsernameAndProjectId(final String username, final Integer projectId) {
 		return this.rep.findByUsernameAndProjectId(username, projectId).orElseThrow(() -> new NoSuchElementException("\\n------------ NO PROJECT FOUND !!!!! ------------\\n"));
+	}
+	
+	@Override
+	public List<ManagerProjectData> findByEmployeeId(int employeeId) {
+		return this.rep.findByEmployeeId(employeeId);
 	}
 	
 	
