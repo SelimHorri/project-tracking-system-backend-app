@@ -50,6 +50,8 @@ public class ManagerController {
 		final UserCredential userCredential = this.userCredentialService.findByUsername(authentication.getName());
 		final List<ManagerProjectData> managerProjectDatas = this.projectService.findByEmployeeId(userCredential.getEmployee().getEmployeeId());
 		
+		model.addAttribute("fname", userCredential.getEmployee().getFirstName().toUpperCase().charAt(0) + userCredential.getEmployee().getFirstName().toLowerCase().substring(1));
+		model.addAttribute("lname", userCredential.getEmployee().getLastName().toUpperCase().charAt(0) + userCredential.getEmployee().getLastName().toLowerCase().substring(1));
 		model.addAttribute("managerProjectDatas", managerProjectDatas);
 		
 		return "managers/manager-index";
