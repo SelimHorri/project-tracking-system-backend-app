@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.pfa.pack.converters.ProjectDtoProjectConverter;
 import com.pfa.pack.models.dto.ManagerProjectData;
 import com.pfa.pack.models.dto.ProjectDTO;
 import com.pfa.pack.models.entities.Project;
@@ -32,7 +31,6 @@ public class ManagerController {
 	private final EmployeeService employeeService;
 	private final UserCredentialService userCredentialService;
 	private final ProjectService projectService;
-	private final ProjectDtoProjectConverter projectDtoProjectConverter;
 	private static final Logger logger = LoggerFactory.getLogger(ManagerController.class);
 	
 	static {
@@ -40,11 +38,10 @@ public class ManagerController {
 	}
 	
 	@Autowired
-	public ManagerController(final EmployeeService employeeService, final UserCredentialService userCredentialService, final ProjectService projectService, final ProjectDtoProjectConverter projectDtoProjectConverter) {
+	public ManagerController(final EmployeeService employeeService, final UserCredentialService userCredentialService, final ProjectService projectService) {
 		this.employeeService = employeeService;
 		this.userCredentialService = userCredentialService;
 		this.projectService = projectService;
-		this.projectDtoProjectConverter = projectDtoProjectConverter;
 	}
 	
 	@GetMapping(value = {"", "/", "/manager-index"})
@@ -71,6 +68,7 @@ public class ManagerController {
 	public String handleManagerAddProject(@ModelAttribute("project") @Valid final ProjectDTO projectDTO, final BindingResult error, final Authentication authentication, final Model model) {
 		
 		if (error.hasErrors()) {
+			logger.error("----------ERROR Binding object----------");
 			System.err.println(error);
 			model.addAttribute("username", authentication.getName());
 			model.addAttribute("msg", "Something went wrong !! ");
@@ -78,10 +76,12 @@ public class ManagerController {
 			return "managers/manager-add-project";
 		}
 		
-		final Project project = this.projectService.save(projectDTO);
-		System.out.println(project);
+		final String msg = "project " + projectDTO.getTitle() + " created successfully";
 		
-		model.addAttribute("msg", "project " + project.getTitle() + " created successfully");
+		this.projectService.save(projectDTO);
+		logger.info(msg);
+		
+		model.addAttribute("msg", msg);
 		model.addAttribute("msgColour", "success");
 		
 		return "managers/manager-add-project";

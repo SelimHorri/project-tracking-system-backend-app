@@ -38,9 +38,9 @@
 				  <span th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}" class='badge badge-danger'></span>
 				</div>
 				<div class="form-group">
-				  <label class="col-form-label" for="inputDefault">Project status</label>
-				  <input th:field = '*{status}' type="text" class="form-control col-sm-3 " placeholder="Enter project_status..." id="inputDefault" />
-				  <span th:if="${#fields.hasErrors('status')}" th:errors="*{status}" class='badge badge-danger' ></span>
+					<label class="col-form-label" for="inputDefault">Project status</label>
+ 					<input th:field = '*{status}' type="text" class="form-control col-sm-3 " placeholder="Enter project_status..." id="inputDefault" />
+					<span th:if="${#fields.hasErrors('status')}" th:errors="*{status}" class='badge badge-danger' ></span>
 				</div>
 			</fieldset>
 			
