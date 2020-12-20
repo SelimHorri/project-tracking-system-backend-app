@@ -1,5 +1,6 @@
 package com.pfa.pack.controllers;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -17,13 +18,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.pfa.pack.models.dto.ManagerProjectData;
 import com.pfa.pack.models.dto.ProjectDTO;
+import com.pfa.pack.models.entities.Assignment;
 import com.pfa.pack.models.entities.Employee;
 import com.pfa.pack.models.entities.Project;
 import com.pfa.pack.models.entities.UserCredential;
+import com.pfa.pack.services.AssignmentService;
 import com.pfa.pack.services.EmployeeService;
 import com.pfa.pack.services.ProjectService;
 import com.pfa.pack.services.UserCredentialService;
@@ -34,6 +36,7 @@ public class ManagerController {
 	
 	private final EmployeeService employeeService;
 	private final UserCredentialService userCredentialService;
+	private final AssignmentService assignmentService;
 	private final ProjectService projectService;
 	private static final Logger logger = LoggerFactory.getLogger(ManagerController.class);
 	
@@ -42,9 +45,10 @@ public class ManagerController {
 	}
 	
 	@Autowired
-	public ManagerController(final EmployeeService employeeService, final UserCredentialService userCredentialService, final ProjectService projectService) {
+	public ManagerController(final EmployeeService employeeService, final UserCredentialService userCredentialService, final AssignmentService assignmentService, final ProjectService projectService) {
 		this.employeeService = employeeService;
 		this.userCredentialService = userCredentialService;
+		this.assignmentService = assignmentService;
 		this.projectService = projectService;
 	}
 	
@@ -81,10 +85,32 @@ public class ManagerController {
 	@PostMapping(value = {"/manager-add-project"})
 	public String handleManagerAddProject(@ModelAttribute("project") @Valid final ProjectDTO projectDTO, final BindingResult error, final Authentication authentication, final Model model) {
 		
+		final List<Employee> managerSubEmployees = this.employeeService.findByManagerId(this.userCredentialService.findByUsername(authentication.getName()).getEmployee().getEmployeeId());
+		final LocalDate startDate = LocalDate.parse(projectDTO.getStartDate());
+		final LocalDate endDate = LocalDate.parse(projectDTO.getEndDate());
+		
+		// to check if the end date is after the start date
+		if (startDate.isAfter(endDate)) {
+			model.addAttribute("username", authentication.getName());
+			model.addAttribute("managerSubEmployees", managerSubEmployees);
+			model.addAttribute("msg", "EndDate is before StartDate! please check again...");
+			model.addAttribute("msgColour", "danger");
+			return "managers/manager-add-project";
+		}
+		
+		// to check the selection of one employee at least
+		if (projectDTO.getAssignedEmployees() == null) {
+			model.addAttribute("username", authentication.getName());
+			model.addAttribute("managerSubEmployees", managerSubEmployees);
+			model.addAttribute("msg", "Please you have to assign one employee at least to create the project");
+			model.addAttribute("msgColour", "danger");
+			return "managers/manager-add-project"; 
+		}
+		
+		// to check of binding variables
 		if (error.hasErrors()) {
 			logger.error("----------ERROR Binding object----------");
 			System.err.println(error);
-			final List<Employee> managerSubEmployees = this.employeeService.findByManagerId(this.userCredentialService.findByUsername(authentication.getName()).getEmployee().getEmployeeId());
 			model.addAttribute("username", authentication.getName());
 			model.addAttribute("managerSubEmployees", managerSubEmployees);
 			model.addAttribute("msg", "Something went wrong !! ");
@@ -92,15 +118,30 @@ public class ManagerController {
 			return "managers/manager-add-project";
 		}
 		
-		// final List<Employee> managerSubEmployees = this.employeeService.findByManagerId(this.userCredentialService.findByUsername(authentication.getName()).getEmployee().getEmployeeId());
-		// model.addAttribute("managerSubEmployees", managerSubEmployees);
-		
+		// successful output msg
 		final String msg = "project " + projectDTO.getTitle() + " created successfully";
 		
-		this.projectService.save(projectDTO);
+		// persist a new project in DB
+		final Project project = this.projectService.save(projectDTO);
 		logger.info(msg);
 		
+		// print the list of the assigned employees' ids
+		System.err.println(projectDTO.getAssignedEmployees());
+		
+		// assign checked employees to the already created project
+		final Assignment assignment = new Assignment();
+		projectDTO.getAssignedEmployees().forEach((employeeId) -> {
+			assignment.setEmployeeId(Integer.parseInt(employeeId));
+			assignment.setProjectId(project.getProjectId());
+			assignment.setCommitMgrDesc("init"); // 'init' to tell this is the assignment
+			assignment.setEmployee(this.employeeService.findById(Integer.parseInt(employeeId)));
+			assignment.setProject(project);
+			this.assignmentService.save(assignment);
+			logger.info("employeeId : {} is assigned to this project with projectId : {}", employeeId, project.getProjectId());
+		});
+		
 		model.addAttribute("msg", msg);
+		model.addAttribute("assignMsg", "employees assigned successfully to this project");
 		model.addAttribute("msgColour", "success");
 		
 		return "managers/manager-add-project";

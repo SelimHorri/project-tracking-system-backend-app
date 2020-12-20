@@ -1,5 +1,7 @@
 package com.pfa.pack.models.dto;
 
+import java.util.List;
+
 import javax.validation.constraints.NotBlank;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -17,6 +19,8 @@ public class ProjectDTO {
 	
 	@NotBlank(message = "Must not blank**")
 	private String status;
+	
+	private List<String> assignedEmployees;
 	
 	public ProjectDTO() {
 		
@@ -53,6 +57,24 @@ public class ProjectDTO {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+
+	public List<String> getAssignedEmployees() {
+		return assignedEmployees;
+	}
+
+	public void setAssignedEmployees(final List<String> assignedEmployees) {
+		this.assignedEmployees = assignedEmployees;
+	}
+	
+	/*
+	public AssignedEmployeesDTO getAssignedEmployees() {
+		return assignedEmployees;
+	}
+	
+	public void setAssignedEmployees(final AssignedEmployeesDTO assignedEmployees) {
+		this.assignedEmployees = assignedEmployees;
+	}
+	*/
 	
 	
 	

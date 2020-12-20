@@ -45,16 +45,15 @@
 					</select>
 					<span th:if="${#fields.hasErrors('status')}" th:errors="*{status}" class='badge badge-danger' ></span>
 				</div>
-				<!--
 				<div class='form-group' >
 					<label class='col-form-label' >Assign to : </label>
 					<div th:each="e : ${managerSubEmployees}" class="form-check">
 						<label class="form-check-label">
-							<input th:name="assignedEmployees" class="form-check-input" type="checkbox" th:text="${e.firstName + ' ' + e.lastName}" value="${e.employeeId}" >  <br>
+							<input th:name="assignedEmployees" class="form-check-input" type="checkbox" th:text="${e.firstName + ' ' + e.lastName}" th:value="${e.employeeId}" />  <br>
+ 							<!--<input th:field="*{assignedEmployees}" class="form-check-input" type="checkbox" th:text="${e.firstName + ' ' + e.lastName}" th:value="${e.employeeId}" >  <br> -->
 						</label>
 					</div>
 				</div>
-				-->
 			</fieldset>
 			
 			<br>

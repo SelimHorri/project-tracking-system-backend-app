@@ -15,6 +15,9 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 	@Query(name = "List.findByDepartmentId", nativeQuery = true)
 	public abstract List<Employee> findByDepartmentId(@Param("departmentId") final int departmentId);
 	
+	@Query(name = "List<Employee>.findByManagerId", nativeQuery = true)
+	public abstract List<Employee> findByManagerId(@Param("managerId") final int managerId);
+	
 }
 
 

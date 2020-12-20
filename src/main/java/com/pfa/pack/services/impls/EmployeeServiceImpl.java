@@ -66,6 +66,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return this.rep.findByDepartmentId(departmentId);
 	}
 	
+	@Override
+	public List<Employee> findByManagerId(final Integer managerId) {
+		return this.rep.findByManagerId(managerId);
+	}
+	
 	
 	
 }

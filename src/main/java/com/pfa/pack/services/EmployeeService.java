@@ -13,5 +13,6 @@ public interface EmployeeService {
 	public abstract Employee update(final Employee employee);
 	public abstract void delete(final Integer employeeId);
 	public abstract List<Employee> findByDepartmentId(final Integer departmentId);
+	public abstract List<Employee> findByManagerId(final Integer managerId);
 	
 }
