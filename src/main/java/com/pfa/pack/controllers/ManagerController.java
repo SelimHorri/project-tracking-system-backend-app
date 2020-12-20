@@ -2,8 +2,6 @@ package com.pfa.pack.controllers;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 
 import javax.validation.Valid;
 
@@ -19,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.pfa.pack.enums.Status;
 import com.pfa.pack.models.dto.ManagerProjectData;
 import com.pfa.pack.models.dto.ProjectDTO;
 import com.pfa.pack.models.entities.Assignment;
@@ -69,12 +68,8 @@ public class ManagerController {
 	public String displayManagerAddProject(final Authentication authentication, final Model model) {
 		
 		final List<Employee> managerSubEmployees = this.employeeService.findByManagerId(this.userCredentialService.findByUsername(authentication.getName()).getEmployee().getEmployeeId());
-		final Set<String> listStatus = new TreeSet<>();
-		listStatus.add("NOT_STARTED");
-		listStatus.add("IN_PROGRESS");
-		listStatus.add("COMPLETED");
 		
-		model.addAttribute("listStatus", listStatus);
+		model.addAttribute("listStatus", Status.values());
 		model.addAttribute("managerSubEmployees", managerSubEmployees);
 		model.addAttribute("username", authentication.getName());
 		model.addAttribute("project", new Project());
@@ -86,14 +81,15 @@ public class ManagerController {
 	public String handleManagerAddProject(@ModelAttribute("project") @Valid final ProjectDTO projectDTO, final BindingResult error, final Authentication authentication, final Model model) {
 		
 		final List<Employee> managerSubEmployees = this.employeeService.findByManagerId(this.userCredentialService.findByUsername(authentication.getName()).getEmployee().getEmployeeId());
-		final LocalDate startDate = LocalDate.parse(projectDTO.getStartDate());
-		final LocalDate endDate = LocalDate.parse(projectDTO.getEndDate());
 		
-		// to check if the end date is after the start date
-		if (startDate.isAfter(endDate)) {
+		// to check of binding variables
+		if (error.hasErrors()) {
+			logger.error("----------ERROR Binding object----------");
+			System.err.println(error);
 			model.addAttribute("username", authentication.getName());
+			model.addAttribute("listStatus", Status.values());
 			model.addAttribute("managerSubEmployees", managerSubEmployees);
-			model.addAttribute("msg", "EndDate is before StartDate! please check again...");
+			model.addAttribute("msg", "Something went wrong !! ");
 			model.addAttribute("msgColour", "danger");
 			return "managers/manager-add-project";
 		}
@@ -101,19 +97,22 @@ public class ManagerController {
 		// to check the selection of one employee at least
 		if (projectDTO.getAssignedEmployees() == null) {
 			model.addAttribute("username", authentication.getName());
+			model.addAttribute("listStatus", Status.values());
 			model.addAttribute("managerSubEmployees", managerSubEmployees);
 			model.addAttribute("msg", "Please you have to assign one employee at least to create the project");
 			model.addAttribute("msgColour", "danger");
 			return "managers/manager-add-project"; 
 		}
 		
-		// to check of binding variables
-		if (error.hasErrors()) {
-			logger.error("----------ERROR Binding object----------");
-			System.err.println(error);
+		final LocalDate startDate = LocalDate.parse(projectDTO.getStartDate());
+		final LocalDate endDate = LocalDate.parse(projectDTO.getEndDate());
+		
+		// to check if the end date is after the start date
+		if (startDate.isAfter(endDate)) {
 			model.addAttribute("username", authentication.getName());
+			model.addAttribute("listStatus", Status.values());
 			model.addAttribute("managerSubEmployees", managerSubEmployees);
-			model.addAttribute("msg", "Something went wrong !! ");
+			model.addAttribute("msg", "EndDate is before StartDate! please check again...");
 			model.addAttribute("msgColour", "danger");
 			return "managers/manager-add-project";
 		}
