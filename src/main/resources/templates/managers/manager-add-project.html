@@ -38,10 +38,23 @@
 				  <span th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}" class='badge badge-danger'></span>
 				</div>
 				<div class="form-group">
-					<label class="col-form-label" for="inputDefault">Project status</label>
- 					<input th:field = '*{status}' type="text" class="form-control col-sm-3 " placeholder="Enter project_status..." id="inputDefault" />
+					<label for="exampleSelect1">Project status</label>
+					<select th:field = '*{status}' class="form-control" id="exampleSelect1">
+						<option selected value='' >---------- Select item here ----------</option>
+						<option th:each="s : ${listStatus}" th:text="${s}" th:value="${s}"  ></option>
+					</select>
 					<span th:if="${#fields.hasErrors('status')}" th:errors="*{status}" class='badge badge-danger' ></span>
 				</div>
+				<!--
+				<div class='form-group' >
+					<label class='col-form-label' >Assign to : </label>
+					<div th:each="e : ${managerSubEmployees}" class="form-check">
+						<label class="form-check-label">
+							<input th:name="assignedEmployees" class="form-check-input" type="checkbox" th:text="${e.firstName + ' ' + e.lastName}" value="${e.employeeId}" >  <br>
+						</label>
+					</div>
+				</div>
+				-->
 			</fieldset>
 			
 			<br>

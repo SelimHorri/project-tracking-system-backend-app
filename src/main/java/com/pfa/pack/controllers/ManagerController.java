@@ -1,6 +1,8 @@
 package com.pfa.pack.controllers;
 
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import javax.validation.Valid;
 
@@ -15,9 +17,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.pfa.pack.models.dto.ManagerProjectData;
 import com.pfa.pack.models.dto.ProjectDTO;
+import com.pfa.pack.models.entities.Employee;
 import com.pfa.pack.models.entities.Project;
 import com.pfa.pack.models.entities.UserCredential;
 import com.pfa.pack.services.EmployeeService;
@@ -60,6 +64,14 @@ public class ManagerController {
 	@GetMapping(value = {"/manager-add-project"})
 	public String displayManagerAddProject(final Authentication authentication, final Model model) {
 		
+		final List<Employee> managerSubEmployees = this.employeeService.findByManagerId(this.userCredentialService.findByUsername(authentication.getName()).getEmployee().getEmployeeId());
+		final Set<String> listStatus = new TreeSet<>();
+		listStatus.add("NOT_STARTED");
+		listStatus.add("IN_PROGRESS");
+		listStatus.add("COMPLETED");
+		
+		model.addAttribute("listStatus", listStatus);
+		model.addAttribute("managerSubEmployees", managerSubEmployees);
 		model.addAttribute("username", authentication.getName());
 		model.addAttribute("project", new Project());
 		
@@ -72,11 +84,16 @@ public class ManagerController {
 		if (error.hasErrors()) {
 			logger.error("----------ERROR Binding object----------");
 			System.err.println(error);
+			final List<Employee> managerSubEmployees = this.employeeService.findByManagerId(this.userCredentialService.findByUsername(authentication.getName()).getEmployee().getEmployeeId());
 			model.addAttribute("username", authentication.getName());
+			model.addAttribute("managerSubEmployees", managerSubEmployees);
 			model.addAttribute("msg", "Something went wrong !! ");
 			model.addAttribute("msgColour", "danger");
 			return "managers/manager-add-project";
 		}
+		
+		// final List<Employee> managerSubEmployees = this.employeeService.findByManagerId(this.userCredentialService.findByUsername(authentication.getName()).getEmployee().getEmployeeId());
+		// model.addAttribute("managerSubEmployees", managerSubEmployees);
 		
 		final String msg = "project " + projectDTO.getTitle() + " created successfully";
 		
