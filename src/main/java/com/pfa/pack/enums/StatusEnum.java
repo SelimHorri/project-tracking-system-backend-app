@@ -1,6 +1,6 @@
 package com.pfa.pack.enums;
 
-public enum Status {
+public enum StatusEnum {
 	
 	NOT_STARTED,
 	IN_PROGRESS,

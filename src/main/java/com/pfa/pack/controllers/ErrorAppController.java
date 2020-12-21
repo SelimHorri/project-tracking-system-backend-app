@@ -52,7 +52,7 @@ public class ErrorAppController implements ErrorController {
 	}
 	
 	/**
-	 * getErrorPath() overriden from org.springframework.boot.web.servlet.error.ErrorController
+	 * getErrorPath() overridden from org.springframework.boot.web.servlet.error.ErrorController
 	 * @return "/error" route and handle it in handleError(request)
 	 */
 	@Override

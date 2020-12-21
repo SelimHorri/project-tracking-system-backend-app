@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.pfa.pack.enums.Status;
+import com.pfa.pack.enums.StatusEnum;
 import com.pfa.pack.models.dto.ManagerProjectData;
 import com.pfa.pack.models.dto.ProjectDTO;
 import com.pfa.pack.models.entities.Assignment;
@@ -89,7 +89,7 @@ public class ManagerController {
 		
 		final List<Employee> managerSubEmployees = this.employeeService.findByManagerId(this.userCredentialService.findByUsername(authentication.getName()).getEmployee().getEmployeeId());
 		
-		model.addAttribute("listStatus", Status.values());
+		model.addAttribute("listStatus", StatusEnum.values());
 		model.addAttribute("managerSubEmployees", managerSubEmployees);
 		model.addAttribute("username", authentication.getName());
 		model.addAttribute("project", new Project());
@@ -107,7 +107,7 @@ public class ManagerController {
 			logger.error("----------ERROR Binding object----------");
 			System.err.println(error);
 			model.addAttribute("username", authentication.getName());
-			model.addAttribute("listStatus", Status.values());
+			model.addAttribute("listStatus", StatusEnum.values());
 			model.addAttribute("managerSubEmployees", managerSubEmployees);
 			model.addAttribute("msg", "Something went wrong !! ");
 			model.addAttribute("msgColour", "danger");
@@ -117,7 +117,7 @@ public class ManagerController {
 		// to check the selection of one employee at least
 		if (projectDTO.getAssignedEmployees() == null) {
 			model.addAttribute("username", authentication.getName());
-			model.addAttribute("listStatus", Status.values());
+			model.addAttribute("listStatus", StatusEnum.values());
 			model.addAttribute("managerSubEmployees", managerSubEmployees);
 			model.addAttribute("msg", "Please you have to assign one employee at least to create the project");
 			model.addAttribute("msgColour", "danger");
@@ -130,7 +130,7 @@ public class ManagerController {
 		// to check if the end date is after the start date
 		if (startDate.isAfter(endDate)) {
 			model.addAttribute("username", authentication.getName());
-			model.addAttribute("listStatus", Status.values());
+			model.addAttribute("listStatus", StatusEnum.values());
 			model.addAttribute("managerSubEmployees", managerSubEmployees);
 			model.addAttribute("msg", "EndDate is before StartDate! please check again...");
 			model.addAttribute("msgColour", "danger");

@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.pfa.pack.enums.AccountEnum;
 import com.pfa.pack.models.entities.UserCredential;
 import com.pfa.pack.services.EmployeeService;
 import com.pfa.pack.services.UserCredentialService;
@@ -61,7 +63,22 @@ public class UserCredentialController {
 	 * @return credential-edit
 	 */
 	@GetMapping(value = {"/credential-edit"})
-	public String displayCredentialEdit(@RequestParam("employeeId") final String employeeId, final Model model) {
+	public String displayCredentialEdit(@RequestParam("employeeId") final String employeeId, final Authentication authentication, final Model model) {
+		
+		final UserCredential userCredential = this.userCredentialService.findByUsername(authentication.getName());
+		
+		if (userCredential.getRole().equalsIgnoreCase("ROLE_EMP")) {
+			model.addAttribute("account", AccountEnum.EMPLOYEE.toString());
+		}
+		else {
+			if (userCredential.getRole().equalsIgnoreCase("ROLE_MGR")) {
+				model.addAttribute("account", AccountEnum.MANAGER.toString());
+			}
+			else {
+				model.addAttribute("account", AccountEnum.ADMIN.toString());
+			}
+		}
+		
 		model.addAttribute("username", this.employeeService.findById(Integer.parseInt(employeeId)).getUserCredential().getUsername());
 		return "credentials/credential-edit";
 	}
