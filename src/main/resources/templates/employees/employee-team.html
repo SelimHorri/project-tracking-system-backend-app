@@ -25,14 +25,11 @@
 	                    	<th>FirstName</th>
 	                        <th>LastName</th>
 	                        <th>Email</th>
-	                        <th>Phone number</th>
+	                        <th>Phone</th>
 	                        <th>HireDate</th>
 	                        <th>Job</th>
- 	                        <!--<th>Salary</th> -->
- 	                        <!--<th>Manager</th> -->
 	                        <th>Department</th>
- 	                        <!--<th class='text-info'><i>=>COMMIT</i></th> -->
- 	                        <!--<th class='text-info'><i>=>SHOW</i></th> -->
+	                        <th>Location</th>
 	                    </tr>
 	                </thead>
 					<tbody>
@@ -43,15 +40,12 @@
 							<td th:text="${e.phone}"></td>
 							<td th:text="${e.hiredate}"></td>
 							<td th:text="${e.job}"></td>
- 							<!--<td th:text="${e.salary}"></td> -->
- 							<!--<td th:text="${e.manager.firstName}"></td> -->
 							<td th:text="${e.department.departmentName}"></td>
- 							<!--<td><a class='btn btn btn-warning' th:href="@{/app/employees/employee-add-commit(projectId=${e.projectId})}">New commit?</a></td> -->
+							<td th:text="${e.department.location.adr + ', ' + e.department.location.postalCode + ', ' + e.department.location.city}"></td>
 		                </tr>
 	            	</tbody>
 	        	</table>
 	    	</div>
- 		    	<!--<h4><a th:href="@{/app/employees/employee-all-commits}">Show All Projects commits</a></h4> -->
 		</div>
 		
 	</div>
