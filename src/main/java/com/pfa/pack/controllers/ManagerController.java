@@ -64,6 +64,26 @@ public class ManagerController {
 		return "managers/manager-index";
 	}
 	
+	@GetMapping(value = {"/manager-info"})
+	public String displayManagerInfo(final Authentication authentication, final Model model) {
+		
+		final Employee manager = this.employeeService.findById(this.userCredentialService.findByUsername(authentication.getName()).getEmployee().getEmployeeId());
+		model.addAttribute("m", manager);
+		
+		return "managers/manager-info";
+	}
+	
+	@GetMapping(value = {"/manager-team"})
+	public String displayManagerTeam(final Authentication authentication, final Model model) {
+		
+		final UserCredential userCredential = this.userCredentialService.findByUsername(authentication.getName());
+		final List<Employee> team = this.employeeService.findByDepartmentId(userCredential.getEmployee().getDepartment().getDepartmentId());
+		
+		model.addAttribute("team", team);
+		
+		return "managers/manager-team";
+	}
+	
 	@GetMapping(value = {"/manager-add-project"})
 	public String displayManagerAddProject(final Authentication authentication, final Model model) {
 		
