@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.pfa.pack.enums.AccountEnum;
 import com.pfa.pack.models.entities.UserCredential;
-import com.pfa.pack.services.EmployeeService;
 import com.pfa.pack.services.UserCredentialService;
 import com.pfa.pack.utils.email.EmailUtil;
 import com.pfa.pack.utils.sms.Sms;
@@ -29,7 +28,6 @@ import com.pfa.pack.utils.sms.SmsUtil;
 public class UserCredentialController {
 	
 	private final UserCredentialService userCredentialService;
-	private final EmployeeService employeeService;
 	private final BCryptPasswordEncoder bCryptPasswordEncoder;
 	private final EmailUtil emailUtil;
 	private final SmsUtil smsUtil;
@@ -48,9 +46,8 @@ public class UserCredentialController {
 	 * @param smsUtil
 	 */
 	@Autowired
-	public UserCredentialController(final UserCredentialService userCredentialService, final EmployeeService employeeService, final BCryptPasswordEncoder bCryptPasswordEncoder, final EmailUtil emailUtil, final SmsUtil smsUtil) {
+	public UserCredentialController(final UserCredentialService userCredentialService, final BCryptPasswordEncoder bCryptPasswordEncoder, final EmailUtil emailUtil, final SmsUtil smsUtil) {
 		this.userCredentialService = userCredentialService;
-		this.employeeService = employeeService;
 		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
 		this.emailUtil = emailUtil;
 		this.smsUtil = smsUtil;
@@ -63,7 +60,7 @@ public class UserCredentialController {
 	 * @return credential-edit
 	 */
 	@GetMapping(value = {"/credential-edit"})
-	public String displayCredentialEdit(@RequestParam("employeeId") final String employeeId, final Authentication authentication, final Model model) {
+	public String displayCredentialEdit(final Authentication authentication, final Model model) {
 		
 		final UserCredential userCredential = this.userCredentialService.findByUsername(authentication.getName());
 		
@@ -79,7 +76,7 @@ public class UserCredentialController {
 			}
 		}
 		
-		model.addAttribute("username", this.employeeService.findById(Integer.parseInt(employeeId)).getUserCredential().getUsername());
+		model.addAttribute("username", authentication.getName());
 		return "credentials/credential-edit";
 	}
 	
@@ -92,11 +89,26 @@ public class UserCredentialController {
 	 * @return credential-edit
 	 */
 	@PostMapping(value = {"/credential-edit"})
-	public String handleCredentialEdit(@RequestParam("username") String username, @RequestParam("pwd1") final String pwd1, @RequestParam("pwd2") final String pwd2, final Model model) {
+	public String handleCredentialEdit(@RequestParam("pwd1") final String pwd1, @RequestParam("pwd2") final String pwd2, final Authentication authentication, final Model model) {
 		
-		final boolean isBlank = username.isBlank() || pwd1.isEmpty() || pwd2.isEmpty();
+		final UserCredential userCredential = this.userCredentialService.findByUsername(authentication.getName());
+		
+		if (userCredential.getRole().equalsIgnoreCase("ROLE_EMP")) {
+			model.addAttribute("account", AccountEnum.EMPLOYEE.toString());
+		}
+		else {
+			if (userCredential.getRole().equalsIgnoreCase("ROLE_MGR")) {
+				model.addAttribute("account", AccountEnum.MANAGER.toString());
+			}
+			else {
+				model.addAttribute("account", AccountEnum.ADMIN.toString());
+			}
+		}
+		
+		final boolean isBlank = pwd1.isEmpty() || pwd2.isEmpty();
 		
 		if (isBlank) {
+			model.addAttribute("username", authentication.getName());
 			model.addAttribute("msg", "Field(s) is/are empty");
 			model.addAttribute("msgColour", "danger");
 			return "credentials/credential-edit";
@@ -104,6 +116,7 @@ public class UserCredentialController {
 		else {
 			
 			if (!pwd1.equals(pwd2)) {
+				model.addAttribute("username", authentication.getName());
 				model.addAttribute("msg", "Passwords not matching, try again!");
 				model.addAttribute("msgColour", "danger");
 				return "credentials/credential-edit";
@@ -111,11 +124,10 @@ public class UserCredentialController {
 			
 		}
 		
-		final UserCredential userCredential = this.userCredentialService.findByUsername(username);
-		userCredential.setUsername(username);
+		userCredential.setUsername(authentication.getName());
 		userCredential.setPassword(this.bCryptPasswordEncoder.encode(pwd1));
 		
-		final String msg = "You've changed some credentials : " + LocalDateTime.now() + "\n" + "Username : " + username + "\n" + "Password : " + pwd1;
+		final String msg = "You've changed some credentials : " + LocalDateTime.now() + "\n" + "Username : " + authentication.getName() + "\n" + "Password : " + pwd1;
 		
 		this.userCredentialService.update(userCredential);
 		logger.info("Credentials updated successfully");
@@ -126,6 +138,7 @@ public class UserCredentialController {
 		this.smsUtil.sendSms(new Sms(userCredential.getEmployee().getPhone(), msg));
 		logger.info("SMS successfully sent to {}", userCredential.getEmployee().getPhone());
 		
+		model.addAttribute("username", authentication.getName());
 		model.addAttribute("msg", "Credentials updated successfully");
 		model.addAttribute("msgColour", "success");
 		
