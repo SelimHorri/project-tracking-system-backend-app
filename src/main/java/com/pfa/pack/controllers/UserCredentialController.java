@@ -55,7 +55,7 @@ public class UserCredentialController {
 	
 	/**
 	 * display credential-edit view
-	 * @param employeeId
+	 * @param authentication
 	 * @param model
 	 * @return credential-edit
 	 */
@@ -82,9 +82,9 @@ public class UserCredentialController {
 	
 	/**
 	 * handle credential-edit business logic in order to change credentials
-	 * @param username
 	 * @param pwd1
 	 * @param pwd2
+	 * @param authentication
 	 * @param model
 	 * @return credential-edit
 	 */
