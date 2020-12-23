@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.pfa.pack.enums.StatusEnum;
 import com.pfa.pack.models.dto.ManagerProjectData;
@@ -164,6 +165,18 @@ public class ManagerController {
 		model.addAttribute("msgColour", "success");
 		
 		return "managers/manager-add-project";
+	}
+	
+	@GetMapping(value = {"/manager-delete-project"})
+	public String handleManagerDeleteProject(@RequestParam("projectId") final String projectId, final Model model) {
+		
+		this.assignmentService.deleteByProjectId(Integer.parseInt(projectId));
+		logger.warn("assignments with projectId = {} are deleted", projectId);
+		
+		this.projectService.delete(Integer.parseInt(projectId));
+		logger.warn("project with its projectId = {} is deleted", projectId);
+		
+		return "redirect:/app/managers/manager-index";
 	}
 	
 	

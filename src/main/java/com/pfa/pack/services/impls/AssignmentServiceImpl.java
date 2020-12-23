@@ -111,6 +111,11 @@ public class AssignmentServiceImpl implements AssignmentService {
 		return this.rep.findByEmployeeIdAndProjectId(employeeId, projectId);
 	}
 	
+	@Override
+	public void deleteByProjectId(final Integer projectId) {
+		this.rep.deleteByProjectId(projectId);
+	}
+	
 	
 	
 }
