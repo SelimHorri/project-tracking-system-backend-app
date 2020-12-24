@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.pfa.pack.enums.StatusEnum;
 import com.pfa.pack.models.dto.ManagerProjectData;
+import com.pfa.pack.models.dto.ProjectCommit;
 import com.pfa.pack.models.dto.ProjectDTO;
 import com.pfa.pack.models.entities.Assignment;
 import com.pfa.pack.models.entities.Employee;
@@ -170,9 +171,13 @@ public class ManagerController {
 	}
 	
 	@GetMapping(value = {"/manager-show-commits"})
-	public String displayManagerShowCommits(@RequestParam("projectId") final String projectId, final Authentication authentication, final Model model) {
+	public String displayManagerShowCommits(@RequestParam("projectId") final String projectId, final Model model) {
 		
+		final List<ProjectCommit> allProjectCommits = this.assignmentService.findByProjectId(Integer.parseInt(projectId));
+		final Project project = this.projectService.findById(Integer.parseInt(projectId));
 		
+		model.addAttribute("commits", allProjectCommits);
+		model.addAttribute("project", project);
 		
 		return "managers/manager-show-commits";
 	}
