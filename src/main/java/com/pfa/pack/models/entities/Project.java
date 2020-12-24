@@ -67,7 +67,7 @@ public final class Project implements Serializable {
 	
 	@Override
 	public String toString() {
-		return "Project [projectId=" + projectId + ", title=" + title + ", startDate=" + startDate + ", endDate="
+		return "Project [projectId=" + getProjectId() + ", title=" + title + ", startDate=" + startDate + ", endDate="
 				+ endDate + ", status=" + status + "]";
 	}
 	
@@ -113,6 +113,10 @@ public final class Project implements Serializable {
 
 	public void setAssignments(final Set<Assignment> assignments) {
 		this.assignments = assignments;
+	}
+
+	public void setProjectId(Integer projectId) {
+		this.projectId = projectId;
 	}
 	
 	

@@ -160,6 +160,8 @@ public class ManagerController {
 			logger.info("employeeId : {} is assigned to this project with projectId : {}", employeeId, project.getProjectId());
 		});
 		
+		model.addAttribute("username", authentication.getName());
+		model.addAttribute("listStatus", StatusEnum.values());
 		model.addAttribute("msg", msg);
 		model.addAttribute("assignMsg", "employees assigned successfully to this project");
 		model.addAttribute("msgColour", "success");
@@ -205,6 +207,7 @@ public class ManagerController {
 	public String displayManagerEditProject(@RequestParam("projectId") final String projectId, final Authentication authentication, final Model model) {
 		
 		model.addAttribute("username", authentication.getName());
+		model.addAttribute("projectId", projectId);
 		model.addAttribute("project", this.projectService.findProjectDtoById(this.projectService.findById(Integer.parseInt(projectId))));
 		model.addAttribute("listStatus", StatusEnum.values());
 		
@@ -212,12 +215,13 @@ public class ManagerController {
 	}
 	
 	@PostMapping(value = {"/manager-edit-project"})
-	public String handleManagerEditProject(@ModelAttribute("project") @Valid final ProjectDTO projectDTO, final BindingResult error, final Authentication authentication, final Model model) {
+	public String handleManagerEditProject(@RequestParam("projectId") final String projectId, @ModelAttribute("project") @Valid final ProjectDTO projectDTO, final BindingResult error, final Authentication authentication, final Model model) {
 		
 		if (error.hasErrors()) {
 			logger.error("----------ERROR Binding object----------");
 			System.err.println(error);
 			model.addAttribute("username", authentication.getName());
+			model.addAttribute("projectId", projectId);
 			model.addAttribute("listStatus", StatusEnum.values());
 			model.addAttribute("msg", "Something went wrong !! ");
 			model.addAttribute("msgColour", "danger");
@@ -229,6 +233,7 @@ public class ManagerController {
 		
 		if (startDate.isAfter(endDate)) {
 			model.addAttribute("username", authentication.getName());
+			model.addAttribute("projectId", projectId);
 			model.addAttribute("listStatus", StatusEnum.values());
 			model.addAttribute("msg", "EndDate is before StartDate! please check again...");
 			model.addAttribute("msgColour", "danger");
@@ -237,10 +242,12 @@ public class ManagerController {
 		
 		final String msg = "project " + projectDTO.getTitle() + " updated successfully";
 		
-		this.projectService.update(projectDTO);
+		this.projectService.update(Integer.parseInt(projectId), projectDTO);
 		logger.info(msg);
 		
 		model.addAttribute("username", authentication.getName());
+		model.addAttribute("projectId", projectId);
+		model.addAttribute("listStatus", StatusEnum.values());
 		model.addAttribute("msg", msg);
 		model.addAttribute("msgColour", "success");
 		

@@ -23,6 +23,9 @@
 				  <input th:value="${username}" type="text" class="form-control col-sm-3 " placeholder="this is my username..." id="inputDefault" readonly />
 				</div>
 				<div class="form-group">
+				  <input th:name="projectId" th:value="${projectId}" type="hidden" class="form-control col-sm-3 " placeholder="Enter projectId..." id="inputDefault" />
+				</div>
+				<div class="form-group">
 				  <label class="col-form-label" for="inputDefault">Project title</label>
 				  <input th:field = '*{title}' type="text" class="form-control col-sm-3 " placeholder="Enter project_title..." id="inputDefault" />
 				  <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class='badge badge-danger'></span>

@@ -1,5 +1,6 @@
 package com.pfa.pack.services.impls;
 
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -73,8 +74,13 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 	
 	@Override
-	public Project update(final ProjectDTO projectDTO) {
-		return this.rep.save(this.projectDtoProjectConverter.convert(projectDTO));
+	public Project update(final Integer projectId, final ProjectDTO projectDTO) {
+		final Project project = this.findById(projectId);
+		project.setTitle(projectDTO.getTitle());
+		project.setStartDate(LocalDate.parse(projectDTO.getStartDate()));
+		project.setEndDate(LocalDate.parse(projectDTO.getEndDate()));
+		project.setStatus(projectDTO.getStatus());
+		return this.rep.save(project);
 	}
 	
 	@Override

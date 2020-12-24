@@ -66,16 +66,6 @@ public class ProjectDTO {
 		this.assignedEmployees = assignedEmployees;
 	}
 	
-	/*
-	public AssignedEmployeesDTO getAssignedEmployees() {
-		return assignedEmployees;
-	}
-	
-	public void setAssignedEmployees(final AssignedEmployeesDTO assignedEmployees) {
-		this.assignedEmployees = assignedEmployees;
-	}
-	*/
-	
 	
 	
 }
