@@ -16,7 +16,7 @@ public interface ProjectService {
 	public abstract Project save(final Project project);
 	public abstract Project save(final ProjectDTO projectDTO);
 	public abstract Project update(final Project project);
-	public abstract void delete(final Integer projectId);
+	public abstract void deleteById(final Integer projectId);
 	public abstract List<ChartData> getProjectStatus();
 	public abstract ProjectCommitInfoDTO findByUsernameAndProjectId(final String username, final Integer projectId);
 	public abstract List<ManagerProjectData> findByEmployeeId(final int employeeId);

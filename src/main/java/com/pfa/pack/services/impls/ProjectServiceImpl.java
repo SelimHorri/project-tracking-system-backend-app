@@ -65,7 +65,7 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 	
 	@Override
-	public void delete(final Integer projectId) {
+	public void deleteById(final Integer projectId) {
 		this.rep.delete(this.findById(projectId));
 	}
 	

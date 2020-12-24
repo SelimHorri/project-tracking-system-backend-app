@@ -173,7 +173,7 @@ public class ManagerController {
 		this.assignmentService.deleteByProjectId(Integer.parseInt(projectId));
 		logger.warn("assignments with projectId = {} are deleted", projectId);
 		
-		this.projectService.delete(Integer.parseInt(projectId));
+		this.projectService.deleteById(Integer.parseInt(projectId));
 		logger.warn("project with its projectId = {} is deleted", projectId);
 		
 		return "redirect:/app/managers/manager-index";

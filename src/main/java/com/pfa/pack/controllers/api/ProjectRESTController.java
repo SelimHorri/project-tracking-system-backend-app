@@ -56,7 +56,7 @@ public class ProjectRESTController {
 	
 	@DeleteMapping(value = {"", "/delete"})
 	public void delete(final String projectId) {
-		this.service.delete(Integer.parseInt(projectId));
+		this.service.deleteById(Integer.parseInt(projectId));
 	}
 	
 	
