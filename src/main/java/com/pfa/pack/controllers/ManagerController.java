@@ -167,6 +167,40 @@ public class ManagerController {
 		return "managers/manager-add-project";
 	}
 	
+	@GetMapping(value = {"/manager-show-commits"})
+	public String displayManagerShowCommits(@RequestParam("projectId") final String projectId, final Authentication authentication, final Model model) {
+		
+		
+		
+		return "managers/manager-show-commits";
+	}
+	
+	@GetMapping(value = {"/manager-describe-commit"})
+	public String displayManagerDescribeCommit(@RequestParam("assignmentId") final String assignmentId, final Authentication authentication, final Model model) {
+		
+		
+		
+		return "managers/manager-describe-commit";
+	}
+	
+	/*
+	@PostMapping(value = {"/manager-describe-commit"})
+	public String handleManagerDescribeCommit() {
+		
+		
+		
+		return "managers/manager-describe-commit";
+	}
+	*/
+	
+	@GetMapping(value = {"/manager-assign"})
+	public String displayManagerAssign(@RequestParam("projectId") final String projectId, final Authentication authentication, final Model model) {
+		
+		
+		
+		return "managers/manager-assign";
+	}
+	
 	@GetMapping(value = {"/manager-edit-project"})
 	public String displayManagerEditProject(@RequestParam("projectId") final String projectId, final Authentication authentication, final Model model) {
 		
