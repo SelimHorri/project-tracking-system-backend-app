@@ -16,7 +16,7 @@
 	<div class='container container-fluid'>
 		
 		
-		<form class='jumbotron' th:object = '${project}' th:action = '@{/app/managers/manager-add-project}' method = 'POST' >
+		<form class='jumbotron' th:object = '${project}' th:action = '@{/app/managers/manager-edit-project}' method = 'POST' >
 			<fieldset>
 				<div>
 				  <label class="col-form-label" for="inputDefault">Username</label>
@@ -45,16 +45,6 @@
 					</select>
 					<span th:if="${#fields.hasErrors('status')}" th:errors="*{status}" class='badge badge-danger' ></span>
 				</div>
-				<hr>
-				<div class='form-group' >
-					<label class='col-form-label' >Assign to : </label>
-					<div th:each="e : ${managerSubEmployees}" class="form-check">
-						<label class="form-check-label">
-							<input th:name="assignedEmployees" class="form-check-input" type="checkbox" th:text="${e.firstName + ' ' + e.lastName}" th:value="${e.employeeId}" />  <br>
- 							<!--<input th:field="*{assignedEmployees}" class="form-check-input" type="checkbox" th:text="${e.firstName + ' ' + e.lastName}" th:value="${e.employeeId}" >  <br> -->
-						</label>
-					</div>
-				</div>
 			</fieldset>
 			
 			<br>
@@ -63,7 +53,7 @@
 				<p th:case="danger"><span class="badge badge-danger" th:text="${msg}"></span></p>
 			</div>
 			
-			<input th:type="submit" class='btn btn-success btn-lg ' value = 'Create Project' />
+			<input th:type="submit" class='btn btn-success btn-lg ' value = 'Edit Project' />
 			
 		</form>
 		

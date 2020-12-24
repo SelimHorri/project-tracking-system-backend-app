@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pfa.pack.converters.ProjectDtoProjectConverter;
+import com.pfa.pack.converters.ProjectProjectDtoConverter;
 import com.pfa.pack.models.collectionwrappers.ProjectsCollection;
 import com.pfa.pack.models.dto.ChartData;
 import com.pfa.pack.models.dto.ManagerProjectData;
@@ -27,6 +28,7 @@ public class ProjectServiceImpl implements ProjectService {
 	
 	private final ProjectRepository rep;
 	private final ProjectDtoProjectConverter projectDtoProjectConverter;
+	private final ProjectProjectDtoConverter projectProjectDtoConverter;
 	private static final Logger logger = LoggerFactory.getLogger(ProjectServiceImpl.class);
 	
 	static {
@@ -34,9 +36,10 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 	
 	@Autowired
-	public ProjectServiceImpl(final ProjectRepository rep, final ProjectDtoProjectConverter projectDtoProjectConverter) {
+	public ProjectServiceImpl(final ProjectRepository rep, final ProjectDtoProjectConverter projectDtoProjectConverter, final ProjectProjectDtoConverter projectProjectDtoConverter) {
 		this.rep = rep;
 		this.projectDtoProjectConverter = projectDtoProjectConverter;
+		this.projectProjectDtoConverter = projectProjectDtoConverter;
 	}
 	
 	@Override
@@ -47,6 +50,11 @@ public class ProjectServiceImpl implements ProjectService {
 	@Override
 	public Project findById(final Integer projectId) {
 		return this.rep.findById(projectId).orElseThrow(() -> new NoSuchElementException("\\n------------ NO ELEMENT FOUND !!!!! ------------\\n"));
+	}
+	
+	@Override
+	public ProjectDTO findProjectDtoById(final Project project) {
+		return this.projectProjectDtoConverter.convert(project);
 	}
 	
 	@Override
@@ -62,6 +70,11 @@ public class ProjectServiceImpl implements ProjectService {
 	@Override
 	public Project update(final Project project) {
 		return this.rep.save(project);
+	}
+	
+	@Override
+	public Project update(final ProjectDTO projectDTO) {
+		return this.rep.save(this.projectDtoProjectConverter.convert(projectDTO));
 	}
 	
 	@Override

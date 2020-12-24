@@ -167,6 +167,52 @@ public class ManagerController {
 		return "managers/manager-add-project";
 	}
 	
+	@GetMapping(value = {"/manager-edit-project"})
+	public String displayManagerEditProject(@RequestParam("projectId") final String projectId, final Authentication authentication, final Model model) {
+		
+		model.addAttribute("username", authentication.getName());
+		model.addAttribute("project", this.projectService.findProjectDtoById(this.projectService.findById(Integer.parseInt(projectId))));
+		model.addAttribute("listStatus", StatusEnum.values());
+		
+		return "managers/manager-edit-project";
+	}
+	
+	@PostMapping(value = {"/manager-edit-project"})
+	public String handleManagerEditProject(@ModelAttribute("project") @Valid final ProjectDTO projectDTO, final BindingResult error, final Authentication authentication, final Model model) {
+		
+		if (error.hasErrors()) {
+			logger.error("----------ERROR Binding object----------");
+			System.err.println(error);
+			model.addAttribute("username", authentication.getName());
+			model.addAttribute("listStatus", StatusEnum.values());
+			model.addAttribute("msg", "Something went wrong !! ");
+			model.addAttribute("msgColour", "danger");
+			return "managers/manager-edit-project";
+		}
+		
+		final LocalDate startDate = LocalDate.parse(projectDTO.getStartDate());
+		final LocalDate endDate = LocalDate.parse(projectDTO.getEndDate());
+		
+		if (startDate.isAfter(endDate)) {
+			model.addAttribute("username", authentication.getName());
+			model.addAttribute("listStatus", StatusEnum.values());
+			model.addAttribute("msg", "EndDate is before StartDate! please check again...");
+			model.addAttribute("msgColour", "danger");
+			return "managers/manager-add-project";
+		}
+		
+		final String msg = "project " + projectDTO.getTitle() + " updated successfully";
+		
+		this.projectService.update(projectDTO);
+		logger.info(msg);
+		
+		model.addAttribute("username", authentication.getName());
+		model.addAttribute("msg", msg);
+		model.addAttribute("msgColour", "success");
+		
+		return "managers/manager-edit-project";
+	}
+	
 	@GetMapping(value = {"/manager-delete-project"})
 	public String handleManagerDeleteProject(@RequestParam("projectId") final String projectId, final Model model) {
 		
