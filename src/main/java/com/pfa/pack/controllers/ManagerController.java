@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -183,14 +184,13 @@ public class ManagerController {
 	}
 	
 	@GetMapping(value = {"/manager-describe-commit"})
-	public String displayManagerDescribeCommit(@RequestParam("assignmentId") final String assignmentId, final Authentication authentication, final Model model) {
+	public String displayManagerDescribeCommit(@RequestParam("projectId") final String projectId, @RequestParam("commitDate") @DateTimeFormat(pattern = "yyyy-MM-ddTHH:mm:ss") final String commitDateString, final Authentication authentication, final Model model) {
 		
 		
 		
 		return "managers/manager-describe-commit";
 	}
 	
-	/*
 	@PostMapping(value = {"/manager-describe-commit"})
 	public String handleManagerDescribeCommit() {
 		
@@ -198,7 +198,6 @@ public class ManagerController {
 		
 		return "managers/manager-describe-commit";
 	}
-	*/
 	
 	@GetMapping(value = {"/manager-assign"})
 	public String displayManagerAssign(@RequestParam("projectId") final String projectId, final Authentication authentication, final Model model) {

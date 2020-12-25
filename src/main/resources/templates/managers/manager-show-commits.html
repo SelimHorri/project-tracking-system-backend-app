@@ -23,13 +23,11 @@
 		
 		<div class='jumbotron ' >
 			
-			<div class='col-sm-5' ><h4><a th:href="@{/app/employees/employee-add-commit(projectId=${project.projectId})}" >Add new commit?</a></h4></div>
-			
 			<div align='center' th:each = "c : ${commits}">
 				
 				<div class = 'jumbotron '>
 					
-					<div class="card border-success mb-9  " style="max-width: 50rem;">
+					<div class="card border-success mb-9  " style="max-width: 40rem;">
 						<div class="card-header"><h4 class='text-danger' th:text="${project.title}" ></h4></div>
 						<div align="left">
 							<div class="card-body card-header">
@@ -45,8 +43,9 @@
 	  							<!--<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
 							</div>
 						</div>
+ 						<div class="card-header"><h4 class='text-danger' ><a th:href="@{/app/managers/manager-describe-commit(projectId=${project.projectId}, commitDate=${c.commitDate})}">Drop comment?</a></h4></div>
+ 						<!--<div class="card-header"></div> -->
 					</div>
-					
 					
 				</div>
 				
