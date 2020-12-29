@@ -43,7 +43,7 @@
 	  							<!--<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
 							</div>
 						</div>
- 						<div class="card-header"><h4 class='text-danger' ><a th:href="@{/app/managers/manager-describe-commit(projectId=${project.projectId}, commitDate=${c.commitDate})}">Drop comment?</a></h4></div>
+ 						<div class="card-header"><h4 class='text-danger' ><a th:href="@{/app/managers/manager-describe-commit(employeeId=${c.employeeId}, projectId=${c.projectId}, commitDate=${c.commitDate})}">Drop comment?</a></h4></div>
  						<!--<div class="card-header"></div> -->
 					</div>
 					
