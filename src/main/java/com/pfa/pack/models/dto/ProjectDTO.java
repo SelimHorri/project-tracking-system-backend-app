@@ -11,9 +11,11 @@ public class ProjectDTO {
 	@NotBlank(message = "Must not blank**")
 	private String title;
 	
+	@NotBlank(message = "Must not blank**")
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private String startDate;
 	
+	@NotBlank(message = "Must not blank**")
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private String endDate;
 	
