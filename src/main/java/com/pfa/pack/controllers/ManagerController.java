@@ -1,6 +1,7 @@
 package com.pfa.pack.controllers;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -184,9 +185,13 @@ public class ManagerController {
 	}
 	
 	@GetMapping(value = {"/manager-describe-commit"})
-	public String displayManagerDescribeCommit(@RequestParam("projectId") final String projectId, @RequestParam("commitDate") @DateTimeFormat(pattern = "yyyy-MM-ddTHH:mm:ss") final String commitDateString, final Authentication authentication, final Model model) {
+	public String displayManagerDescribeCommit(@RequestParam("employeeId") final String employeeId, @RequestParam("projectId") final String projectId, @RequestParam("commitDate") @DateTimeFormat(pattern = "yyyy-MM-ddTHH:mm:ss") final String commitDate, final Authentication authentication, final Model model) {
 		
+		final ProjectCommit projectCommit = this.assignmentService.findByEmployeeIdAndProjectIdAndCommitDate(Integer.parseInt(employeeId), Integer.parseInt(projectId), LocalDateTime.parse(commitDate));
+		final Project project = this.projectService.findById(Integer.parseInt(projectId));
 		
+		model.addAttribute("c", projectCommit);
+		model.addAttribute("project", project);
 		
 		return "managers/manager-describe-commit";
 	}

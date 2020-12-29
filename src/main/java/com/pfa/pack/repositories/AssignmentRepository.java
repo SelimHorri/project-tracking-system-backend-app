@@ -33,6 +33,9 @@ public interface AssignmentRepository extends JpaRepository<Assignment, Integer>
 	@Query(name = "void.deleteByProjectId", nativeQuery = true)
 	public abstract void deleteByProjectId(@Param("projectId") final int projectId);
 	
+	@Query(name = "ProjectCommit.findByEmployeeIdAndProjectIdAndCommitDate", nativeQuery = true)
+	public abstract Optional<ProjectCommit> findByEmployeeIdAndProjectIdAndCommitDate(@Param("employeeId") final int employeeId, @Param("projectId") final int projectId, @Param("commitDate") final LocalDateTime commitDate);
+	
 }
 
 
