@@ -10,4 +10,3 @@ public interface ManagerProjectData extends EmployeeProjectData {
 
 
 
-

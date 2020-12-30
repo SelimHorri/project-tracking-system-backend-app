@@ -19,26 +19,26 @@
 		<form class='jumbotron' th:object = '${project}' th:action = '@{/app/managers/manager-edit-project}' method = 'POST' >
 			<fieldset>
 				<div>
-				  <label class="col-form-label" for="inputDefault">Username</label>
-				  <input th:value="${username}" type="text" class="form-control col-sm-3 " placeholder="this is my username..." id="inputDefault" readonly />
+					<label class="col-form-label" for="inputDefault">Username</label>
+					<input th:value="${username}" type="text" class="form-control col-sm-3 " placeholder="this is my username..." id="inputDefault" readonly />
 				</div>
 				<div class="form-group">
-				  <input th:name="projectId" th:value="${projectId}" type="hidden" class="form-control col-sm-3 " placeholder="Enter projectId..." id="inputDefault" />
+					<input th:name="projectId" th:value="${projectId}" type="hidden" class="form-control col-sm-3 " placeholder="Enter projectId..." id="inputDefault" />
 				</div>
 				<div class="form-group">
-				  <label class="col-form-label" for="inputDefault">Project title</label>
-				  <input th:field = '*{title}' type="text" class="form-control col-sm-3 " placeholder="Enter project_title..." id="inputDefault" />
-				  <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class='badge badge-danger'></span>
+					<label class="col-form-label" for="inputDefault">Project title</label>
+					<input th:field = '*{title}' type="text" class="form-control col-sm-3 " placeholder="Enter project_title..." id="inputDefault" />
+					<span th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class='badge badge-danger'></span>
 				</div>
 				<div class="form-group">
-				  <label class="col-form-label" for="inputDefault">Start Date</label>
-				  <input th:field = '*{startDate}' type="date" class="form-control col-sm-3 " placeholder="Enter start_date..." id="inputDefault" />
-				  <span th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}" class='badge badge-danger'></span>
+					<label class="col-form-label" for="inputDefault">Start Date</label>
+					<input th:field = '*{startDate}' type="date" class="form-control col-sm-3 " placeholder="Enter start_date..." id="inputDefault" />
+					<span th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}" class='badge badge-danger'></span>
 				</div>
 				<div class="form-group">
-				  <label class="col-form-label" for="inputDefault">End Date</label>
-				  <input th:field = '*{endDate}' type="date" class="form-control col-sm-3 " placeholder="Enter end_date..." id="inputDefault" />
-				  <span th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}" class='badge badge-danger'></span>
+					<label class="col-form-label" for="inputDefault">End Date</label>
+					<input th:field = '*{endDate}' type="date" class="form-control col-sm-3 " placeholder="Enter end_date..." id="inputDefault" />
+					<span th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}" class='badge badge-danger'></span>
 				</div>
 				<div class="form-group">
 					<label for="exampleSelect1">Project status</label>

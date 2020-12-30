@@ -197,9 +197,42 @@ public class ManagerController {
 	}
 	
 	@PostMapping(value = {"/manager-describe-commit"})
-	public String handleManagerDescribeCommit() {
+	public String handleManagerDescribeCommit(@RequestParam("employeeId") final String employeeId, @RequestParam("projectId") final String projectId, @RequestParam("commitDate") final String commitDate, @RequestParam("commitEmpDesc") final String commitEmpDesc, @RequestParam("commitMgrDesc") final String commitMgrDesc, final Model model) {
 		
+		if (commitMgrDesc.isBlank()) {
+			
+			final ProjectCommit projectCommit = this.assignmentService.findByEmployeeIdAndProjectIdAndCommitDate(Integer.parseInt(employeeId), Integer.parseInt(projectId), LocalDateTime.parse(commitDate));
+			final Project project = this.projectService.findById(Integer.parseInt(projectId));
+			
+			model.addAttribute("c", projectCommit);
+			model.addAttribute("project", project);
+			model.addAttribute("msg", "Fill up the Manager description field !!");
+			model.addAttribute("msgColour", "warning");
+			
+			return "managers/manager-describe-commit";
+		}
 		
+		final Assignment assignment = new Assignment();
+		assignment.setEmployeeId(Integer.parseInt(employeeId));
+		assignment.setProjectId(Integer.parseInt(projectId));
+		assignment.setCommitDate(LocalDateTime.parse(commitDate));
+		assignment.setCommitEmpDesc(commitEmpDesc);
+		assignment.setCommitMgrDesc(commitMgrDesc);
+		assignment.setEmployee(this.employeeService.findById(Integer.parseInt(employeeId)));
+		assignment.setProject(this.projectService.findById(Integer.parseInt(projectId)));
+		
+		System.err.println(assignment);
+		
+		this.assignmentService.update(assignment);
+		logger.info("Manager Description has been added successfully to commit with employeeId : {} | projectId : {} | commitDate : {}", employeeId, projectId, commitDate);
+		
+		final ProjectCommit projectCommit = this.assignmentService.findByEmployeeIdAndProjectIdAndCommitDate(Integer.parseInt(employeeId), Integer.parseInt(projectId), LocalDateTime.parse(commitDate));
+		final Project project = this.projectService.findById(Integer.parseInt(projectId));
+		
+		model.addAttribute("c", projectCommit);
+		model.addAttribute("project", project);
+		model.addAttribute("msg", "Description added successfully");
+		model.addAttribute("msgColour", "success");
 		
 		return "managers/manager-describe-commit";
 	}
