@@ -27,7 +27,7 @@
 					<li class="nav-item"><a class="nav-link" th:href="@{/app/employees/employee-info}">Account info</a></li>
 					<li class="nav-item"><a class="nav-link" th:href="@{/app/employees/employee-team}">My Team members</a></li>
 					<li class="nav-item"><a class="nav-link" th:href="@{/app/employees/employee-index}">Assigned projects & Commits</a></li>
-					<li class="nav-item"><a class="nav-link" th:href="@{/app/employees/employee-index}">About</a></li>
+					<li class="nav-item"><a class="nav-link" th:href="@{/swagger-ui.html}">About</a></li>
 				</ul>
 				<div class="my-2 my-lg-0">
 					<ul class="navbar-nav mr-auto">
@@ -54,7 +54,7 @@
 					<li class="nav-item"><a class="nav-link" th:href="@{/app/managers/manager-info}">Account info</a></li>
 					<li class="nav-item"><a class="nav-link" th:href="@{/app/managers/manager-team}">My Team members</a></li>
 					<li class="nav-item"><a class="nav-link" th:href="@{/app/managers/manager-index}">My projects</a></li>
-					<li class="nav-item"><a class="nav-link" th:href="@{/app/managers/manager-index}">About</a></li>
+					<li class="nav-item"><a class="nav-link" th:href="@{/swagger-ui.html}">About</a></li>
 				</ul>
 				<div class="my-2 my-lg-0">
 					<ul class="navbar-nav mr-auto">
@@ -66,6 +66,32 @@
 		</nav>
 	</div>
 	
+	<div th:fragment = "adminNavbar" >
+		<nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top ">
+			<a class="navbar-brand" th:href="@{/app/admins/admin-index}">Project Tracker</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarColor01" aria-controls="navbarColor01"
+				aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+		
+			<div class="collapse navbar-collapse" id="navbarColor01">
+				<ul class="navbar-nav mr-auto">
+ 					<!--<li class="nav-item active"><a class="nav-link" th:href="@{/}">Home<span class="sr-only">(current)</span></a></li> -->
+					<li class="nav-item"><a class="nav-link" th:href="@{/app/admins/admin-info}">Account info</a></li>
+					<li class="nav-item"><a class="nav-link" th:href="@{/app/admins/admin-team}">My Team members</a></li>
+					<li class="nav-item"><a class="nav-link" th:href="@{/app/admins/admin-index}">My projects</a></li>
+					<li class="nav-item"><a class="nav-link" th:href="@{/swagger-ui.html}">About</a></li>
+				</ul>
+				<div class="my-2 my-lg-0">
+					<ul class="navbar-nav mr-auto">
+						<li class="nav-item"><a class="nav-link my-2 my-sm-0" th:href="@{/logout}">=>Logout</a></li>
+						<!-- <li class="nav-item"><a class="nav-link my-2 my-sm-0" th:href="@{/}">Register</a></li> -->
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</div>
 	
 	
 	
