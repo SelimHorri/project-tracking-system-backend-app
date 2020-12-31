@@ -47,6 +47,13 @@ public class ManagerController {
 		logger.info("************ entering " + ManagerController.class.getName() + " ************");
 	}
 	
+	/**
+	 * Inject dependencies
+	 * @param employeeService
+	 * @param userCredentialService
+	 * @param assignmentService
+	 * @param projectService
+	 */
 	@Autowired
 	public ManagerController(final EmployeeService employeeService, final UserCredentialService userCredentialService, final AssignmentService assignmentService, final ProjectService projectService) {
 		this.employeeService = employeeService;
@@ -55,6 +62,12 @@ public class ManagerController {
 		this.projectService = projectService;
 	}
 	
+	/**
+	 * display manager-index view
+	 * @param authentication
+	 * @param model
+	 * @return manager-index view (using default view resolver)
+	 */
 	@GetMapping(value = {"", "/", "/manager-index"})
 	public String displayManagerIndex(final Authentication authentication, final Model model) {
 		
@@ -68,6 +81,12 @@ public class ManagerController {
 		return "managers/manager-index";
 	}
 	
+	/**
+	 * display manager-info view
+	 * @param authentication
+	 * @param model
+	 * @return manager-info view (using default view resolver)
+	 */
 	@GetMapping(value = {"/manager-info"})
 	public String displayManagerInfo(final Authentication authentication, final Model model) {
 		
@@ -77,6 +96,12 @@ public class ManagerController {
 		return "managers/manager-info";
 	}
 	
+	/**
+	 * display manager-team view
+	 * @param authentication
+	 * @param model
+	 * @return manager-team view (using default view resolver)
+	 */
 	@GetMapping(value = {"/manager-team"})
 	public String displayManagerTeam(final Authentication authentication, final Model model) {
 		
@@ -88,6 +113,12 @@ public class ManagerController {
 		return "managers/manager-team";
 	}
 	
+	/**
+	 * display manager-add-project view
+	 * @param authentication
+	 * @param model
+	 * @return manager-add-project view (using default view resolver)
+	 */
 	@GetMapping(value = {"/manager-add-project"})
 	public String displayManagerAddProject(final Authentication authentication, final Model model) {
 		
@@ -101,6 +132,15 @@ public class ManagerController {
 		return "managers/manager-add-project";
 	}
 	
+	/**
+	 * handle manager-add-project view:
+	 * by adding new project with assigning at least one employee 
+	 * @param projectDTO
+	 * @param error
+	 * @param authentication
+	 * @param model
+	 * @return manager-add-project view (using default view resolver)
+	 */
 	@PostMapping(value = {"/manager-add-project"})
 	public String handleManagerAddProject(@ModelAttribute("project") @Valid final ProjectDTO projectDTO, final BindingResult error, final Authentication authentication, final Model model) {
 		
@@ -172,6 +212,12 @@ public class ManagerController {
 		return "managers/manager-add-project";
 	}
 	
+	/**
+	 * display manager-show-commits view
+	 * @param projectId
+	 * @param model
+	 * @return manager-show-commits view (using default view resolver)
+	 */
 	@GetMapping(value = {"/manager-show-commits"})
 	public String displayManagerShowCommits(@RequestParam("projectId") final String projectId, final Model model) {
 		
@@ -184,6 +230,16 @@ public class ManagerController {
 		return "managers/manager-show-commits";
 	}
 	
+	/**
+	 * display manager-describe-commit view
+	 * a specific commit by its composite ids
+	 * @param employeeId
+	 * @param projectId
+	 * @param commitDate
+	 * @param authentication
+	 * @param model
+	 * @return manager-describe-commit view (using default view resolver)
+	 */
 	@GetMapping(value = {"/manager-describe-commit"})
 	public String displayManagerDescribeCommit(@RequestParam("employeeId") final String employeeId, @RequestParam("projectId") final String projectId, @RequestParam("commitDate") @DateTimeFormat(pattern = "yyyy-MM-ddTHH:mm:ss") final String commitDate, final Authentication authentication, final Model model) {
 		
@@ -196,6 +252,17 @@ public class ManagerController {
 		return "managers/manager-describe-commit";
 	}
 	
+	/**
+	 * handle manager-describe-commit:
+	 * adding new comment by current manager to the existing commit created by employee
+	 * @param employeeId
+	 * @param projectId
+	 * @param commitDate
+	 * @param commitEmpDesc
+	 * @param commitMgrDesc
+	 * @param model
+	 * @return manager-describe-commit view (using default view resolver)
+	 */
 	@PostMapping(value = {"/manager-describe-commit"})
 	public String handleManagerDescribeCommit(@RequestParam("employeeId") final String employeeId, @RequestParam("projectId") final String projectId, @RequestParam("commitDate") final String commitDate, @RequestParam("commitEmpDesc") final String commitEmpDesc, @RequestParam("commitMgrDesc") final String commitMgrDesc, final Model model) {
 		
@@ -245,6 +312,14 @@ public class ManagerController {
 		return "managers/manager-assign";
 	}
 	
+	/**
+	 * display manager-edit-project view
+	 * get the specified project by its projectId & display data in view
+	 * @param projectId
+	 * @param authentication
+	 * @param model
+	 * @return manager-edit-project view (using default view resolver)
+	 */
 	@GetMapping(value = {"/manager-edit-project"})
 	public String displayManagerEditProject(@RequestParam("projectId") final String projectId, final Authentication authentication, final Model model) {
 		
@@ -256,6 +331,16 @@ public class ManagerController {
 		return "managers/manager-edit-project";
 	}
 	
+	/**
+	 * handle manager-edit-project view
+	 * bind all parameters & update the specific commit by adding a new manager comment
+	 * @param projectId
+	 * @param projectDTO
+	 * @param error
+	 * @param authentication
+	 * @param model
+	 * @return manager-edit-project (using default view resolver)
+	 */
 	@PostMapping(value = {"/manager-edit-project"})
 	public String handleManagerEditProject(@RequestParam("projectId") final String projectId, @ModelAttribute("project") @Valid final ProjectDTO projectDTO, final BindingResult error, final Authentication authentication, final Model model) {
 		
@@ -296,6 +381,13 @@ public class ManagerController {
 		return "managers/manager-edit-project";
 	}
 	
+	/**
+	 * handle deletion of a specific project
+	 * Please NOTE that by deleting a project, you will delete all assignments related to this project
+	 * @param projectId
+	 * @param model
+	 * @return redirection to manager-index view (using default view resolver)
+	 */
 	@GetMapping(value = {"/manager-delete-project"})
 	public String handleManagerDeleteProject(@RequestParam("projectId") final String projectId, final Model model) {
 		
