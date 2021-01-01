@@ -14,28 +14,32 @@
 	<br><br><br><br><br>
 		
 	<div class='container container-fluid'>
+	<div align='center' >
+			<h1  class='text-primary' > <I>List of commits </I></h1>
+		</div>
 		
-		<div align='center' class = 'jumbotron '>
+		
+		<div align='center' >
 			
 			<form th:action = '@{/app/managers/manager-describe-commit}' method = 'POST' >
-				<div class="card border-success mb-9  " style="max-width: 40rem;">
-					<div class="card-header"><h4 class='text-danger' th:text="${project.title}" ></h4></div>
+				<div class="card bg-light mb-3" style="max-width: 40rem;">
+					<div class="card-header"><h4 th:text="${project.title}" ></h4></div>
 					<div align="left">
 						<div class="card-body card-header">
 							<table>
 								<thead></thead>
 								<tbody>
-									<tr><td><h6 class='text-info' >Committed at : </h6></td><td><h5 th:text="${c.commitDate}"></h5></td> </tr>
-									<tr><td><h6 class='text-info' >By : </h6></td><td><h5 th:text="${c.firstName + ' ' + c.lastName}"></h5></td> </tr>
-									<tr><td><h6 class='text-info' >My Description : </h6></td><td><h5 th:text="${c.commitEmpDesc}"></h5></td></tr>
-									<tr><td><h6 class='text-info' >Manager Old Description : </h6></td><td><h5 th:text="${c.commitMgrDesc}"></h5></td></tr>
-									<tr><td><h6 class='text-info' >Manager New Description : </h6></td><td> <textarea th:name="commitMgrDesc"  class="form-control" placeholder="Comment here..." id="exampleTextarea" rows="3"></textarea> </td></tr>
+									<tr><td><h6 class='text-primary' >Committed at : </h6></td><td><h5 th:text="${c.commitDate}"></h5></td> </tr>
+									<tr><td><h6 class='text-primary' >By : </h6></td><td><h5 th:text="${c.firstName + ' ' + c.lastName}"></h5></td> </tr>
+									<tr><td><h6 class='text-primary' >My Description : </h6></td><td><h5 th:text="${c.commitEmpDesc}"></h5></td></tr>
+									<tr><td><h6 class='text-primary' >Manager Old Description : </h6></td><td><h5 th:text="${c.commitMgrDesc}"></h5></td></tr>
+									<tr><td><h6 class='text-primary' >Manager New Description : &nbsp;&nbsp;</h6></td><td> <textarea th:name="commitMgrDesc"  class="control-label" placeholder="Comment here..." id="exampleTextarea" rows="3"></textarea> </td></tr>
 								</tbody>
 							</table>
 	 						<!--<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
 						</div>
 					</div>
-					<div class="card-header"> <input th:type="submit" value='Comment' class='btn btn-lg btn-info' /> </div>
+					<div class="card-header"> <input th:type="submit" value='Comment'class="btn btn-primary"/> </div>
 				</div>
 			</form>
 		</div>

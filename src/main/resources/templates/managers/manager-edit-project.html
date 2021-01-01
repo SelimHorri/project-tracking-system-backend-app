@@ -40,15 +40,16 @@
 				  <input th:field = '*{endDate}' type="date" class="form-control col-sm-3 " placeholder="Enter end_date..." id="inputDefault" />
 				  <span th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}" class='badge badge-danger'></span>
 				</div>
-				<div class="form-group">
-					<label for="exampleSelect1">Project status</label>
-					<select th:field = '*{status}' class="form-control" id="exampleSelect1">
-						<option selected value='' >---------- Select item here ----------</option>
-						<option th:each="s : ${listStatus}" th:text="${s}" th:value="${s}"  ></option>
-					</select>
-					<span th:if="${#fields.hasErrors('status')}" th:errors="*{status}" class='badge badge-danger' ></span>
-				</div>
-			</fieldset>
+				<div class="form-group col-md-4">
+     			 <label for="inputState">Project status</label>
+      			 <select id="inputState" class="form-control">
+		         <option selected>Choose...</option>
+		         <option>Not Started</option>
+		         <option>In Progresse</option>
+		         <option>Completed </option>
+		        </select>
+		        </div>
+					</fieldset>
 			
 			<br>
 			<div th:switch="${msgColour}">

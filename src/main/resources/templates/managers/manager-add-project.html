@@ -11,10 +11,12 @@
 <body>
 	
 	<div th:replace = "layouts :: managerNavbar"></div>
-	<br><br><br><br><br>
+	<br>
 		
 	<div class='container container-fluid'>
-		
+			<div align='center' >
+			<h1 class='text-primary' > New Project </h1>
+		</div>
 		
 		<form class='jumbotron' th:object = '${project}' th:action = '@{/app/managers/manager-add-project}' method = 'POST' >
 			<fieldset>
