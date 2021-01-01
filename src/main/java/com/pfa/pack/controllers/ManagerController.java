@@ -304,10 +304,16 @@ public class ManagerController {
 		return "managers/manager-describe-commit";
 	}
 	
+	// TODO get managerSubemployees with already checked or not ...
 	@GetMapping(value = {"/manager-assign"})
 	public String displayManagerAssign(@RequestParam("projectId") final String projectId, final Authentication authentication, final Model model) {
 		
+		// TODO get managerSubemployees with already checked or not ...
+		final List<Employee> managerSubEmployees = this.employeeService.findByManagerId(this.userCredentialService.findByUsername(authentication.getName()).getEmployee().getEmployeeId());
 		
+		model.addAttribute("username", authentication.getName());
+		model.addAttribute("managerSubEmployees", managerSubEmployees);
+		model.addAttribute("project", this.projectService.findById(Integer.parseInt(projectId)));
 		
 		return "managers/manager-assign";
 	}
