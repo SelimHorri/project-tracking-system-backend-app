@@ -3,7 +3,7 @@ package com.pfa.pack.models.dto;
 public class EmployeeAssignedProjectDto {
 	
 	private Integer employeeId;
-	private Integer projectId;
+	// private Integer projectId;
 	private String fullName;
 	private Boolean verif;
 	
@@ -11,9 +11,8 @@ public class EmployeeAssignedProjectDto {
 		
 	}
 	
-	public EmployeeAssignedProjectDto(Integer employeeId, Integer projectId, String fullName, Boolean verif) {
+	public EmployeeAssignedProjectDto(Integer employeeId, String fullName, Boolean verif) {
 		this.employeeId = employeeId;
-		this.projectId = projectId;
 		this.fullName = fullName;
 		this.verif = verif;
 	}
@@ -24,14 +23,6 @@ public class EmployeeAssignedProjectDto {
 	
 	public void setEmployeeId(Integer employeeId) {
 		this.employeeId = employeeId;
-	}
-	
-	public Integer getProjectId() {
-		return projectId;
-	}
-	
-	public void setProjectId(Integer projectId) {
-		this.projectId = projectId;
 	}
 	
 	public String getFullName() {

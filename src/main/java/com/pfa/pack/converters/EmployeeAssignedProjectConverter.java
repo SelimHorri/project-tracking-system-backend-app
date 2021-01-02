@@ -18,7 +18,7 @@ public class EmployeeAssignedProjectConverter implements Converter<Set<EmployeeA
 		
 		final List<EmployeeAssignedProjectDto> emps = new ArrayList<>();
 		source.forEach((c) -> {
-			emps.add(new EmployeeAssignedProjectDto(c.getEmployeeId(), c.getProjectId(), c.getFirstName() + " " + c.getLastName(), (c.getVerif() == 1) ? true : false ));
+			emps.add(new EmployeeAssignedProjectDto(c.getEmployeeId(), c.getFirstName() + " " + c.getLastName(), (c.getVerif() == 1) ? true : false ));
 		});
 		
 		return emps;
