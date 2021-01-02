@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.pfa.pack.enums.StatusEnum;
+import com.pfa.pack.models.dto.AssignEmployeesDto;
 import com.pfa.pack.models.dto.EmployeeAssignedProjectDto;
 import com.pfa.pack.models.dto.ManagerProjectData;
 import com.pfa.pack.models.dto.ProjectCommit;
@@ -318,9 +319,42 @@ public class ManagerController {
 	}
 	
 	@PostMapping(value = {"/manager-assign"})
-	public String handleManagerAssign(final Authentication authentication, final Model model) {
+	public String handleManagerAssign(@ModelAttribute("assignEmployeesDto") final AssignEmployeesDto assignEmployeesDto, final BindingResult error, final Authentication authentication, final Model model) {
 		
+		if (error.hasErrors()) {
+			
+			final List<EmployeeAssignedProjectDto> managerSubEmployees = this.employeeService.findByManagerIdAndProjectId(this.userCredentialService.findByUsername(authentication.getName()).getEmployee().getEmployeeId(), Integer.parseInt(assignEmployeesDto.getProjectId()));
+			
+			model.addAttribute("username", authentication.getName());
+			model.addAttribute("managerSubEmployees", managerSubEmployees);
+			model.addAttribute("project", this.projectService.findById(Integer.parseInt(assignEmployeesDto.getProjectId())));
+			model.addAttribute("msg", "Fill up the Manager description field !!");
+			model.addAttribute("msgColour", "warning");
+			
+			return "managers/manager-assign";
+		}
 		
+		System.err.println(assignEmployeesDto);
+		
+		final Assignment assignment = new Assignment();
+		assignEmployeesDto.getAssignedEmployees().forEach((employeeId) -> {
+			assignment.setEmployeeId(Integer.parseInt(employeeId));
+			assignment.setProjectId(Integer.parseInt(assignEmployeesDto.getProjectId()));
+			assignment.setCommitMgrDesc("init");
+			assignment.setEmployee(this.employeeService.findById(Integer.parseInt(employeeId)));
+			assignment.setProject(this.projectService.findById(Integer.parseInt(assignEmployeesDto.getProjectId())));
+			System.err.println(assignment);
+			// this.assignmentService.save(assignment);
+			// logger.info("employeeId : {} is assigned to this project with projectId : {}", employeeId, assignEmployeesDto.getProjectId());
+		});
+		
+		final List<EmployeeAssignedProjectDto> managerSubEmployees = this.employeeService.findByManagerIdAndProjectId(this.userCredentialService.findByUsername(authentication.getName()).getEmployee().getEmployeeId(), Integer.parseInt(assignEmployeesDto.getProjectId()));
+		
+		model.addAttribute("username", authentication.getName());
+		model.addAttribute("managerSubEmployees", managerSubEmployees);
+		model.addAttribute("project", this.projectService.findById(Integer.parseInt(assignEmployeesDto.getProjectId())));
+		model.addAttribute("msg", "Description added successfully");
+		model.addAttribute("msgColour", "success");
 		
 		return "managers/manager-assign";
 	}
