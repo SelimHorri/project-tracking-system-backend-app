@@ -3,6 +3,7 @@ package com.pfa.pack.services.impls;
 import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Set;
 
 import javax.transaction.Transactional;
 
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pfa.pack.models.collectionwrappers.EmployeesCollection;
+import com.pfa.pack.models.dto.EmployeeAssignedProject;
 import com.pfa.pack.models.entities.Employee;
 import com.pfa.pack.repositories.EmployeeRepository;
 import com.pfa.pack.services.EmployeeService;
@@ -69,6 +71,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Override
 	public List<Employee> findByManagerId(final Integer managerId) {
 		return this.rep.findByManagerId(managerId);
+	}
+	
+	@Override
+	public Set<EmployeeAssignedProject> findByManagerIdAndProjectId(final Integer managerId, final Integer projectId) {
+		return this.rep.findByManagerIdAndProjectId(managerId, projectId);
 	}
 	
 	
