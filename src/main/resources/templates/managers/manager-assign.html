@@ -27,7 +27,7 @@
 			</div>
 			<div class="form-group">
 			<label class='col-form-label' >Assign to </label>
-				<div th:each="e : ${emps}" class="form-check" >
+				<div th:each="e : ${managerSubEmployees}" class="form-check" >
 					<label class="form-check-label" for="customCheck1">
 						<input th:text="${e.fullName}" th:checked="${e.verif}" th:value="${e.employeeId}" type="checkbox" class="form-check-input" />
 					</label>

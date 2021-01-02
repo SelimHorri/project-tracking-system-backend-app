@@ -3,7 +3,6 @@ package com.pfa.pack.services.impls;
 import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Set;
 
 import javax.transaction.Transactional;
 
@@ -12,8 +11,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.pfa.pack.converters.EmployeeAssignedProjectConverter;
 import com.pfa.pack.models.collectionwrappers.EmployeesCollection;
-import com.pfa.pack.models.dto.EmployeeAssignedProject;
+import com.pfa.pack.models.dto.EmployeeAssignedProjectDto;
 import com.pfa.pack.models.entities.Employee;
 import com.pfa.pack.repositories.EmployeeRepository;
 import com.pfa.pack.services.EmployeeService;
@@ -23,6 +23,7 @@ import com.pfa.pack.services.EmployeeService;
 public class EmployeeServiceImpl implements EmployeeService {
 	
 	private final EmployeeRepository rep;
+	private final EmployeeAssignedProjectConverter employeeAssignedProjectConverter;
 	private static final Logger logger = LoggerFactory.getLogger(EmployeeServiceImpl.class);
 	
 	static {
@@ -30,8 +31,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 	
 	@Autowired
-	public EmployeeServiceImpl(final EmployeeRepository rep) {
+	public EmployeeServiceImpl(final EmployeeRepository rep, final EmployeeAssignedProjectConverter employeeAssignedProjectConverter) {
 		this.rep = rep;
+		this.employeeAssignedProjectConverter = employeeAssignedProjectConverter;
 	}
 	
 	@Override
@@ -74,8 +76,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 	
 	@Override
-	public Set<EmployeeAssignedProject> findByManagerIdAndProjectId(final Integer managerId, final Integer projectId) {
-		return this.rep.findByManagerIdAndProjectId(managerId, projectId);
+	public List<EmployeeAssignedProjectDto> findByManagerIdAndProjectId(final Integer managerId, final Integer projectId) {
+		return this.employeeAssignedProjectConverter.convert(this.rep.findByManagerIdAndProjectId(managerId, projectId));
 	}
 	
 	

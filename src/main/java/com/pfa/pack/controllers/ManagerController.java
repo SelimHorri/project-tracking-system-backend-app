@@ -2,9 +2,7 @@ package com.pfa.pack.controllers;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import javax.validation.Valid;
 
@@ -23,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.pfa.pack.enums.StatusEnum;
-import com.pfa.pack.models.dto.EmployeeAssignedProject;
 import com.pfa.pack.models.dto.EmployeeAssignedProjectDto;
 import com.pfa.pack.models.dto.ManagerProjectData;
 import com.pfa.pack.models.dto.ProjectCommit;
@@ -311,15 +308,19 @@ public class ManagerController {
 	@GetMapping(value = {"/manager-assign"})
 	public String displayManagerAssign(@RequestParam("projectId") final String projectId, final Authentication authentication, final Model model) {
 		
-		final Set<EmployeeAssignedProject> managerSubEmployees = this.employeeService.findByManagerIdAndProjectId(this.userCredentialService.findByUsername(authentication.getName()).getEmployee().getEmployeeId(), Integer.parseInt(projectId));
-		final List<EmployeeAssignedProjectDto> emps = new ArrayList<>();
-		managerSubEmployees.forEach((c) -> {
-			emps.add(new EmployeeAssignedProjectDto(c.getEmployeeId(), c.getProjectId(), c.getFirstName() + " " + c.getLastName(), (c.getVerif() == 1) ? true : false ));
-		});
+		final List<EmployeeAssignedProjectDto> managerSubEmployees = this.employeeService.findByManagerIdAndProjectId(this.userCredentialService.findByUsername(authentication.getName()).getEmployee().getEmployeeId(), Integer.parseInt(projectId));
 		
 		model.addAttribute("username", authentication.getName());
-		model.addAttribute("emps", emps);
+		model.addAttribute("managerSubEmployees", managerSubEmployees);
 		model.addAttribute("project", this.projectService.findById(Integer.parseInt(projectId)));
+		
+		return "managers/manager-assign";
+	}
+	
+	@PostMapping(value = {"/manager-assign"})
+	public String handleManagerAssign(final Authentication authentication, final Model model) {
+		
+		
 		
 		return "managers/manager-assign";
 	}
