@@ -15,30 +15,38 @@
 		
 	<div class='container container-fluid'>
 		
-		<div class='jumbotron '>
+		<form class='jumbotron' th:object = "${assignEmployeesDto}" th:action = '@{/app/managers/manager-assign}' method = 'POST' >
 			
 			<div class="form-group">
 				<label class="col-form-label" for="inputDefault">Username</label>
 				<input th:value="${username}" type="text" class="form-control col-sm-8 " placeholder="this is my username..." id="inputDefault" readonly />
 			</div>
 			<div class="form-group">
-				<label class="col-form-label" for="inputDefault">Project title</label>
-				<input th:value="${project.title}" type="text" class="form-control col-sm-8 " placeholder="Enter project_title..." id="inputDefault" readonly />
+				<input th:field="*{projectId}" th:value="${assignEmployeesDto.projectId}" type="hidden" class="form-control col-sm-8 " placeholder="Enter projectId..." id="inputDefault" readonly />
 			</div>
 			<div class="form-group">
-			<label class='col-form-label' >Assign to </label>
+				<label class="col-form-label" for="inputDefault">Project title</label>
+				<input th:field="*{title}" th:value="${assignEmployeesDto.title}" type="text" class="form-control col-sm-8 " placeholder="Enter project_title..." id="inputDefault" readonly />
+			</div>
+			<div class="form-group">
+			<label class='col-form-label' >Those employees are not assigned, do you want to assign them ? </label>
 				<div th:each="e : ${managerSubEmployees}" class="form-check" >
 					<label class="form-check-label" for="customCheck1">
-						<input th:text="${e.fullName}" th:checked="${e.verif}" th:value="${e.employeeId}" type="checkbox" class="form-check-input" />
+						<input th:name="assignedEmployees" th:text="${e.fullName}" th:checked="${e.verif}" th:disabled="${e.verif}" th:value="${e.employeeId}" type="checkbox" class="form-check-input" />
+  						<!--<input th:field="*{assignedEmployees}" th:text="${e.fullName}" th:checked="${e.verif}" th:value="${e.employeeId}" type="checkbox" class="form-check-input" /> -->
 					</label>
 				</div>
 			</div>
 			
 			<br>
+			<div th:switch="${msgColour}">
+				<p th:case="success"><span class="badge badge-success" th:text="${msg}"></span></p>
+				<p th:case="danger"><span class="badge badge-danger" th:text="${msg}"></span></p>
+			</div>
 			
 			<input th:type="submit" class='btn btn-primary btn-lg ' value = 'Assign' />
 			
-		</div>
+		</form>
 		
 	</div>
 	
