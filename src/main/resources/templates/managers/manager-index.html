@@ -24,8 +24,9 @@
 		
 		<br><br>
 		
-		<h3><a th:href="@{/app/managers/manager-add-project}" >Create new project?</a></h3>
 		
+ 
+		<a th:href="@{/app/managers/manager-add-project}" class="btn btn-outline-success"> Create new project</a>
 		<div th:switch="${managerProjectDatas}">
 	    	<h2 th:case="null">No Records yet!</h2>
 	        <div th:case="*">
@@ -37,10 +38,10 @@
 	                        <th>Start_Date</th>
 	                        <th>End_Date</th>
 	                        <th>Project status</th>
-	                        <th class='text-info'><div align='center'><i>=>Show</i></div></th>
-	                        <th class='text-info'><div align='center'><i>=>Assign employees</i></div></th>
-	                        <th class='text-info'><div align='center'><i>=>Edit</i></div></th>
-	                        <th class='text-info'><div align='center'><i>=>Delete</i></div></th>
+	                        <th class="text-primary"><div align='center'><i>Show Commits</i></div></th>
+	                        <th class="text-warning"><div align='center'><i>Assign employees</i></div></th>
+	                        <th class="text-success"><div align='center'><i>Edit Project</i></div></th>
+	                        <th class="text-danger"><div align='center'><i>Delete Project</i></div></th>
 	                    </tr>
 	                </thead>
 					<tbody>
@@ -49,10 +50,10 @@
 							<td th:text="${m.startDate}"></td>
 							<td th:text="${m.endDate}"></td>
 							<td th:text="${m.status}"></td>
-							<td><div align='center'><a class='btn btn btn-warning' th:href="@{/app/managers/manager-show-commits(projectId=${m.projectId})}">Commits</a></div></td>
-							<td><div align='center'><a class='btn btn btn-warning' th:href="@{/app/managers/manager-assign(projectId=${m.projectId})}">Assign</a></div></td>
-							<td><div align='center'><a class='btn btn btn-success' th:href="@{/app/managers/manager-edit-project(projectId=${m.projectId})}">Edit</a></div></td>
-							<td><div align='center'><a class='btn btn btn-danger' th:href="@{/app/managers/manager-delete-project(projectId=${m.projectId})}" onClick="if (!(confirm('Do you confirm you wanna DELETE this project? \nthis action causes deletion of all assigned employees'))) return false" >Delete</a></div></td>
+							<td><div align='center'><a class='btn btn-outline-primary' th:href="@{/app/managers/manager-show-commits(projectId=${m.projectId})}">Commits</a></div></td>
+							<td><div align='center'><a class='btn btn-outline-warning' th:href="@{/app/managers/manager-assign(projectId=${m.projectId})}">Assign</a></div></td>
+							<td><div align='center'><a class='btn btn-outline-success' th:href="@{/app/managers/manager-edit-project(projectId=${m.projectId})}">Edit</a></div></td>
+							<td><div align='center'><a class='btn btn-outline-danger' th:href="@{/app/managers/manager-delete-project(projectId=${m.projectId})}" onClick="if (!(confirm('Do you confirm you wanna DELETE this project? \nthis action causes deletion of all assigned employees'))) return false" >Delete</a></div></td>
 		                </tr>
 	            	</tbody>
 	        	</table>
