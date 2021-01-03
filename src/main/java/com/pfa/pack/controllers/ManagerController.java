@@ -314,6 +314,14 @@ public class ManagerController {
 		return "managers/manager-describe-commit";
 	}
 	
+	/**
+	 * display manager-assign view
+	 * get data and display them by a new instance of AssignEmployeesDto
+	 * @param projectId
+	 * @param authentication
+	 * @param model
+	 * @return manager-assign view (using default view resolver)
+	 */
 	@GetMapping(value = {"/manager-assign"})
 	public String displayManagerAssign(@RequestParam("projectId") final String projectId, final Authentication authentication, final Model model) {
 		
@@ -326,6 +334,16 @@ public class ManagerController {
 		return "managers/manager-assign";
 	}
 	
+	/**
+	 * handle manager-assign view
+	 * get checked employees and assign them to the specified project
+	 * and persist every Assignment instance for each employee to DB 
+	 * @param assignEmployeesDto used to bind variables
+	 * @param error
+	 * @param authentication
+	 * @param model
+	 * @return manager-assign view (using default view resolver)
+	 */
 	@PostMapping(value = {"/manager-assign"})
 	public String handleManagerAssign(@ModelAttribute("assignEmployeesDto") final AssignEmployeesDto assignEmployeesDto, final BindingResult error, final Authentication authentication, final Model model) {
 		
