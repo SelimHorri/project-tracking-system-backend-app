@@ -43,14 +43,17 @@ public class SwaggerConfig {
 		
 		final String title = "Project-Tracker-System";
 		final String description = "Manage and track commits transactions by Employees and their Managers on a specific project.\n"
-				+ "- Employees can be assigned to projects created and managed by their managers, can drop a new commits to a specific project so manager can track its progression\n"
+				+ "- Employees can be assigned to projects created and managed by their managers, can add a new commits to a specific project so manager can track its progression\n"
 				+ "- Managers can create, edit & delete projects, also assign them to their employees and track them efficiently & easily\n"
 				+ "- Admin manages all Employees as well as their credentials & departments\n"
-				+ "you can check more on our GitHub repository : https://github.com/SelimHorri/Project-Tracking-System";
+				+ "For more, you can check more on our GitHub repositories : \n"
+				+ "- Selim Horri : https://github.com/SelimHorri?tab=repositories \n"
+				+ "- Imen Toukebri : https://github.com/imen1012?tab=repositories \n"
+				+ "- Bader Idoudi : https://github.com/Bader1996?tab=repositories \n";
 		final String version = "1.0";
 		final String termsOfServiceUrl = "Terms of service";
 		final String name = "Selim Horri, Imen Touk, Badr Idoudi";
-		final String url = "https://github.com/SelimHorri?tab=repositories";
+		final String url = "https://github.com/SelimHorri/Project-Tracking-System";
 		final String email = "springabcxyz@gmail.com";
 		final Contact contact = new Contact(name, url, email);
 		final String license = "Apache Licence version 2.0";

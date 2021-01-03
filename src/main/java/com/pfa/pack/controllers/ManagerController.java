@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.pfa.pack.enums.StatusEnum;
+import com.pfa.pack.models.dto.AssignEmployeesDto;
+import com.pfa.pack.models.dto.EmployeeAssignedProjectDto;
 import com.pfa.pack.models.dto.ManagerProjectData;
 import com.pfa.pack.models.dto.ProjectCommit;
 import com.pfa.pack.models.dto.ProjectDTO;
@@ -47,6 +49,13 @@ public class ManagerController {
 		logger.info("************ entering " + ManagerController.class.getName() + " ************");
 	}
 	
+	/**
+	 * Inject dependencies
+	 * @param employeeService
+	 * @param userCredentialService
+	 * @param assignmentService
+	 * @param projectService
+	 */
 	@Autowired
 	public ManagerController(final EmployeeService employeeService, final UserCredentialService userCredentialService, final AssignmentService assignmentService, final ProjectService projectService) {
 		this.employeeService = employeeService;
@@ -55,6 +64,12 @@ public class ManagerController {
 		this.projectService = projectService;
 	}
 	
+	/**
+	 * display manager-index view
+	 * @param authentication
+	 * @param model
+	 * @return manager-index view (using default view resolver)
+	 */
 	@GetMapping(value = {"", "/", "/manager-index"})
 	public String displayManagerIndex(final Authentication authentication, final Model model) {
 		
@@ -68,6 +83,12 @@ public class ManagerController {
 		return "managers/manager-index";
 	}
 	
+	/**
+	 * display manager-info view
+	 * @param authentication
+	 * @param model
+	 * @return manager-info view (using default view resolver)
+	 */
 	@GetMapping(value = {"/manager-info"})
 	public String displayManagerInfo(final Authentication authentication, final Model model) {
 		
@@ -77,6 +98,12 @@ public class ManagerController {
 		return "managers/manager-info";
 	}
 	
+	/**
+	 * display manager-team view
+	 * @param authentication
+	 * @param model
+	 * @return manager-team view (using default view resolver)
+	 */
 	@GetMapping(value = {"/manager-team"})
 	public String displayManagerTeam(final Authentication authentication, final Model model) {
 		
@@ -88,6 +115,20 @@ public class ManagerController {
 		return "managers/manager-team";
 	}
 	
+	@GetMapping(value = {"/manager-assigned-projects"})
+	public String displayManagerAssignedProjects(@RequestParam("employeeId") final String employeeId, final Model model) {
+		
+		
+		
+		return "managers/manager-assigned-projects";
+	}
+	
+	/**
+	 * display manager-add-project view
+	 * @param authentication
+	 * @param model
+	 * @return manager-add-project view (using default view resolver)
+	 */
 	@GetMapping(value = {"/manager-add-project"})
 	public String displayManagerAddProject(final Authentication authentication, final Model model) {
 		
@@ -101,6 +142,15 @@ public class ManagerController {
 		return "managers/manager-add-project";
 	}
 	
+	/**
+	 * handle manager-add-project view:
+	 * by adding new project with assigning at least one employee 
+	 * @param projectDTO
+	 * @param error
+	 * @param authentication
+	 * @param model
+	 * @return manager-add-project view (using default view resolver)
+	 */
 	@PostMapping(value = {"/manager-add-project"})
 	public String handleManagerAddProject(@ModelAttribute("project") @Valid final ProjectDTO projectDTO, final BindingResult error, final Authentication authentication, final Model model) {
 		
@@ -172,6 +222,12 @@ public class ManagerController {
 		return "managers/manager-add-project";
 	}
 	
+	/**
+	 * display manager-show-commits view
+	 * @param projectId
+	 * @param model
+	 * @return manager-show-commits view (using default view resolver)
+	 */
 	@GetMapping(value = {"/manager-show-commits"})
 	public String displayManagerShowCommits(@RequestParam("projectId") final String projectId, final Model model) {
 		
@@ -184,6 +240,16 @@ public class ManagerController {
 		return "managers/manager-show-commits";
 	}
 	
+	/**
+	 * display manager-describe-commit view
+	 * a specific commit by its composite ids
+	 * @param employeeId
+	 * @param projectId
+	 * @param commitDate
+	 * @param authentication
+	 * @param model
+	 * @return manager-describe-commit view (using default view resolver)
+	 */
 	@GetMapping(value = {"/manager-describe-commit"})
 	public String displayManagerDescribeCommit(@RequestParam("employeeId") final String employeeId, @RequestParam("projectId") final String projectId, @RequestParam("commitDate") @DateTimeFormat(pattern = "yyyy-MM-ddTHH:mm:ss") final String commitDate, final Authentication authentication, final Model model) {
 		
@@ -196,22 +262,150 @@ public class ManagerController {
 		return "managers/manager-describe-commit";
 	}
 	
+	/**
+	 * handle manager-describe-commit:
+	 * adding new comment by current manager to the existing commit created by employee
+	 * @param employeeId
+	 * @param projectId
+	 * @param commitDate
+	 * @param commitEmpDesc
+	 * @param commitMgrDesc
+	 * @param model
+	 * @return manager-describe-commit view (using default view resolver)
+	 */
 	@PostMapping(value = {"/manager-describe-commit"})
-	public String handleManagerDescribeCommit() {
+	public String handleManagerDescribeCommit(@RequestParam("employeeId") final String employeeId, @RequestParam("projectId") final String projectId, @RequestParam("commitDate") final String commitDate, @RequestParam("commitEmpDesc") final String commitEmpDesc, @RequestParam("commitMgrDesc") final String commitMgrDesc, final Model model) {
 		
+		if (commitMgrDesc.isBlank()) {
+			
+			final ProjectCommit projectCommit = this.assignmentService.findByEmployeeIdAndProjectIdAndCommitDate(Integer.parseInt(employeeId), Integer.parseInt(projectId), LocalDateTime.parse(commitDate));
+			final Project project = this.projectService.findById(Integer.parseInt(projectId));
+			
+			model.addAttribute("c", projectCommit);
+			model.addAttribute("project", project);
+			model.addAttribute("msg", "Fill up the Manager description field !!");
+			model.addAttribute("msgColour", "warning");
+			
+			return "managers/manager-describe-commit";
+		}
 		
+		final Assignment assignment = new Assignment();
+		assignment.setEmployeeId(Integer.parseInt(employeeId));
+		assignment.setProjectId(Integer.parseInt(projectId));
+		assignment.setCommitDate(LocalDateTime.parse(commitDate));
+		assignment.setCommitEmpDesc(commitEmpDesc);
+		assignment.setCommitMgrDesc(commitMgrDesc);
+		assignment.setEmployee(this.employeeService.findById(Integer.parseInt(employeeId)));
+		assignment.setProject(this.projectService.findById(Integer.parseInt(projectId)));
+		
+		System.err.println(assignment);
+		
+		this.assignmentService.update(assignment);
+		logger.info("Manager Description has been added successfully to commit with employeeId : {} | projectId : {} | commitDate : {}", employeeId, projectId, commitDate);
+		
+		final ProjectCommit projectCommit = this.assignmentService.findByEmployeeIdAndProjectIdAndCommitDate(Integer.parseInt(employeeId), Integer.parseInt(projectId), LocalDateTime.parse(commitDate));
+		final Project project = this.projectService.findById(Integer.parseInt(projectId));
+		
+		model.addAttribute("c", projectCommit);
+		model.addAttribute("project", project);
+		model.addAttribute("msg", "Description added successfully");
+		model.addAttribute("msgColour", "success");
 		
 		return "managers/manager-describe-commit";
 	}
 	
+	/**
+	 * display manager-assign view
+	 * get data and display them by a new instance of AssignEmployeesDto
+	 * @param projectId
+	 * @param authentication
+	 * @param model
+	 * @return manager-assign view (using default view resolver)
+	 */
 	@GetMapping(value = {"/manager-assign"})
 	public String displayManagerAssign(@RequestParam("projectId") final String projectId, final Authentication authentication, final Model model) {
 		
+		final List<EmployeeAssignedProjectDto> managerSubEmployees = this.employeeService.findByManagerIdAndProjectId(this.userCredentialService.findByUsername(authentication.getName()).getEmployee().getEmployeeId(), Integer.parseInt(projectId));
 		
+		model.addAttribute("username", authentication.getName());
+		model.addAttribute("managerSubEmployees", managerSubEmployees);
+		model.addAttribute("assignEmployeesDto", new AssignEmployeesDto(projectId, this.projectService.findById(Integer.parseInt(projectId)).getTitle(), null));
 		
 		return "managers/manager-assign";
 	}
 	
+	/**
+	 * handle manager-assign view
+	 * get checked employees and assign them to the specified project
+	 * and persist every Assignment instance for each employee to DB 
+	 * @param assignEmployeesDto used to bind variables
+	 * @param error
+	 * @param authentication
+	 * @param model
+	 * @return manager-assign view (using default view resolver)
+	 */
+	@PostMapping(value = {"/manager-assign"})
+	public String handleManagerAssign(@ModelAttribute("assignEmployeesDto") final AssignEmployeesDto assignEmployeesDto, final BindingResult error, final Authentication authentication, final Model model) {
+		
+		if (error.hasErrors()) {
+			
+			final List<EmployeeAssignedProjectDto> managerSubEmployees = this.employeeService.findByManagerIdAndProjectId(this.userCredentialService.findByUsername(authentication.getName()).getEmployee().getEmployeeId(), Integer.parseInt(assignEmployeesDto.getProjectId()));
+			
+			model.addAttribute("username", authentication.getName());
+			model.addAttribute("managerSubEmployees", managerSubEmployees);
+			model.addAttribute("project", this.projectService.findById(Integer.parseInt(assignEmployeesDto.getProjectId())));
+			model.addAttribute("msg", "Fill up the Manager description field !!");
+			model.addAttribute("msgColour", "danger");
+			
+			return "managers/manager-assign";
+		}
+		if (assignEmployeesDto.getAssignedEmployees() == null) {
+			final List<EmployeeAssignedProjectDto> managerSubEmployees = this.employeeService.findByManagerIdAndProjectId(this.userCredentialService.findByUsername(authentication.getName()).getEmployee().getEmployeeId(), Integer.parseInt(assignEmployeesDto.getProjectId()));
+			
+			model.addAttribute("username", authentication.getName());
+			model.addAttribute("managerSubEmployees", managerSubEmployees);
+			model.addAttribute("project", this.projectService.findById(Integer.parseInt(assignEmployeesDto.getProjectId())));
+			model.addAttribute("msg", "Assign employees...");
+			model.addAttribute("msgColour", "danger");
+			
+			return "managers/manager-assign";
+		}
+		
+		System.err.println(assignEmployeesDto);
+		// assignEmployeesDto.setTitle(this.projectService.findById(Integer.parseInt(assignEmployeesDto.getProjectId())).getTitle());
+		
+		final Assignment assignment = new Assignment();
+		assignEmployeesDto.getAssignedEmployees().forEach((employeeId) -> {
+			assignment.setEmployeeId(Integer.parseInt(employeeId));
+			assignment.setProjectId(Integer.parseInt(assignEmployeesDto.getProjectId()));
+			assignment.setCommitMgrDesc("init");
+			assignment.setEmployee(this.employeeService.findById(Integer.parseInt(employeeId)));
+			assignment.setProject(this.projectService.findById(Integer.parseInt(assignEmployeesDto.getProjectId())));
+			System.err.println(assignment);
+			
+			this.assignmentService.save(assignment);
+			logger.info("employeeId : {} is assigned to this project with projectId : {}", employeeId, assignEmployeesDto.getProjectId());
+		});
+		
+		final List<EmployeeAssignedProjectDto> managerSubEmployees = this.employeeService.findByManagerIdAndProjectId(this.userCredentialService.findByUsername(authentication.getName()).getEmployee().getEmployeeId(), Integer.parseInt(assignEmployeesDto.getProjectId()));
+		
+		model.addAttribute("username", authentication.getName());
+		model.addAttribute("managerSubEmployees", managerSubEmployees);
+		model.addAttribute("assignEmployeesDto", assignEmployeesDto);
+		model.addAttribute("msg", "Employees assigned successfully");
+		model.addAttribute("msgColour", "success");
+		
+		return "managers/manager-assign";
+	}
+	
+	/**
+	 * display manager-edit-project view
+	 * get the specified project by its projectId & display data in view
+	 * @param projectId
+	 * @param authentication
+	 * @param model
+	 * @return manager-edit-project view (using default view resolver)
+	 */
 	@GetMapping(value = {"/manager-edit-project"})
 	public String displayManagerEditProject(@RequestParam("projectId") final String projectId, final Authentication authentication, final Model model) {
 		
@@ -223,6 +417,16 @@ public class ManagerController {
 		return "managers/manager-edit-project";
 	}
 	
+	/**
+	 * handle manager-edit-project view
+	 * bind all parameters & update the specific commit by adding a new manager comment
+	 * @param projectId
+	 * @param projectDTO
+	 * @param error
+	 * @param authentication
+	 * @param model
+	 * @return manager-edit-project (using default view resolver)
+	 */
 	@PostMapping(value = {"/manager-edit-project"})
 	public String handleManagerEditProject(@RequestParam("projectId") final String projectId, @ModelAttribute("project") @Valid final ProjectDTO projectDTO, final BindingResult error, final Authentication authentication, final Model model) {
 		
@@ -263,6 +467,13 @@ public class ManagerController {
 		return "managers/manager-edit-project";
 	}
 	
+	/**
+	 * handle deletion of a specific project
+	 * Please NOTE that by deleting a project, you will delete all assignments related to this project
+	 * @param projectId
+	 * @param model
+	 * @return redirection to manager-index view (using default view resolver)
+	 */
 	@GetMapping(value = {"/manager-delete-project"})
 	public String handleManagerDeleteProject(@RequestParam("projectId") final String projectId, final Model model) {
 		

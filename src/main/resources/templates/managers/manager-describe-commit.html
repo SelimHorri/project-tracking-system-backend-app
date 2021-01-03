@@ -17,30 +17,61 @@
 	<div align='center' >
 			<h1  class='text-primary' > <I>List of commits </I></h1>
 		</div>
-		
-		
-		<div align='center' >
+    
+		<div class = 'jumbotron '>
 			
 			<form th:action = '@{/app/managers/manager-describe-commit}' method = 'POST' >
-				<div class="card bg-light mb-3" style="max-width: 40rem;">
-					<div class="card-header"><h4 th:text="${project.title}" ></h4></div>
-					<div align="left">
-						<div class="card-body card-header">
-							<table>
-								<thead></thead>
-								<tbody>
-									<tr><td><h6 class='text-primary' >Committed at : </h6></td><td><h5 th:text="${c.commitDate}"></h5></td> </tr>
-									<tr><td><h6 class='text-primary' >By : </h6></td><td><h5 th:text="${c.firstName + ' ' + c.lastName}"></h5></td> </tr>
-									<tr><td><h6 class='text-primary' >My Description : </h6></td><td><h5 th:text="${c.commitEmpDesc}"></h5></td></tr>
-									<tr><td><h6 class='text-primary' >Manager Old Description : </h6></td><td><h5 th:text="${c.commitMgrDesc}"></h5></td></tr>
-									<tr><td><h6 class='text-primary' >Manager New Description : &nbsp;&nbsp;</h6></td><td> <textarea th:name="commitMgrDesc"  class="control-label" placeholder="Comment here..." id="exampleTextarea" rows="3"></textarea> </td></tr>
-								</tbody>
-							</table>
-	 						<!--<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-						</div>
+				
+				<div align='center' ><h4 th:text="${project.title}" class='text-danger' ></h4></div>
+				<fieldset>
+					<div class="form-group">
+						<input th:name="employeeId" th:value="${c.employeeId}" type="hidden" class="form-control col-sm-3 " placeholder="employeeId..." id="inputDefault" />
 					</div>
-					<div class="card-header"> <input th:type="submit" value='Comment'class="btn btn-primary"/> </div>
+					<div class="form-group">
+						<input th:name="projectId" th:value="${c.projectId}" type="hidden" class="form-control col-sm-3 " placeholder="projectId..." id="inputDefault" />
+					</div>
+					<div class="form-group">
+						<label class="col-form-label" for="inputDefault">Committed at</label>
+						<input th:name="commitDate" th:value="${c.commitDate}" type="text" class="form-control col-sm-8 " placeholder="committed at..." id="inputDefault" readonly />
+						<!--<span th:if="${#fields.hasErrors('commitDate')}" th:errors="*{commitDate}" class='badge badge-danger'></span> -->
+					</div>
+					<div class="form-group">
+						<label class="col-form-label" for="inputDefault">Firstname</label>
+						<input  th:value="${c.firstName}" type="text" class="form-control col-sm-8 " placeholder="employee firstName..." id="inputDefault" readonly />
+						<!--<span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" class='badge badge-danger'></span> -->
+					</div>
+					<div class="form-group">
+						<label class="col-form-label" for="inputDefault">Lastname</label>
+						<input  th:value="${c.lastName}" type="text" class="form-control col-sm-8 " placeholder="employee lastName..." id="inputDefault" readonly />
+						<!--<span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class='badge badge-danger'></span> -->
+					</div>
+					<div class="form-group">
+						<label class="col-form-label" for="inputDefault">Employee Description</label>
+						<input th:name="commitEmpDesc" th:value="${c.commitEmpDesc}" type="text" class="form-control col-sm-8 " placeholder="employee description..." id="inputDefault" readonly />
+						<!--<span th:if="${#fields.hasErrors('commitEmpDesc')}" th:errors="*{commitEmpDesc}" class='badge badge-danger'></span> -->
+					</div>
+					<div class="form-group">
+						<label class="col-form-label" for="inputDefault">Manager Old Description</label>
+						<textarea th:text="${c.commitMgrDesc}" class="form-control" placeholder="manager old description..." id="exampleTextarea" rows="5" readonly ></textarea>
+						<!--<span th:if="${#fields.hasErrors('commitMgrDesc')}" th:errors="*{commitMgrDesc}" class='badge badge-danger'></span> -->
+					</div>
+					<div class="form-group">
+						<label class="col-form-label" for="inputDefault">Manager New Description</label>
+						<!--<textarea th:field="*{commitMgrDesc}" th:value="${c.commitMgrDesc}" class="form-control" placeholder="manager new description..." id="exampleTextarea" rows="5" autofocus ></textarea> -->
+						<textarea th:name="commitMgrDesc" class="form-control" placeholder="manager new description..." id="exampleTextarea" rows="5" autofocus ></textarea>
+						<!--<span th:if="${#fields.hasErrors('commitMgrDesc')}" th:errors="*{commitMgrDesc}" class='badge badge-danger'></span> -->
+					</div>
+				</fieldset>
+				
+				<br>
+				<div th:switch="${msgColour}">
+					<p th:case="success"><span class="badge badge-success" th:text="${msg}"></span></p>
+					<p th:case="warning"><span class="badge badge-warning" th:text="${msg}"></span></p>
+					<p th:case="danger"><span class="badge badge-danger" th:text="${msg}"></span></p>
 				</div>
+				
+				<input th:type="submit" class='btn btn-success btn-lg ' value = 'Comment' />
+				
 			</form>
 		</div>
 		
