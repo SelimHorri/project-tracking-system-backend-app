@@ -313,7 +313,7 @@ public class ManagerController {
 		
 		model.addAttribute("username", authentication.getName());
 		model.addAttribute("managerSubEmployees", managerSubEmployees);
-		model.addAttribute("project", this.projectService.findById(Integer.parseInt(projectId)));
+		model.addAttribute("assignEmployeesDto", new AssignEmployeesDto(projectId, this.projectService.findById(Integer.parseInt(projectId)).getTitle(), null));
 		
 		return "managers/manager-assign";
 	}
@@ -329,12 +329,24 @@ public class ManagerController {
 			model.addAttribute("managerSubEmployees", managerSubEmployees);
 			model.addAttribute("project", this.projectService.findById(Integer.parseInt(assignEmployeesDto.getProjectId())));
 			model.addAttribute("msg", "Fill up the Manager description field !!");
-			model.addAttribute("msgColour", "warning");
+			model.addAttribute("msgColour", "danger");
+			
+			return "managers/manager-assign";
+		}
+		if (assignEmployeesDto.getAssignedEmployees() == null) {
+			final List<EmployeeAssignedProjectDto> managerSubEmployees = this.employeeService.findByManagerIdAndProjectId(this.userCredentialService.findByUsername(authentication.getName()).getEmployee().getEmployeeId(), Integer.parseInt(assignEmployeesDto.getProjectId()));
+			
+			model.addAttribute("username", authentication.getName());
+			model.addAttribute("managerSubEmployees", managerSubEmployees);
+			model.addAttribute("project", this.projectService.findById(Integer.parseInt(assignEmployeesDto.getProjectId())));
+			model.addAttribute("msg", "Assign employees...");
+			model.addAttribute("msgColour", "danger");
 			
 			return "managers/manager-assign";
 		}
 		
 		System.err.println(assignEmployeesDto);
+		// assignEmployeesDto.setTitle(this.projectService.findById(Integer.parseInt(assignEmployeesDto.getProjectId())).getTitle());
 		
 		final Assignment assignment = new Assignment();
 		assignEmployeesDto.getAssignedEmployees().forEach((employeeId) -> {
@@ -344,16 +356,17 @@ public class ManagerController {
 			assignment.setEmployee(this.employeeService.findById(Integer.parseInt(employeeId)));
 			assignment.setProject(this.projectService.findById(Integer.parseInt(assignEmployeesDto.getProjectId())));
 			System.err.println(assignment);
-			// this.assignmentService.save(assignment);
-			// logger.info("employeeId : {} is assigned to this project with projectId : {}", employeeId, assignEmployeesDto.getProjectId());
+			
+			this.assignmentService.save(assignment);
+			logger.info("employeeId : {} is assigned to this project with projectId : {}", employeeId, assignEmployeesDto.getProjectId());
 		});
 		
 		final List<EmployeeAssignedProjectDto> managerSubEmployees = this.employeeService.findByManagerIdAndProjectId(this.userCredentialService.findByUsername(authentication.getName()).getEmployee().getEmployeeId(), Integer.parseInt(assignEmployeesDto.getProjectId()));
 		
 		model.addAttribute("username", authentication.getName());
 		model.addAttribute("managerSubEmployees", managerSubEmployees);
-		model.addAttribute("project", this.projectService.findById(Integer.parseInt(assignEmployeesDto.getProjectId())));
-		model.addAttribute("msg", "Description added successfully");
+		model.addAttribute("assignEmployeesDto", assignEmployeesDto);
+		model.addAttribute("msg", "Employees assigned successfully");
 		model.addAttribute("msgColour", "success");
 		
 		return "managers/manager-assign";
