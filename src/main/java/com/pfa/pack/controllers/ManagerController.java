@@ -115,6 +115,14 @@ public class ManagerController {
 		return "managers/manager-team";
 	}
 	
+	@GetMapping(value = {"/manager-assigned-projects"})
+	public String displayManagerAssignedProjects(@RequestParam("employeeId") final String employeeId, final Model model) {
+		
+		
+		
+		return "managers/manager-assigned-projects";
+	}
+	
 	/**
 	 * display manager-add-project view
 	 * @param authentication
