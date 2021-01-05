@@ -21,6 +21,7 @@ import com.pfa.pack.services.UserCredentialService;
 import com.pfa.pack.utils.email.EmailUtil;
 import com.pfa.pack.utils.sms.Sms;
 import com.pfa.pack.utils.sms.SmsUtil;
+import com.twilio.exception.ApiException;
 
 @Controller
 @Lazy
@@ -135,8 +136,14 @@ public class UserCredentialController {
 		this.emailUtil.sendEmail(userCredential.getEmployee().getEmail(), "Project-Tracker-Sys", msg);
 		logger.info("MAIL successfully sent to {}", userCredential.getEmployee().getEmail());
 		
-		this.smsUtil.sendSms(new Sms(userCredential.getEmployee().getPhone(), msg));
-		logger.info("SMS successfully sent to {}", userCredential.getEmployee().getPhone());
+		try {
+			this.smsUtil.sendSms(new Sms(userCredential.getEmployee().getPhone(), msg));
+			logger.info("SMS successfully sent to {}", userCredential.getEmployee().getPhone());
+		}
+		catch (ApiException e) {
+			logger.error("Failed to send SMS to {}", userCredential.getEmployee().getPhone());
+			System.err.println(e.getMessage());
+		}
 		
 		model.addAttribute("username", authentication.getName());
 		model.addAttribute("msg", "Credentials updated successfully");
