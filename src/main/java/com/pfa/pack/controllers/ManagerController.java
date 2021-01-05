@@ -34,6 +34,10 @@ import com.pfa.pack.services.AssignmentService;
 import com.pfa.pack.services.EmployeeService;
 import com.pfa.pack.services.ProjectService;
 import com.pfa.pack.services.UserCredentialService;
+import com.pfa.pack.utils.email.EmailUtil;
+import com.pfa.pack.utils.sms.Sms;
+import com.pfa.pack.utils.sms.SmsUtil;
+import com.twilio.exception.ApiException;
 
 @Controller
 @RequestMapping(value = {"/app/managers"})
@@ -43,6 +47,8 @@ public class ManagerController {
 	private final UserCredentialService userCredentialService;
 	private final AssignmentService assignmentService;
 	private final ProjectService projectService;
+	private final EmailUtil emailUtil;
+	private final SmsUtil smsUtil;
 	private static final Logger logger = LoggerFactory.getLogger(ManagerController.class);
 	
 	static {
@@ -57,11 +63,13 @@ public class ManagerController {
 	 * @param projectService
 	 */
 	@Autowired
-	public ManagerController(final EmployeeService employeeService, final UserCredentialService userCredentialService, final AssignmentService assignmentService, final ProjectService projectService) {
+	public ManagerController(final EmployeeService employeeService, final UserCredentialService userCredentialService, final AssignmentService assignmentService, final ProjectService projectService, final EmailUtil emailUtil, final SmsUtil smsUtil) {
 		this.employeeService = employeeService;
 		this.userCredentialService = userCredentialService;
 		this.assignmentService = assignmentService;
 		this.projectService = projectService;
+		this.emailUtil = emailUtil;
+		this.smsUtil = smsUtil;
 	}
 	
 	/**
@@ -115,6 +123,14 @@ public class ManagerController {
 		return "managers/manager-team";
 	}
 	
+	@GetMapping(value = {"/manager-assigned-projects"})
+	public String displayManagerAssignedProjects(@RequestParam("employeeId") final String employeeId, final Model model) {
+		
+		
+		
+		return "managers/manager-assigned-projects";
+	}
+	
 	/**
 	 * display manager-add-project view
 	 * @param authentication
@@ -146,6 +162,7 @@ public class ManagerController {
 	@PostMapping(value = {"/manager-add-project"})
 	public String handleManagerAddProject(@ModelAttribute("project") @Valid final ProjectDTO projectDTO, final BindingResult error, final Authentication authentication, final Model model) {
 		
+		final UserCredential userCredential = this.userCredentialService.findByUsername(authentication.getName());
 		final List<Employee> managerSubEmployees = this.employeeService.findByManagerId(this.userCredentialService.findByUsername(authentication.getName()).getEmployee().getEmployeeId());
 		
 		// to check of binding variables
@@ -184,7 +201,8 @@ public class ManagerController {
 		}
 		
 		// successful output msg
-		final String msg = "project " + projectDTO.getTitle() + " created successfully";
+		final String msg = "Username : " + authentication.getName() + " \n project [" + projectDTO.getTitle() + "] created successfully";
+		final String msgUtil = " : You've been assigned to a new project called => ";
 		
 		// persist a new project in DB
 		final Project project = this.projectService.save(projectDTO);
@@ -199,10 +217,24 @@ public class ManagerController {
 			assignment.setEmployeeId(Integer.parseInt(employeeId));
 			assignment.setProjectId(project.getProjectId());
 			assignment.setCommitMgrDesc("init"); // 'init' to tell this is the assignment
-			assignment.setEmployee(this.employeeService.findById(Integer.parseInt(employeeId)));
+			final Employee employee = this.employeeService.findById(Integer.parseInt(employeeId));
+			assignment.setEmployee(employee);
 			assignment.setProject(project);
+			
 			this.assignmentService.save(assignment);
 			logger.info("employeeId : {} is assigned to this project with projectId : {}", employeeId, project.getProjectId());
+			
+			this.emailUtil.sendEmail(employee.getEmail(), "Project-Tracker-Sys", employee.getFirstName() + " " + employee.getLastName() + msgUtil + project.getTitle());
+			logger.info("MAIL successfully sent to {}", employee.getEmail());
+			
+			try {
+				this.smsUtil.sendSms(new Sms(employee.getPhone(), employee.getFirstName() + " " + employee.getLastName() + msgUtil + project.getTitle()));
+				logger.info("SMS successfully sent to {}", employee.getPhone());
+			}
+			catch (ApiException e) {
+				logger.error("Failed to send SMS to {}", employee.getPhone());
+				System.err.println(e.getMessage());
+			}
 		});
 		
 		model.addAttribute("username", authentication.getName());
@@ -306,6 +338,14 @@ public class ManagerController {
 		return "managers/manager-describe-commit";
 	}
 	
+	/**
+	 * display manager-assign view
+	 * get data and display them by a new instance of AssignEmployeesDto
+	 * @param projectId
+	 * @param authentication
+	 * @param model
+	 * @return manager-assign view (using default view resolver)
+	 */
 	@GetMapping(value = {"/manager-assign"})
 	public String displayManagerAssign(@RequestParam("projectId") final String projectId, final Authentication authentication, final Model model) {
 		
@@ -318,6 +358,16 @@ public class ManagerController {
 		return "managers/manager-assign";
 	}
 	
+	/**
+	 * handle manager-assign view
+	 * get checked employees and assign them to the specified project
+	 * and persist every Assignment instance for each employee to DB 
+	 * @param assignEmployeesDto used to bind variables
+	 * @param error
+	 * @param authentication
+	 * @param model
+	 * @return manager-assign view (using default view resolver)
+	 */
 	@PostMapping(value = {"/manager-assign"})
 	public String handleManagerAssign(@ModelAttribute("assignEmployeesDto") final AssignEmployeesDto assignEmployeesDto, final BindingResult error, final Authentication authentication, final Model model) {
 		

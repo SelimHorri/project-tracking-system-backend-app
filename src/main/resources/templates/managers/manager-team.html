@@ -19,7 +19,7 @@
 	    	<h2 th:case="null">No Records yet!</h2>
 	        <div th:case="*">
 	            <h2 th:text = '${size}' ></h2>  <br>
-	            <table class="table table-striped table-hover ">
+	            <table class="table table-striped ">
 	                <thead>
 	                    <tr class='table-info' >
 	                    	<th>FirstName</th>
@@ -30,6 +30,7 @@
 	                        <th>Job</th>
 	                        <th>Department</th>
 	                        <th>Location</th>
+	                        <th class='text-primary ' >Projects</th>
 	                    </tr>
 	                </thead>
 					<tbody>
@@ -42,6 +43,7 @@
 							<td th:text="${e.job}"></td>
 							<td th:text="${e.department.departmentName}"></td>
 							<td th:text="${e.department.location.adr + ', ' + e.department.location.postalCode + ', ' + e.department.location.city}"></td>
+							<td><div align='center'><a class='btn btn btn-outline-primary' th:href="@{/app/managers/manager-assigned-projects(employeeId=${e.employeeId})}">Show</a></div></td>
 		                </tr>
 	            	</tbody>
 	        	</table>

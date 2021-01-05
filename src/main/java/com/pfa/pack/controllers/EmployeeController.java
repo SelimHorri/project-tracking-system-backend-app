@@ -28,6 +28,7 @@ import com.pfa.pack.services.UserCredentialService;
 import com.pfa.pack.utils.email.EmailUtil;
 import com.pfa.pack.utils.sms.Sms;
 import com.pfa.pack.utils.sms.SmsUtil;
+import com.twilio.exception.ApiException;
 
 @Controller
 @RequestMapping(value = {"/app/employees"})
@@ -196,7 +197,7 @@ public class EmployeeController {
 		assignment.setProject(this.projectService.findById(Integer.parseInt(projectId)));
 		assignment.setCommitEmpDesc(commitEmpDesc);
 		
-		final String msg = "\nProject-Tracker-Sys:\n" + this.projectService.findById(Integer.parseInt(projectId)).getTitle() + "\nYou've created a new COMMIT at : " + LocalDateTime.now();
+		final String msg = "\nUsername : " + authentication.getName() + " \n" + this.projectService.findById(Integer.parseInt(projectId)).getTitle() + "\nYou've created a new COMMIT at : " + LocalDateTime.now();
 		
 		this.assignmentService.save(assignment);
 		logger.info("COMMIT created successfully at : " + LocalDateTime.now());
@@ -204,8 +205,14 @@ public class EmployeeController {
 		this.emailUtil.sendEmail(userCredential.getEmployee().getEmail(), "Project-Tracker-Sys", msg + "\n it says : \n" + commitEmpDesc);
 		logger.info("MAIL successfully sent to {}", userCredential.getEmployee().getEmail());
 		
-		this.smsUtil.sendSms(new Sms(userCredential.getEmployee().getPhone(), msg));
-		logger.info("SMS successfully sent to {}", userCredential.getEmployee().getPhone());
+		try {
+			this.smsUtil.sendSms(new Sms(userCredential.getEmployee().getPhone(), msg));
+			logger.info("SMS successfully sent to {}", userCredential.getEmployee().getPhone());
+		}
+		catch (ApiException e) {
+			logger.error("Failed to send SMS to {}", userCredential.getEmployee().getPhone());
+			System.err.println(e.getMessage());
+		}
 		
 		model.addAttribute("msg", msg);
 		model.addAttribute("c", projectCommitInfoDTO);
