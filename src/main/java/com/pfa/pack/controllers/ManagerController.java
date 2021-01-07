@@ -162,7 +162,6 @@ public class ManagerController {
 	@PostMapping(value = {"/manager-add-project"})
 	public String handleManagerAddProject(@ModelAttribute("project") @Valid final ProjectDTO projectDTO, final BindingResult error, final Authentication authentication, final Model model) {
 		
-		final UserCredential userCredential = this.userCredentialService.findByUsername(authentication.getName());
 		final List<Employee> managerSubEmployees = this.employeeService.findByManagerId(this.userCredentialService.findByUsername(authentication.getName()).getEmployee().getEmployeeId());
 		
 		// to check of binding variables
