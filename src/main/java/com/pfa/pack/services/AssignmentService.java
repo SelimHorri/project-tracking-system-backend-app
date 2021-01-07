@@ -18,5 +18,7 @@ public interface AssignmentService {
 	public abstract List<EmployeeProjectData> findByEmployeeId(final Integer employeeId);
 	public abstract List<ProjectCommit> findByProjectId(final Integer projectId);
 	public abstract List<ProjectCommit> findByEmployeeIdAndProjectId(final Integer employeeId, final Integer projectId);
+	public abstract void deleteByProjectId(final Integer projectId);
+	public abstract ProjectCommit findByEmployeeIdAndProjectIdAndCommitDate(final Integer employeeId, final Integer projectId, final LocalDateTime commitDate);
 	
 }

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+
+<html xmlns:th = "http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Edit project</title>
+	<div th:replace = "layouts :: stylish"></div>
+</head>
+
+<body>
+	
+	<div th:replace = "layouts :: managerNavbar"></div>
+	<br><br><br><br><br>
+		
+	<div class='container container-fluid'>
+		
+		
+		<form class='jumbotron' th:object = '${project}' th:action = '@{/app/managers/manager-edit-project}' method = 'POST' >
+			<fieldset>
+				<div>
+					<label class="col-form-label" for="inputDefault">Username</label>
+					<input th:value="${username}" type="text" class="form-control col-sm-8 " placeholder="this is my username..." id="inputDefault" readonly />
+				</div>
+				<div class="form-group">
+					<input th:name="projectId" th:value="${projectId}" type="hidden" class="form-control col-sm-3 " placeholder="Enter projectId..." id="inputDefault" />
+				</div>
+				<div class="form-group">
+					<label class="col-form-label" for="inputDefault">Project title</label>
+					<input th:field = '*{title}' type="text" class="form-control col-sm-8 " placeholder="Enter project_title..." id="inputDefault" />
+					<span th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class='badge badge-danger'></span>
+				</div>
+				<div class="form-group">
+					<label class="col-form-label" for="inputDefault">Start Date</label>
+					<input th:field = '*{startDate}' type="date" class="form-control col-sm-8 " placeholder="Enter start_date..." id="inputDefault" />
+					<span th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}" class='badge badge-danger'></span>
+				</div>
+				<div class="form-group">
+					<label class="col-form-label" for="inputDefault">End Date</label>
+					<input th:field = '*{endDate}' type="date" class="form-control col-sm-8 " placeholder="Enter end_date..." id="inputDefault" />
+					<span th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}" class='badge badge-danger'></span>
+				</div>
+				<div class="form-group">
+					<label for="exampleSelect1">Project status</label>
+					<select th:field = '*{status}' class="custom-select " id="exampleSelect1">
+						<option selected value='' >---------- Select item here ----------</option>
+						<option th:each="s : ${listStatus}" th:text="${s}" th:value="${s}"  ></option>
+					</select>
+					<span th:if="${#fields.hasErrors('status')}" th:errors="*{status}" class='badge badge-danger' ></span>
+				</div>
+			</fieldset>
+			
+			<br>
+			<div th:switch="${msgColour}">
+				<p th:case="success"><span class="badge badge-success" th:text="${msg}"></span></p>
+				<p th:case="danger"><span class="badge badge-danger" th:text="${msg}"></span></p>
+			</div>
+			
+			<input th:type="submit" class='btn btn-success btn-lg ' value = 'Edit Project' />
+			
+		</form>
+		
+	</div>
+	
+	<br><br><br><br><br>
+	
+	<div th:replace = "layouts :: javascript"></div>
+	
+</body>
+</html>
+
+
+
+
+
+
+

@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.pfa.pack.models.dto.ChartData;
+import com.pfa.pack.models.dto.ManagerProjectData;
 import com.pfa.pack.models.dto.ProjectCommitInfoDTO;
 import com.pfa.pack.models.entities.Project;
 
@@ -20,6 +21,9 @@ public interface ProjectRepository extends JpaRepository<Project, Integer> {
 	
 	@Query(name = "ProjectCommitInfoDTO.findByUsernameAndProjectId", nativeQuery = true)
 	public abstract Optional<ProjectCommitInfoDTO> findByUsernameAndProjectId(@Param("username") final String username, @Param("projectId") final int projectId);
+	
+	@Query(name = "List<ManagerProjectData>.findByEmployeeId", nativeQuery = true)
+	public abstract List<ManagerProjectData> findByEmployeeId(@Param("employeeId") final int employeeId);
 	
 }
 

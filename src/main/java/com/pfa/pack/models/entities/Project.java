@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -34,6 +35,7 @@ public final class Project implements Serializable {
 	@Column(name = "project_id", unique = true, nullable = false, precision = 10)
 	private Integer projectId;
 	
+	@NotBlank(message = "Must not blank*")
 	@Column(name = "title", length = 200)
 	private String title;
 	
@@ -51,6 +53,7 @@ public final class Project implements Serializable {
 	@Column(name = "end_date")
 	private LocalDate endDate;
 	
+	@NotBlank(message = "Must not blank*")
 	@Column(name = "status", length = 200)
 	private String status;
 	
@@ -64,7 +67,7 @@ public final class Project implements Serializable {
 	
 	@Override
 	public String toString() {
-		return "Project [projectId=" + projectId + ", title=" + title + ", startDate=" + startDate + ", endDate="
+		return "Project [projectId=" + getProjectId() + ", title=" + title + ", startDate=" + startDate + ", endDate="
 				+ endDate + ", status=" + status + "]";
 	}
 	
@@ -110,6 +113,10 @@ public final class Project implements Serializable {
 
 	public void setAssignments(final Set<Assignment> assignments) {
 		this.assignments = assignments;
+	}
+
+	public void setProjectId(Integer projectId) {
+		this.projectId = projectId;
 	}
 	
 	

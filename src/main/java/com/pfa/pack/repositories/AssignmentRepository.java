@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -27,6 +28,13 @@ public interface AssignmentRepository extends JpaRepository<Assignment, Integer>
 	
 	@Query(name = "List.findByEmployeeIdAndProjectId", nativeQuery = true)
 	public abstract List<ProjectCommit> findByEmployeeIdAndProjectId(@Param("employeeId") final int employeeId, @Param("projectId") final int projectId);
+	
+	@Modifying
+	@Query(name = "void.deleteByProjectId", nativeQuery = true)
+	public abstract void deleteByProjectId(@Param("projectId") final int projectId);
+	
+	@Query(name = "ProjectCommit.findByEmployeeIdAndProjectIdAndCommitDate", nativeQuery = true)
+	public abstract Optional<ProjectCommit> findByEmployeeIdAndProjectIdAndCommitDate(@Param("employeeId") final int employeeId, @Param("projectId") final int projectId, @Param("commitDate") final LocalDateTime commitDate);
 	
 }
 

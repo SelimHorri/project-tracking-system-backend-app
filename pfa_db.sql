@@ -129,7 +129,8 @@ INSERT INTO employees (employee_id, first_name, last_name, email, phone, hiredat
 (10, 'Sana', 'Saanouni', 'springabcxyzboot@gmail.com', '22125144', NULL, 'Digital', '5000.00', 9, 5),
 (11, 'Marwen', 'Mejri', 'springabcxyzboot@gmail.com', '22125144', NULL, 'Digital', '5000.60', 9, 5),
 (12, 'Mayssa', 'Hassine', 'springabcxyzboot@gmail.com', '22125144', '2019-04-30', 'Data Warehouse', '5000.00', 5, 4),
-(13, 'Mouna', 'Chaouachi', 'springabcxyzboot@gmail.com', '22125144', NULL, 'Data Warehouse', '5000.50', 5, 4);
+(13, 'Mouna', 'Chaouachi', 'springabcxyzboot@gmail.com', '22125144', NULL, 'Data Warehouse', '5000.50', 5, 4),
+(14, 'admin', 'admin', 'springabcxyzboot@gmail.com', '22125144', NULL, 'RH', '5000.00', NULL, NULL);
 
 
 
@@ -160,14 +161,14 @@ CREATE TABLE projects (
 
 INSERT INTO projects (project_id, title, start_date, end_date, status) VALUES
 (1, 'TRANSBSCS', '2020-09-28', '2020-11-04', 'COMPLETED'),
-(2, 'SYNCH_BSCS_IMX', '2020-11-26', NULL, 'IN_PROGRESS'),
+(2, 'SYNCH_BSCS_IMX', '2020-11-26', '2021-03-25', 'IN_PROGRESS'),
 (3, 'TASYI9A LILVIRANDA', '2020-11-26', '2020-11-26', 'COMPLETED'),
-(4, 'MACHYA_RANDONNEE', NULL, NULL, 'NOT_STARTED'),
-(5, 'TATIB LEFTOUR', '2020-11-08', '2020-11-14', 'IN_PROGRESS'),
-(6, 'ChatBot', '2020-12-11', '2021-01-30', 'IN_PROGRESS'),
-(7, 'MyOoredoo', '2018-08-01', NULL, 'IN_PROGRESS'),
-(8, 'GREENPLUME_UPGRADE', '2020-11-02', NULL, 'IN_PROGRESS'),
-(9, 'COMMISION_AUTOMATION', '2020-06-01', NULL, 'IN_PROGRESS');
+(4, 'MACHYA_RANDONNEE', '2021-01-29', '2021-04-30', 'NOT_STARTED'),
+(5, 'TATIB LEFTOUR', '2020-11-14', '2020-11-14', 'COMPLETED'),
+(6, 'ChatBot', '2020-12-11', '2021-01-30', 'NOT_STARTED'),
+(7, 'MyOoredoo', '2018-08-01', '2021-05-14', 'IN_PROGRESS'),
+(8, 'GREENPLUME_UPGRADE', '2020-11-02', '2021-05-01', 'IN_PROGRESS'),
+(9, 'COMMISION_AUTOMATION', '2020-06-01', '2021-03-02', 'IN_PROGRESS');
 
 
 
@@ -186,7 +187,7 @@ INSERT INTO user_credentials (user_id, username, password, enabled, role, employ
 (1, 'imentouk', '$2y$04$8jC1Xb/fKB3EQIHy0XoFUunQNhjiVpvuMZys6iCOkphCAsyBkmCTC', 1, 'ROLE_EMP', 3),
 (2, 'badridoudi', '$2y$04$c09yvJ4rcadTRGaoVQRRZugld/9z377uaIHwRCWxexBADCVT.jC4S', 1, 'ROLE_EMP', 2),
 (3, 'selimhorri', '$2a$10$ldBd/ZuGtUgxHNKd.qCGxuPVVM5oZ6kHkKyu5By8NIQxrv4rV9O/C', 1, 'ROLE_EMP', 1),
-(4, 'admin', '$2y$04$HLi44N6cb6xmLYHdABF/euCgpk0LofYk4VdIeO1DAn.Ol1Bnaj3vW', 1, 'ROLE_ADMIN', NULL),
+(4, 'admin', '$2y$04$HLi44N6cb6xmLYHdABF/euCgpk0LofYk4VdIeO1DAn.Ol1Bnaj3vW', 1, 'ROLE_ADMIN', 14),
 (5, 'soumayahajjem', '$2y$04$ljw6KJaAkzMzJZOf8eU6qOoq7jV2SXRqeg7uHS7tQb6x86SBS/oEW', 1, 'ROLE_MGR', 4),
 (6, 'nourlarguech', '$2y$04$ngbUBXKPaTRFAUFEifgPpuqmBTf4VjUJL.eGpeEIGwI/iiE18ZSny', 1, 'ROLE_MGR', 5),
 (7, 'johndoe', '$2y$04$CT3Jad4jrOq1zGt0Q4maEeTV57rdLtYNVnBM96vyVaGbaE4YgwfvO', 1, 'ROLE_MGR', 9),
@@ -435,7 +436,8 @@ INSERT INTO employees (employee_id, first_name, last_name, email, phone, hiredat
 (10, 'Sana', 'Saanouni', 'springabcxyzboot@gmail.com', '22125144', NULL, 'Digital', '5000.00', 9, 5),
 (11, 'Marwen', 'Mejri', 'springabcxyzboot@gmail.com', '22125144', NULL, 'Digital', '5000.60', 9, 5),
 (12, 'Mayssa', 'Hassine', 'springabcxyzboot@gmail.com', '22125144', '2019-04-30', 'Data Warehouse', '5000.00', 5, 4),
-(13, 'Mouna', 'Chaouachi', 'springabcxyzboot@gmail.com', '22125144', NULL, 'Data Warehouse', '5000.50', 5, 4);
+(13, 'Mouna', 'Chaouachi', 'springabcxyzboot@gmail.com', '22125144', NULL, 'Data Warehouse', '5000.50', 5, 4),
+(14, 'admin', 'admin', 'springabcxyzboot@gmail.com', '22125144', NULL, 'RH', '5000.00', NULL, NULL);
 
 
 
@@ -466,14 +468,14 @@ CREATE TABLE projects (
 
 INSERT INTO projects (project_id, title, start_date, end_date, status) VALUES
 (1, 'TRANSBSCS', '2020-09-28', '2020-11-04', 'COMPLETED'),
-(2, 'SYNCH_BSCS_IMX', '2020-11-26', NULL, 'IN_PROGRESS'),
+(2, 'SYNCH_BSCS_IMX', '2020-11-26', '2021-03-25', 'IN_PROGRESS'),
 (3, 'TASYI9A LILVIRANDA', '2020-11-26', '2020-11-26', 'COMPLETED'),
-(4, 'MACHYA_RANDONNEE', NULL, NULL, 'NOT_STARTED'),
-(5, 'TATIB LEFTOUR', '2020-11-08', '2020-11-14', 'IN_PROGRESS'),
-(6, 'ChatBot', '2020-12-11', '2021-01-30', 'IN_PROGRESS'),
-(7, 'MyOoredoo', '2018-08-01', NULL, 'IN_PROGRESS'),
-(8, 'GREENPLUME_UPGRADE', '2020-11-02', NULL, 'IN_PROGRESS'),
-(9, 'COMMISION_AUTOMATION', '2020-06-01', NULL, 'IN_PROGRESS');
+(4, 'MACHYA_RANDONNEE', '2021-01-29', '2021-04-30', 'NOT_STARTED'),
+(5, 'TATIB LEFTOUR', '2020-11-14', '2020-11-14', 'COMPLETED'),
+(6, 'ChatBot', '2020-12-11', '2021-01-30', 'NOT_STARTED'),
+(7, 'MyOoredoo', '2018-08-01', '2021-05-14', 'IN_PROGRESS'),
+(8, 'GREENPLUME_UPGRADE', '2020-11-02', '2021-05-01', 'IN_PROGRESS'),
+(9, 'COMMISION_AUTOMATION', '2020-06-01', '2021-03-02', 'IN_PROGRESS');
 
 
 
@@ -492,7 +494,7 @@ INSERT INTO user_credentials (user_id, username, password, enabled, role, employ
 (1, 'imentouk', '$2y$04$8jC1Xb/fKB3EQIHy0XoFUunQNhjiVpvuMZys6iCOkphCAsyBkmCTC', 1, 'ROLE_EMP', 3),
 (2, 'badridoudi', '$2y$04$c09yvJ4rcadTRGaoVQRRZugld/9z377uaIHwRCWxexBADCVT.jC4S', 1, 'ROLE_EMP', 2),
 (3, 'selimhorri', '$2a$10$ldBd/ZuGtUgxHNKd.qCGxuPVVM5oZ6kHkKyu5By8NIQxrv4rV9O/C', 1, 'ROLE_EMP', 1),
-(4, 'admin', '$2y$04$HLi44N6cb6xmLYHdABF/euCgpk0LofYk4VdIeO1DAn.Ol1Bnaj3vW', 1, 'ROLE_ADMIN', NULL),
+(4, 'admin', '$2y$04$HLi44N6cb6xmLYHdABF/euCgpk0LofYk4VdIeO1DAn.Ol1Bnaj3vW', 1, 'ROLE_ADMIN', 14),
 (5, 'soumayahajjem', '$2y$04$ljw6KJaAkzMzJZOf8eU6qOoq7jV2SXRqeg7uHS7tQb6x86SBS/oEW', 1, 'ROLE_MGR', 4),
 (6, 'nourlarguech', '$2y$04$ngbUBXKPaTRFAUFEifgPpuqmBTf4VjUJL.eGpeEIGwI/iiE18ZSny', 1, 'ROLE_MGR', 5),
 (7, 'johndoe', '$2y$04$CT3Jad4jrOq1zGt0Q4maEeTV57rdLtYNVnBM96vyVaGbaE4YgwfvO', 1, 'ROLE_MGR', 9),
@@ -741,7 +743,8 @@ INSERT INTO employees (employee_id, first_name, last_name, email, phone, hiredat
 (10, 'Sana', 'Saanouni', 'springabcxyzboot@gmail.com', '22125144', NULL, 'Digital', '5000.00', 9, 5),
 (11, 'Marwen', 'Mejri', 'springabcxyzboot@gmail.com', '22125144', NULL, 'Digital', '5000.60', 9, 5),
 (12, 'Mayssa', 'Hassine', 'springabcxyzboot@gmail.com', '22125144', '2019-04-30', 'Data Warehouse', '5000.00', 5, 4),
-(13, 'Mouna', 'Chaouachi', 'springabcxyzboot@gmail.com', '22125144', NULL, 'Data Warehouse', '5000.50', 5, 4);
+(13, 'Mouna', 'Chaouachi', 'springabcxyzboot@gmail.com', '22125144', NULL, 'Data Warehouse', '5000.50', 5, 4),
+(14, 'admin', 'admin', 'springabcxyzboot@gmail.com', '22125144', NULL, 'RH', '5000.00', NULL, NULL);
 
 
 
@@ -772,14 +775,14 @@ CREATE TABLE projects (
 
 INSERT INTO projects (project_id, title, start_date, end_date, status) VALUES
 (1, 'TRANSBSCS', '2020-09-28', '2020-11-04', 'COMPLETED'),
-(2, 'SYNCH_BSCS_IMX', '2020-11-26', NULL, 'IN_PROGRESS'),
+(2, 'SYNCH_BSCS_IMX', '2020-11-26', '2021-03-25', 'IN_PROGRESS'),
 (3, 'TASYI9A LILVIRANDA', '2020-11-26', '2020-11-26', 'COMPLETED'),
-(4, 'MACHYA_RANDONNEE', NULL, NULL, 'NOT_STARTED'),
-(5, 'TATIB LEFTOUR', '2020-11-08', '2020-11-14', 'IN_PROGRESS'),
-(6, 'ChatBot', '2020-12-11', '2021-01-30', 'IN_PROGRESS'),
-(7, 'MyOoredoo', '2018-08-01', NULL, 'IN_PROGRESS'),
-(8, 'GREENPLUME_UPGRADE', '2020-11-02', NULL, 'IN_PROGRESS'),
-(9, 'COMMISION_AUTOMATION', '2020-06-01', NULL, 'IN_PROGRESS');
+(4, 'MACHYA_RANDONNEE', '2021-01-29', '2021-04-30', 'NOT_STARTED'),
+(5, 'TATIB LEFTOUR', '2020-11-14', '2020-11-14', 'COMPLETED'),
+(6, 'ChatBot', '2020-12-11', '2021-01-30', 'NOT_STARTED'),
+(7, 'MyOoredoo', '2018-08-01', '2021-05-14', 'IN_PROGRESS'),
+(8, 'GREENPLUME_UPGRADE', '2020-11-02', '2021-05-01', 'IN_PROGRESS'),
+(9, 'COMMISION_AUTOMATION', '2020-06-01', '2021-03-02', 'IN_PROGRESS');
 
 
 
@@ -798,7 +801,7 @@ INSERT INTO user_credentials (user_id, username, password, enabled, role, employ
 (1, 'imentouk', '$2y$04$8jC1Xb/fKB3EQIHy0XoFUunQNhjiVpvuMZys6iCOkphCAsyBkmCTC', 1, 'ROLE_EMP', 3),
 (2, 'badridoudi', '$2y$04$c09yvJ4rcadTRGaoVQRRZugld/9z377uaIHwRCWxexBADCVT.jC4S', 1, 'ROLE_EMP', 2),
 (3, 'selimhorri', '$2a$10$ldBd/ZuGtUgxHNKd.qCGxuPVVM5oZ6kHkKyu5By8NIQxrv4rV9O/C', 1, 'ROLE_EMP', 1),
-(4, 'admin', '$2y$04$HLi44N6cb6xmLYHdABF/euCgpk0LofYk4VdIeO1DAn.Ol1Bnaj3vW', 1, 'ROLE_ADMIN', NULL),
+(4, 'admin', '$2y$04$HLi44N6cb6xmLYHdABF/euCgpk0LofYk4VdIeO1DAn.Ol1Bnaj3vW', 1, 'ROLE_ADMIN', 14),
 (5, 'soumayahajjem', '$2y$04$ljw6KJaAkzMzJZOf8eU6qOoq7jV2SXRqeg7uHS7tQb6x86SBS/oEW', 1, 'ROLE_MGR', 4),
 (6, 'nourlarguech', '$2y$04$ngbUBXKPaTRFAUFEifgPpuqmBTf4VjUJL.eGpeEIGwI/iiE18ZSny', 1, 'ROLE_MGR', 5),
 (7, 'johndoe', '$2y$04$CT3Jad4jrOq1zGt0Q4maEeTV57rdLtYNVnBM96vyVaGbaE4YgwfvO', 1, 'ROLE_MGR', 9),

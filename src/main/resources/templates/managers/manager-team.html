@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+<html xmlns:th = "http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<div th:replace = "layouts :: stylish"></div>
+</head>
+
+<body>
+	
+	<div th:replace = "layouts :: managerNavbar"></div>
+	<br><br><br><br><br>
+	
+	<div class='container container-fluid'>
+		
+		<div th:switch="${team}">
+	    	<h2 th:case="null">No Records yet!</h2>
+	        <div th:case="*">
+	            <h2 th:text = '${size}' ></h2>  <br>
+	            <table class="table table-striped ">
+	                <thead>
+	                    <tr class='table-info' >
+	                    	<th>FirstName</th>
+	                        <th>LastName</th>
+	                        <th>Email</th>
+	                        <th>Phone</th>
+	                        <th>HireDate</th>
+	                        <th>Job</th>
+	                        <th>Department</th>
+	                        <th>Location</th>
+	                        <th class='text-primary ' >Projects</th>
+	                    </tr>
+	                </thead>
+					<tbody>
+		                <tr th:each = "e : ${team}">
+							<td th:text="${e.firstName}"></td>
+							<td th:text="${e.lastName}"></td>
+							<td th:text="${e.email}"></td>
+							<td th:text="${e.phone}"></td>
+							<td th:text="${e.hiredate}"></td>
+							<td th:text="${e.job}"></td>
+							<td th:text="${e.department.departmentName}"></td>
+							<td th:text="${e.department.location.adr + ', ' + e.department.location.postalCode + ', ' + e.department.location.city}"></td>
+							<td><div align='center'><a class='btn btn btn-outline-primary' th:href="@{/app/managers/manager-assigned-projects(employeeId=${e.employeeId})}">Show</a></div></td>
+		                </tr>
+	            	</tbody>
+	        	</table>
+	    	</div>
+		</div>
+		
+	</div>
+	
+	<br><br><br><br><br>
+	
+	<div th:replace = "layouts :: javascript"></div>
+	
+</body>
+</html>
+
+
+
+
+
+
+

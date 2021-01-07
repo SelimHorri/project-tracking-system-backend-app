@@ -111,6 +111,16 @@ public class AssignmentServiceImpl implements AssignmentService {
 		return this.rep.findByEmployeeIdAndProjectId(employeeId, projectId);
 	}
 	
+	@Override
+	public void deleteByProjectId(final Integer projectId) {
+		this.rep.deleteByProjectId(projectId);
+	}
+	
+	@Override
+	public ProjectCommit findByEmployeeIdAndProjectIdAndCommitDate(final Integer employeeId, final Integer projectId, final LocalDateTime commitDate) {
+		return this.rep.findByEmployeeIdAndProjectIdAndCommitDate(employeeId, projectId, commitDate).orElseThrow(() -> new NoSuchElementException("\\n------------ NO ELEMENT FOUND !!!!! ------------\\n"));
+	}
+	
 	
 	
 }
