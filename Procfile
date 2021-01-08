@@ -1,1 +1,1 @@
-web: java -Dspring.profiles.active=prod -jar target/project-tracker-system.jar
+web: java -Dspring.profiles.active=prod -jar target/project-tracking-system.jar
