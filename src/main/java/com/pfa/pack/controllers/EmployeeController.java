@@ -28,7 +28,6 @@ import com.pfa.pack.services.UserCredentialService;
 import com.pfa.pack.utils.email.EmailUtil;
 import com.pfa.pack.utils.sms.Sms;
 import com.pfa.pack.utils.sms.SmsUtil;
-import com.twilio.exception.ApiException;
 
 @Controller
 @RequestMapping(value = {"/app/employees"})
@@ -205,14 +204,8 @@ public class EmployeeController {
 		this.emailUtil.sendEmail(userCredential.getEmployee().getEmail(), "Project-Tracker-Sys", msg + "\n it says : \n" + commitEmpDesc);
 		logger.info("MAIL successfully sent to {}", userCredential.getEmployee().getEmail());
 		
-		try {
-			this.smsUtil.sendSms(new Sms(userCredential.getEmployee().getPhone(), msg));
-			logger.info("SMS successfully sent to {}", userCredential.getEmployee().getPhone());
-		}
-		catch (ApiException e) {
-			logger.error("Failed to send SMS to {}", userCredential.getEmployee().getPhone());
-			System.err.println(e.getMessage());
-		}
+		this.smsUtil.sendSms(new Sms(userCredential.getEmployee().getPhone(), msg));
+		logger.info("SMS successfully sent to {}", userCredential.getEmployee().getPhone());
 		
 		model.addAttribute("msg", msg);
 		model.addAttribute("c", projectCommitInfoDTO);

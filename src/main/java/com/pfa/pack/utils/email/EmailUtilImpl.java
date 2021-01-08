@@ -4,6 +4,7 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailAuthenticationException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
@@ -29,7 +30,13 @@ public class EmailUtilImpl implements EmailUtil {
 			e.printStackTrace();
 		}
 		finally {
-			javaMailSender.send(message);
+			try {
+				javaMailSender.send(message);
+			}
+			catch (MailAuthenticationException e) {
+				e.printStackTrace();
+				System.err.println(e.getMessage());
+			}
 		}
 		
 	}

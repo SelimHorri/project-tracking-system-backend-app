@@ -37,7 +37,6 @@ import com.pfa.pack.services.UserCredentialService;
 import com.pfa.pack.utils.email.EmailUtil;
 import com.pfa.pack.utils.sms.Sms;
 import com.pfa.pack.utils.sms.SmsUtil;
-import com.twilio.exception.ApiException;
 
 @Controller
 @RequestMapping(value = {"/app/managers"})
@@ -226,14 +225,8 @@ public class ManagerController {
 			this.emailUtil.sendEmail(employee.getEmail(), "Project-Tracker-Sys", employee.getFirstName() + " " + employee.getLastName() + msgUtil + project.getTitle());
 			logger.info("MAIL successfully sent to {}", employee.getEmail());
 			
-			try {
-				this.smsUtil.sendSms(new Sms(employee.getPhone(), employee.getFirstName() + " " + employee.getLastName() + msgUtil + project.getTitle()));
-				logger.info("SMS successfully sent to {}", employee.getPhone());
-			}
-			catch (ApiException e) {
-				logger.error("Failed to send SMS to {}", employee.getPhone());
-				System.err.println(e.getMessage());
-			}
+			this.smsUtil.sendSms(new Sms(employee.getPhone(), employee.getFirstName() + " " + employee.getLastName() + msgUtil + project.getTitle()));
+			logger.info("SMS successfully sent to {}", employee.getPhone());
 		});
 		
 		model.addAttribute("username", authentication.getName());

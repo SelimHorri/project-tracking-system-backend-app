@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.pfa.pack.configs.twilio.TwilioConfig;
+import com.twilio.exception.ApiException;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.type.PhoneNumber;
 
@@ -26,7 +27,13 @@ public class SmsUtilImpl implements SmsUtil {
 	
 	@Override
 	public void sendSms(final Sms sms) {
-		Message.creator(new PhoneNumber("+216" + sms.getTo()), new PhoneNumber(this.twilioConfig.getTrialNumber()), sms.getMsg()).create();
+		try {
+			Message.creator(new PhoneNumber("+216" + sms.getTo()), new PhoneNumber(this.twilioConfig.getTrialNumber()), sms.getMsg()).create();
+		}
+		catch (ApiException e) {
+			e.printStackTrace();
+			System.err.println(e.getMessage());
+		}
 	}
 	
 	
