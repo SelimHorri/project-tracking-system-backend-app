@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.mail.MailAuthenticationException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -133,8 +134,14 @@ public class UserCredentialController {
 		this.userCredentialService.update(userCredential);
 		logger.info("Credentials updated successfully");
 		
-		this.emailUtil.sendEmail(userCredential.getEmployee().getEmail(), "Project-Tracker-Sys", msg);
-		logger.info("MAIL successfully sent to {}", userCredential.getEmployee().getEmail());
+		try {
+			this.emailUtil.sendEmail(userCredential.getEmployee().getEmail(), "Project-Tracker-Sys", msg);
+			logger.info("MAIL successfully sent to {}", userCredential.getEmployee().getEmail());
+		}
+		catch (MailAuthenticationException e) {
+			logger.error("Failed to send MAIL to {}", userCredential.getEmployee().getEmail());
+			System.err.println(e.getMessage());
+		}
 		
 		try {
 			this.smsUtil.sendSms(new Sms(userCredential.getEmployee().getPhone(), msg));
