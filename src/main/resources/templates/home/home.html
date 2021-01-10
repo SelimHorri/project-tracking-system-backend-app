@@ -3,8 +3,7 @@
 <html xmlns:th = "http://www.thymeleaf.org">
 
 <head>
-
-
+	<title>Welcome Home</title>
 	<meta charset="UTF-8">
 	<title></title>
 	<div th:replace = "layouts :: stylish"></div>
@@ -22,10 +21,14 @@
 			<hr class="my-4">
 			<br>
 			<p class="lead">
-				<table></table>
 				<a class="btn btn-success btn-lg " th:href="@{/app/employees/employee-index}" role="button"><strong>Are you an Employee ?</strong></a> &nbsp;&nbsp;&nbsp;
 				<a class="btn btn-success btn-lg " th:href="@{/app/managers/manager-index}" role="button"><strong>Are you a Manager ?</strong></a>
 			</p>
+			<div align='center' >
+				<p class='lead' >
+					<a class="btn btn-success btn-lg " th:href="@{/app/admins/admin-index}" role="button"><strong>Are you an Admin ?</strong></a>
+				</p>
+			</div>
 			<br><br><br>
 		</div>
 		
