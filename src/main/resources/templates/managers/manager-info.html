@@ -19,7 +19,7 @@
 			
 			<div class="card" style="max-width: 100rem;">
 				<div class="card-body" style="max-width: 100rem;">
-					<h2 class="card-title text-info" th:text="${m.firstName + ' ' + m.lastName}" ></h2>
+					<h2 class="card-title text-success" th:text="${m.firstName + ' ' + m.lastName}" ></h2>
 					<h5 class="card-subtitle mb-2 text-muted" th:text="${'Service : ' + m.job}" ></h5>
 					<hr>
 					<h4 class="card-title text-primary" th:text="${'Username : ' + m.userCredential.username}" ></h4>
@@ -31,10 +31,10 @@
 					<h4 class="card-title text-primary" th:text="${'Salary : ' + m.salary}" ></h4>
  					<!--<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
  					<hr>
-					<a th:href="@{/app/managers/manager-index}" class='btn btn-outline-info'>Show my projects ?</a>
+					<a th:href="@{/app/managers/manager-index}" class='btn btn-outline-success'>Show my projects ?</a>
  					<!--<a href="#" class="card-link">Another link</a> -->
  					&nbsp;
- 					<a th:href="@{/app/credentials/credential-edit}" class='btn btn-outline-info' >Edit credentials ?</a>
+ 					<a th:href="@{/app/credentials/credential-edit}" class='btn btn-outline-success' >Edit credentials ?</a>
 				</div>
 			</div>
 			
