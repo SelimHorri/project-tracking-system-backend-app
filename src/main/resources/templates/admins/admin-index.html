@@ -15,7 +15,31 @@
 		
 	<div class='container container-fluid'>
 		
-		
+		<div align='center' class="jumbotron">
+			<br><br>
+			<div align='center' >
+				<div class="alert alert-dismissible alert-success col-sm-8 ">
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+					<h4>Welcome&nbsp;<!-- <strong th:text="${fnameAndLname}" ></strong> -->, <em>you're successfully logged in !</em></h4>
+				</div>
+			</div>
+			<br>
+			<hr class="my-4">
+			<hr class="my-4">
+			<br>
+			<p class="lead">
+				<a class="btn btn-outline-info btn-lg " th:href="@{/app/admins/employees/admin-employees-list}" role="button"><strong>Manage all Employees</strong></a> &nbsp;&nbsp;&nbsp;
+				<a class="btn btn-outline-info btn-lg " th:href="@{/app/admins/departments/admin-departments-list}" role="button"><strong>Manage all Departments</strong></a>
+			</p>
+			<div align='center' >
+				<p class='lead' >
+					<a class="btn btn-outline-info btn-lg " th:href="@{/app/admins/locations/admin-locations-list}" role="button"><strong>Manage all Locations</strong></a>
+				</p>
+			</div>
+			<hr class="my-4">
+			<hr class="my-4">
+			<br><br><br>
+		</div>
 		
 	</div>
 	

@@ -1,4 +1,4 @@
-package com.pfa.pack.controllers;
+package com.pfa.pack.controllers.manager;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
