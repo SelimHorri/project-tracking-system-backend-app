@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,10 +31,8 @@ public class AdminLocationController {
 	}
 	
 	@GetMapping(value = {"", "/", "/admin-locations-list"})
-	public String displayAdminLocationsList() {
-		
-		
-		
+	public String displayAdminLocationsList(final Model model) {
+		model.addAttribute("locations", this.locationService.findAll().getLocations());
 		return "admins/locations/admin-locations-list";
 	}
 	
@@ -67,6 +66,14 @@ public class AdminLocationController {
 		
 		
 		return "admins/locations/admin-locations-edit";
+	}
+	
+	@GetMapping(value = {"/admin-locations-delete", "/delete"})
+	public String handleAdminLocationsDelete() {
+		
+		
+		
+		return "redirect:/app/admins/locations/admin-locations-list";
 	}
 	
 	

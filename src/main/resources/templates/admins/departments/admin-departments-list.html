@@ -15,7 +15,28 @@
 		
 	<div class='container container-fluid'>
 		
-		
+		<div th:switch="${departments}">
+	    	<h2 th:case="null">No Records yet!</h2>
+	        <div th:case="*">
+ 	            <!--<h2 th:text = '${size}' ></h2>  <br> -->
+	            <table class="table table-striped table-hover ">
+	                <thead>
+	                    <tr>
+	                        <th>Department name</th>
+	                        <th class='text-warning'><i>Edit department</i></th>
+	                        <th class='text-danger' ><i>Delete department</i></th>
+	                    </tr>
+	                </thead>
+					<tbody>
+		                <tr th:each = "d : ${departments}">
+							<td th:text="${d.departmentName}"></td>
+							<td><a class='btn btn-outline-warning' th:href="@{/app/admins/departments/admin-departments-edit(departmentId=${d.departmentId})}">Edit</a></td>
+							<td><a class='btn btn-outline-danger' th:href="@{/app/admins/departments/admin-departments-list(departmentId=${d.departmentId})}">Delete</a></td>
+		                </tr>
+	            	</tbody>
+	        	</table>
+	    	</div>
+		</div>
 		
 	</div>
 	

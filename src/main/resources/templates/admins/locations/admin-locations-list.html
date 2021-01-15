@@ -15,7 +15,32 @@
 		
 	<div class='container container-fluid'>
 		
-		
+		<div th:switch="${locations}">
+	    	<h2 th:case="null">No Records yet!</h2>
+	        <div th:case="*">
+ 	            <!--<h2 th:text = '${size}' ></h2>  <br> -->
+	            <table class="table table-striped table-hover ">
+	                <thead>
+	                    <tr>
+	                    	<th>Address</th>
+	                        <th>Postal Code</th>
+	                        <th>City</th>
+	                        <th class='text-warning'><i>Edit location</i></th>
+	                        <th class='text-danger' ><i>Delete location</i></th>
+	                    </tr>
+	                </thead>
+					<tbody>
+		                <tr th:each = "l : ${locations}">
+							<td th:text="${l.adr}"></td>
+							<td th:text="${l.postalCode}"></td>
+							<td th:text="${l.city}"></td>
+							<td><a class='btn btn-outline-warning' th:href="@{/app/admins/locations/admin-locations-edit(locationId=${l.locationId})}">Edit</a></td>
+							<td><a class='btn btn-outline-danger' th:href="@{/app/admins/locations/admin-locations-list(locationId=${l.locationId})}">Delete</a></td>
+		                </tr>
+	            	</tbody>
+	        	</table>
+	    	</div>
+		</div>
 		
 	</div>
 	
