@@ -4,7 +4,7 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title></title>
+	<title>Edit Location</title>
 	<div th:replace = "layouts :: stylish"></div>
 </head>
 
@@ -12,10 +12,43 @@
 	
 	<div th:replace = "layouts :: adminNavbar"></div>
 	<br><br><br><br><br>
-		
+	
 	<div class='container container-fluid'>
 		
-		
+		<form class='jumbotron' th:object="${location}" th:action='@{/app/admins/locations/admin-locations-edit}' method='POST'>
+			<fieldset>
+				<div class="form-group">
+					<input th:field='*{locationId}' type="text" class="form-control col-sm-8" id="inputDefault" />
+				</div>
+				<div class="form-group">
+					<label class="col-form-label" for="inputDefault">Address</label>
+					<input th:field='*{adr}' type="text" class="form-control col-sm-8" placeholder="Enter Address..." id="inputDefault" />
+					<span class='text-danger' th:if="${#fields.hasErrors('adr')}" th:errors="*{adr}"></span>
+				</div>
+				<div class="form-group">
+					<label class="col-form-label" for="inputDefault">Postal Code</label>
+					<input th:field='*{postalCode}' type="number" class="form-control col-sm-8" placeholder="Enter postalCode..." id="inputDefault" />
+					<span class='text-danger' th:if="${#fields.hasErrors('postalCode')}" th:errors="*{postalCode}"></span>
+				</div>
+				<div class="form-group">
+					<label class="col-form-label" for="inputDefault">City</label>
+					<input th:field='*{city}' type="text" class="form-control col-sm-8" placeholder="Enter city..." id="inputDefault" />
+					<span class='text-danger' th:if="${#fields.hasErrors('city')}" th:errors="*{city}"></span>
+				</div>
+			</fieldset>
+			<br>
+			<div th:switch="${msgColour}">
+				<p th:case="success">
+					<span class="badge badge-success" th:text="${msg}"></span>
+				</p>
+				<p th:case="danger">
+					<span class="badge badge-danger" th:text="${msg}"></span>
+				</p>
+			</div>
+			
+			<input type='submit' class='btn btn-success btn-lg ' value='Edit Location' />
+			
+		</form>
 		
 	</div>
 	

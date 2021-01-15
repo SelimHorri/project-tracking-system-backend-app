@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -25,12 +26,15 @@ public final class Location implements Serializable {
 	@Column(name = "location_id", unique = true, nullable = false, precision = 10)
 	private Integer locationId;
 	
+	@NotBlank(message = "*Must Not blank**")
 	@Column(name = "adr", length = 200)
 	private String adr;
 	
+	@NotBlank(message = "*Must Not blank**")
 	@Column(name = "postal_code", length = 200)
 	private String postalCode;
 	
+	@NotBlank(message = "*Must Not blank**")
 	@Column(name = "city", length = 200)
 	private String city;
 	
