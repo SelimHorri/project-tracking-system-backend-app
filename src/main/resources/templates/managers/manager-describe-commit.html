@@ -11,18 +11,18 @@
 <body>
 	
 	<div th:replace = "layouts :: managerNavbar"></div>
-	<br><br><br><br><br>
+	<br><br>
 		
 	<div class='container container-fluid'>
 	<div align='center' >
-			<h1  class='text-primary' > <I>List of commits </I></h1>
+			<h1  class='text-primary' > List of commits </h1>
 		</div>
     
 		<div class = 'jumbotron '>
 			
 			<form th:action = '@{/app/managers/manager-describe-commit}' method = 'POST' >
 				
-				<div align='center' ><h4 th:text="${project.title}" class='text-danger' ></h4></div>
+				<div align='center' ><h4 th:text="${project.title}" class='text-primary' ></h4></div>
 				<fieldset>
 					<div class="form-group">
 						<input th:name="employeeId" th:value="${c.employeeId}" type="hidden" class="form-control col-sm-3 " placeholder="employeeId..." id="inputDefault" />
@@ -36,12 +36,12 @@
 						<!--<span th:if="${#fields.hasErrors('commitDate')}" th:errors="*{commitDate}" class='badge badge-danger'></span> -->
 					</div>
 					<div class="form-group">
-						<label class="col-form-label" for="inputDefault">Firstname</label>
+						<label class="col-form-label" for="inputDefault">First Name</label>
 						<input  th:value="${c.firstName}" type="text" class="form-control col-sm-8 " placeholder="employee firstName..." id="inputDefault" readonly />
 						<!--<span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" class='badge badge-danger'></span> -->
 					</div>
 					<div class="form-group">
-						<label class="col-form-label" for="inputDefault">Lastname</label>
+						<label class="col-form-label" for="inputDefault">Last Name</label>
 						<input  th:value="${c.lastName}" type="text" class="form-control col-sm-8 " placeholder="employee lastName..." id="inputDefault" readonly />
 						<!--<span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class='badge badge-danger'></span> -->
 					</div>
