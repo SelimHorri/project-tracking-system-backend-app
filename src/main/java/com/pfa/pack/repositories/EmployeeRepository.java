@@ -23,6 +23,9 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 	@Query(name = "Set<EmployeeAssignedProject>.findByManagerIdAndProjectId", nativeQuery = true)
 	public abstract Set<EmployeeAssignedProject> findByManagerIdAndProjectId(@Param("managerId") final int managerId, @Param("projectId") final int projectId);
 	
+	@Query(name = "Set<Employee>.findAllManagers", nativeQuery = true)
+	public abstract Set<Employee> findAllManagers();
+	
 }
 
 

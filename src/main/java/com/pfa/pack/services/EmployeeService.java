@@ -16,5 +16,6 @@ public interface EmployeeService {
 	public abstract List<Employee> findByDepartmentId(final Integer departmentId);
 	public abstract List<Employee> findByManagerId(final Integer managerId);
 	public abstract List<EmployeeAssignedProjectDto> findByManagerIdAndProjectId(final Integer managerId, final Integer projectId);
+	public abstract List<Employee> findAllManagers();
 	
 }

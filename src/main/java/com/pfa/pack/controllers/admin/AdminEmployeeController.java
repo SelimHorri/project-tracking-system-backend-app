@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.pfa.pack.models.entities.Employee;
+import com.pfa.pack.services.DepartmentService;
 import com.pfa.pack.services.EmployeeService;
 import com.pfa.pack.services.UserCredentialService;
 
@@ -18,6 +20,7 @@ public class AdminEmployeeController {
 	
 	private final EmployeeService employeeService;
 	private final UserCredentialService userCredentialService;
+	private final DepartmentService departmentService;
 	private static final Logger logger = LoggerFactory.getLogger(AdminEmployeeController.class);
 	
 	static {
@@ -25,22 +28,25 @@ public class AdminEmployeeController {
 	}
 	
 	@Autowired
-	public AdminEmployeeController(final EmployeeService employeeService, final UserCredentialService userCredentialService) {
+	public AdminEmployeeController(final EmployeeService employeeService, final UserCredentialService userCredentialService, final DepartmentService departmentService) {
 		this.employeeService = employeeService;
 		this.userCredentialService = userCredentialService;
+		this.departmentService = departmentService;
 	}
 	
 	@GetMapping(value = {"", "/", "/admin-employees-list"})
 	public String displayAdminEmployeesList(final Model model) {
+		
 		model.addAttribute("employees", this.employeeService.findAll().getEmployees());
 		return "admins/employees/admin-employees-list";
 	}
 	
 	@GetMapping(value = {"/admin-employees-add", "/add"})
-	public String displayAdminEmployeesAdd() {
+	public String displayAdminEmployeesAdd(final Model model) {
 		
-		
-		
+		model.addAttribute("listDepartment", this.departmentService.findAll().getDepartments());
+		model.addAttribute("listManager", this.employeeService.findAllManagers());
+		model.addAttribute("employee", new Employee());
 		return "admins/employees/admin-employees-add";
 	}
 	

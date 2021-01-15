@@ -1,5 +1,6 @@
 package com.pfa.pack.services.impls;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -78,6 +79,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Override
 	public List<EmployeeAssignedProjectDto> findByManagerIdAndProjectId(final Integer managerId, final Integer projectId) {
 		return this.employeeAssignedProjectConverter.convert(this.rep.findByManagerIdAndProjectId(managerId, projectId));
+	}
+	
+	@Override
+	public List<Employee> findAllManagers() {
+		return new ArrayList<>(this.rep.findAllManagers());
 	}
 	
 	

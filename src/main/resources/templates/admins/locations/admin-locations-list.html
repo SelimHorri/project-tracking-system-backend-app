@@ -15,6 +15,8 @@
 		
 	<div class='container container-fluid'>
 		
+		<h4><a th:href="@{/app/admins/locations/admin-locations-add}">Add a new location</a></h4>
+		
 		<div th:switch="${locations}">
 	    	<h2 th:case="null">No Records yet!</h2>
 	        <div th:case="*">

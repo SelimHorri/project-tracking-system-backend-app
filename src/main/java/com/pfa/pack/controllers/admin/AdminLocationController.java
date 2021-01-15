@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.pfa.pack.models.entities.Location;
 import com.pfa.pack.services.EmployeeService;
 import com.pfa.pack.services.LocationService;
 
@@ -32,15 +33,15 @@ public class AdminLocationController {
 	
 	@GetMapping(value = {"", "/", "/admin-locations-list"})
 	public String displayAdminLocationsList(final Model model) {
+		
 		model.addAttribute("locations", this.locationService.findAll().getLocations());
 		return "admins/locations/admin-locations-list";
 	}
 	
 	@GetMapping(value = {"/admin-locations-add", "/add"})
-	public String displayAdminLocationsAdd() {
+	public String displayAdminLocationsAdd(final Model model) {
 		
-		
-		
+		model.addAttribute("location", new Location());
 		return "admins/locations/admin-locations-add";
 	}
 	
