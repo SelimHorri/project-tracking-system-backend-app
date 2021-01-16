@@ -102,6 +102,14 @@ public final class Employee implements Serializable {
 				+ email + ", phone=" + phone + ", hiredate=" + hiredate + ", job=" + job + ", salary=" + salary
 				+ ", manager=" + manager + ", department=" + department + ", userCredential=" + userCredential + "]";
 	}
+	
+	public Integer getEmployeeId() {
+		return employeeId;
+	}
+	
+	public void setEmployeeId(final Integer employeeId) {
+		this.employeeId = employeeId;
+	}
 
 	public String getFirstName() {
 		return firstName;
@@ -197,10 +205,6 @@ public final class Employee implements Serializable {
 
 	public void setUserCredential(final UserCredential userCredential) {
 		this.userCredential = userCredential;
-	}
-
-	public Integer getEmployeeId() {
-		return employeeId;
 	}
 	
 	

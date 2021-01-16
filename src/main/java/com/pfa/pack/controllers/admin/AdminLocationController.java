@@ -57,6 +57,8 @@ public class AdminLocationController {
 		}
 		
 		this.locationService.save(location);
+		logger.info("Location with locationId : {} has been saved successfully", location.getLocationId());
+		
 		model.addAttribute("msg", "This location has been created successfully");
 		model.addAttribute("msgColour", "success");
 		
@@ -79,8 +81,9 @@ public class AdminLocationController {
 			return "admins/locations/admin-locations-edit";
 		}
 		
-		System.err.println(location);
-		// this.locationService.update(location);
+		this.locationService.update(location);
+		logger.info("Location with locationId : {} has been modified successfully", location.getLocationId());
+		
 		model.addAttribute("msg", "This location has been created successfully");
 		model.addAttribute("msgColour", "success");
 		
@@ -89,7 +92,10 @@ public class AdminLocationController {
 	
 	@GetMapping(value = {"/admin-locations-delete", "/delete"})
 	public String handleAdminLocationsDelete(@RequestParam("locationId") final String locationId) {
+		
 		this.locationService.delete(Integer.parseInt(locationId));
+		logger.info("Location with locationId : {} has been removed successfully", locationId);
+		
 		return "redirect:/app/admins/locations/admin-locations-list";
 	}
 	

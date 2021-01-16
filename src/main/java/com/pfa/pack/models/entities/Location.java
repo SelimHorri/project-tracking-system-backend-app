@@ -48,8 +48,16 @@ public final class Location implements Serializable {
 	
 	@Override
 	public String toString() {
-		return "Location [locationId=" + locationId + ", adr=" + adr + ", postalCode=" + postalCode + ", city=" + city
+		return "Location [locationId=" + getLocationId() + ", adr=" + adr + ", postalCode=" + postalCode + ", city=" + city
 				+ "]";
+	}
+	
+	public Integer getLocationId() {
+		return locationId;
+	}
+	
+	public void setLocationId(final Integer locationId) {
+		this.locationId = locationId;
 	}
 	
 	public String getAdr() {
@@ -82,10 +90,6 @@ public final class Location implements Serializable {
 
 	public void setDepartments(final Set<Department> departments) {
 		this.departments = departments;
-	}
-
-	public Integer getLocationId() {
-		return locationId;
 	}
 	
 	

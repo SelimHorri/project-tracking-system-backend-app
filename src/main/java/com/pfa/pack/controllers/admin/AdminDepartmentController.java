@@ -5,9 +5,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.pfa.pack.models.entities.Department;
 import com.pfa.pack.services.DepartmentService;
@@ -46,10 +49,25 @@ public class AdminDepartmentController {
 		return "admins/departments/admin-departments-add";
 	}
 	
-	@PostMapping(value = {"/admin-departments-add"})
-	public String handleAdminDepartmentsAdd() {
+	@PostMapping(value = {"/admin-departments-add", "/add"})
+	public String handleAdminDepartmentsAdd(@ModelAttribute("department") final Department department, @RequestParam("locationId") final String locationId, final BindingResult error, final Model model) {
 		
+		if (error.hasErrors()) {
+			model.addAttribute("listLocation", this.locationService.findAll().getLocations());
+			model.addAttribute("department", new Department());
+			model.addAttribute("msg", "Problem happened here, please check again !");
+			model.addAttribute("msgColour", "danger");
+			return "admins/departments/admin-departments-add";
+		}
 		
+		department.setLocation(this.locationService.findById(Integer.parseInt(locationId)));
+		
+		this.departmentService.save(department);
+		logger.info("department with departmentId : {} has been saved successfully", department.getDepartmentId());
+		
+		model.addAttribute("listLocation", this.locationService.findAll().getLocations());
+		model.addAttribute("msg", "This department has been created successfully");
+		model.addAttribute("msgColour", "success");
 		
 		return "admins/departments/admin-departments-add";
 	}
@@ -62,12 +80,21 @@ public class AdminDepartmentController {
 		return "admins/departments/admin-departments-edit";
 	}
 	
-	@PostMapping(value = {"/admin-departments-edit"})
+	@PostMapping(value = {"/admin-departments-edit", "/edit"})
 	public String handleAdminDepartmentsEdit() {
 		
 		
 		
 		return "admins/departments/admin-departments-edit";
+	}
+	
+	@GetMapping(value = {"/admin-departments-delete", "/delete"})
+	public String handleAdminDepartmentsDelete(@RequestParam("departmentId") final String departmentId) {
+		
+		this.departmentService.delete(Integer.parseInt(departmentId));
+		logger.info("Department with departmentId : {} has been removed successfully", departmentId);
+		
+		return "redirect:/app/admins/departments/admin-departments-list";
 	}
 	
 	
