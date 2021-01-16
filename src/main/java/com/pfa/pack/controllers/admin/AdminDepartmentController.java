@@ -73,17 +73,29 @@ public class AdminDepartmentController {
 	}
 	
 	@GetMapping(value = {"/admin-departments-edit", "/edit"})
-	public String displayAdminDepartmentsEdit() {
+	public String displayAdminDepartmentsEdit(@RequestParam("departmentId") final String departmentId, final Model model) {
 		
-		
-		
+		model.addAttribute("department", this.departmentService.findById(Integer.parseInt(departmentId)));
 		return "admins/departments/admin-departments-edit";
 	}
 	
 	@PostMapping(value = {"/admin-departments-edit", "/edit"})
-	public String handleAdminDepartmentsEdit() {
+	public String handleAdminDepartmentsEdit(@ModelAttribute("department") final Department department, final BindingResult error, final Model model) {
 		
+		if (error.hasErrors()) {
+			model.addAttribute("msg", "Problem happened here, please check again !");
+			model.addAttribute("msgColour", "danger");
+			return "admins/departments/admin-departments-edit";
+		}
 		
+		// department.setLocation(this.locationService.findById(Integer.parseInt(locationId)));
+		System.err.println(department);
+		
+		// this.departmentService.update(department);
+		// logger.info("department with departmentId : {} has been saved successfully", department.getDepartmentId());
+		
+		model.addAttribute("msg", "Problem happened here, please check again !");
+		model.addAttribute("msgColour", "danger");
 		
 		return "admins/departments/admin-departments-edit";
 	}
