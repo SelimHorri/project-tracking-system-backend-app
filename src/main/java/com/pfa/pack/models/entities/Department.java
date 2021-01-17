@@ -48,8 +48,8 @@ public final class Department implements Serializable {
 	
 	@Override
 	public String toString() {
-		return "Department [departmentId=" + getDepartmentId() + ", departmentName=" + departmentName + ", locationId="
-				+ location.getLocationId() + "]";
+		return "Department [departmentId=" + getDepartmentId() + ", departmentName=" + departmentName + ", location="
+				+ this.location + "]";
 	}
 	
 	public Integer getDepartmentId() {
