@@ -16,6 +16,7 @@
 	<div class='container container-fluid'>
 		
 		<h4><a th:href="@{/app/admins/employees/admin-employees-add}">Add a new employee</a></h4>
+		<br>
 		
 		<div th:switch="${employees}">
 	    	<h2 th:case="null">No Records yet!</h2>
@@ -33,6 +34,7 @@
 	                    	<th>Salary</th>
  	                    	<th>Manager</th>
  	                    	<th>Department</th>
+ 	                    	<th class='text-info'><i>Credential info</i></th>
 	                        <th class='text-warning'><i>Edit employee</i></th>
 	                        <th class='text-danger' ><i>Delete employee</i></th>
 	                    </tr>
@@ -48,6 +50,7 @@
 							<td th:text="${e.salary}"></td>
  							<td th:text="${e.manager != null} ? ${e.manager.firstName + ' ' + e.manager.lastName} : '-'"></td>
  							<td th:text="${e.department != null} ? ${e.department.departmentName} : '-'"></td>
+ 							<td><a class='btn btn-outline-info ' th:href="@{/app/admins/employees/admin-employee-credentials(userId=${e.userCredential.userId})}" >Credentials</a></td>
 							<td><a class='btn btn-outline-warning' th:href="@{/app/admins/employees/admin-employees-edit(employeeId=${e.employeeId})}">Edit</a></td>
 							<td><a class='btn btn-outline-danger' th:href="@{/app/admins/employees/admin-employees-delete(employeeId=${e.employeeId})}" onClick="if (!(confirm('Do you confirm you want DELETE this employee ?'))) return false" >Delete</a></td>
 		                </tr>

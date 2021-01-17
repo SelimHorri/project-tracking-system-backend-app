@@ -84,7 +84,7 @@ public class AdminLocationController {
 		this.locationService.update(location);
 		logger.info("Location with locationId : {} has been modified successfully", location.getLocationId());
 		
-		model.addAttribute("msg", "This location has been created successfully");
+		model.addAttribute("msg", "This location has been modified successfully");
 		model.addAttribute("msgColour", "success");
 		
 		return "admins/locations/admin-locations-edit";

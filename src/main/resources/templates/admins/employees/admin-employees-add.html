@@ -20,53 +20,71 @@
 				<div class="form-group">
 					<label class="col-form-label" for="inputDefault">Firstname</label>
 					<input th:field='*{firstName}' type="text" class="form-control col-sm-8" placeholder="Enter firstName..." id="inputDefault" />
-					<span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
+					<span class='text-danger' th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
 				</div>
 				<div class="form-group">
 					<label class="col-form-label" for="inputDefault">Lastname</label>
 					<input th:field='*{lastName}' type="text" class="form-control col-sm-8" placeholder="Enter lastName..." id="inputDefault" />
-					<span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
+					<span class='text-danger' th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
 				</div>
 				<div class="form-group">
-					<label class="col-form-label" for="inputDefault">email</label>
-					<input th:field='*{email}' type="text" class="form-control col-sm-8" placeholder="Enter email..." id="inputDefault" />
-					<span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+					<label class="col-form-label" for="inputDefault">Email</label>
+					<input th:field='*{email}' type="email" class="form-control col-sm-8" placeholder="Enter email..." id="inputDefault" />
+					<span class='text-danger' th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
 				</div>
 				<div class="form-group">
 					<label class="col-form-label" for="inputDefault">Phone</label>
 					<input th:field='*{phone}' type="text" class="form-control col-sm-8" placeholder="Enter phone..." id="inputDefault" />
-					<span th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></span>
+					<span class='text-danger' th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></span>
 				</div>
 				<div class="form-group">
 					<label class="col-form-label" for="inputDefault">Hiredate</label>
 					<input th:field='*{hiredate}' type="date" class="form-control col-sm-8" placeholder="Enter hiredate..." id="inputDefault" />
-					<span th:if="${#fields.hasErrors('hiredate')}" th:errors="*{hiredate}"></span>
+					<span class='text-danger' th:if="${#fields.hasErrors('hiredate')}" th:errors="*{hiredate}"></span>
 				</div>
 				<div class="form-group">
 					<label class="col-form-label" for="inputDefault">Job</label>
 					<input th:field='*{job}' type="text" class="form-control col-sm-8" placeholder="Enter job..." id="inputDefault" />
-					<span th:if="${#fields.hasErrors('job')}" th:errors="*{job}"></span>
+					<span class='text-danger' th:if="${#fields.hasErrors('job')}" th:errors="*{job}"></span>
 				</div>
 				<div class="form-group">
 					<label class="col-form-label" for="inputDefault">Salary</label>
-					<input th:field='*{salary}' type="text" class="form-control col-sm-8" placeholder="Enter salary..." id="inputDefault" />
-					<span th:if="${#fields.hasErrors('salary')}" th:errors="*{salary}"></span>
+					<input th:field='*{salary}' type="number" min='500' class="form-control col-sm-8" placeholder="Enter salary..." id="inputDefault" />
+					<span class='text-danger' th:if="${#fields.hasErrors('salary')}" th:errors="*{salary}"></span>
 				</div>
 				<div class="form-group">
 					<label for="exampleSelect1">Manager</label>
-					<select th:field = '*{manager}' class="custom-select " id="exampleSelect1">
-						<option selected value='' >---------- Select item here ----------</option>
+					<select  th:field='*{manager}' class="custom-select " id="exampleSelect1">
+ 						<!--<option selected value='' >---------- Select item here ----------</option> -->
 						<option th:each="m : ${listManager}" th:text="${m.firstName + ' ' + m.lastName}" th:value="${m.employeeId}"  ></option>
 					</select>
-					<span th:if="${#fields.hasErrors('manager')}" th:errors="*{manager}" class='badge badge-danger' ></span>
+					<span th:if="${#fields.hasErrors('manager')}" th:errors="*{manager}"  class='text-danger' ></span>
 				</div>
-				<div class="form-group">
+				<!-- <div class="form-group">
 					<label for="exampleSelect1">Department</label>
-					<select th:field = '*{department}' class="custom-select " id="exampleSelect1">
+					<select  th:field='*{department}' class="custom-select " id="exampleSelect1">
 						<option selected value='' >---------- Select item here ----------</option>
 						<option th:each="d : ${listDepartment}" th:text="${d.departmentName}" th:value="${d.departmentId}"  ></option>
 					</select>
-					<span th:if="${#fields.hasErrors('department')}" th:errors="*{department}" class='badge badge-danger' ></span>
+					<span th:if="${#fields.hasErrors('department')}" th:errors="*{department}"  class='text-danger' ></span>
+				</div> -->
+				<div class="form-group">
+					<label class="col-form-label" for="inputDefault">Username</label>
+					<input th:field='*{userCredential.username}' type="text" class="form-control col-sm-8" placeholder="Enter username..." id="inputDefault" />
+					<span class='text-danger' th:if="${#fields.hasErrors('userCredential.username')}" th:errors="*{userCredential.username}"></span>
+				</div>
+				<div class="form-group">
+					<label class="col-form-label" for="inputDefault">Password</label>
+					<input th:field='*{userCredential.password}' type="password" class="form-control col-sm-8" placeholder="Enter password..." id="inputDefault" />
+					<span class='text-danger' th:if="${#fields.hasErrors('userCredential.password')}" th:errors="*{userCredential.password}"></span>
+				</div>
+				<div class="form-group">
+					<label for="exampleSelect1">Role</label>
+					<select  th:field='*{userCredential.role}' class="custom-select " id="exampleSelect1">
+ 						<!--<option selected value='' >---------- Select item here ----------</option> -->
+						<option th:each="r : ${roles}" th:text="${r}" th:value="${r.toString() == 'EMPLOYEE'} ? 'EMP' : (${r.toString() == 'MANAGER'} ? 'MGR' : 'ADMIN')"  ></option>
+					</select>
+					<span th:if="${#fields.hasErrors('userCredential.role')}" th:errors="*{userCredential.role}"  class='text-danger' ></span>
 				</div>
 			</fieldset>
 			<br>

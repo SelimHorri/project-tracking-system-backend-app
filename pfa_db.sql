@@ -105,8 +105,8 @@ CREATE TABLE employees (
   employee_id int(11) NOT NULL,
   first_name varchar(255) DEFAULT NULL,
   last_name varchar(255) DEFAULT NULL,
-  email varchar(255) DEFAULT 'springabcxyzboot@gmail.com',
-  phone varchar(50) DEFAULT '22125144',
+  email varchar(255) DEFAULT 'springabcxyzboot@gmail.com' NOT NULL,
+  phone varchar(50) DEFAULT '22125144' NOT NULL,
   hiredate date DEFAULT NULL,
   job varchar(255) DEFAULT NULL,
   salary decimal(7,2) DEFAULT NULL,
@@ -176,7 +176,7 @@ CREATE TABLE user_credentials (
   user_id int(11) NOT NULL,
   username varchar(255) DEFAULT NULL,
   password varchar(255) DEFAULT NULL,
-  enabled tinyint(1) DEFAULT 1,
+  enabled tinyint(1) DEFAULT 1 NOT NULL,
   role varchar(255) DEFAULT NULL,
   employee_id int(11) DEFAULT NULL
 );
@@ -412,8 +412,8 @@ CREATE TABLE employees (
   employee_id int(11) NOT NULL,
   first_name varchar(255) DEFAULT NULL,
   last_name varchar(255) DEFAULT NULL,
-  email varchar(255) DEFAULT 'springabcxyzboot@gmail.com',
-  phone varchar(50) DEFAULT '22125144',
+  email varchar(255) DEFAULT 'springabcxyzboot@gmail.com' NOT NULL,
+  phone varchar(50) DEFAULT '22125144' NOT NULL,
   hiredate date DEFAULT NULL,
   job varchar(255) DEFAULT NULL,
   salary decimal(7,2) DEFAULT NULL,
@@ -483,7 +483,7 @@ CREATE TABLE user_credentials (
   user_id int(11) NOT NULL,
   username varchar(255) DEFAULT NULL,
   password varchar(255) DEFAULT NULL,
-  enabled tinyint(1) DEFAULT 1,
+  enabled tinyint(1) DEFAULT 1 NOT NULL,
   role varchar(255) DEFAULT NULL,
   employee_id int(11) DEFAULT NULL
 );
@@ -719,8 +719,8 @@ CREATE TABLE employees (
   employee_id int(11) NOT NULL,
   first_name varchar(255) DEFAULT NULL,
   last_name varchar(255) DEFAULT NULL,
-  email varchar(255) DEFAULT 'springabcxyzboot@gmail.com',
-  phone varchar(50) DEFAULT '22125144',
+  email varchar(255) DEFAULT 'springabcxyzboot@gmail.com' NOT NULL,
+  phone varchar(50) DEFAULT '22125144' NOT NULL,
   hiredate date DEFAULT NULL,
   job varchar(255) DEFAULT NULL,
   salary decimal(7,2) DEFAULT NULL,
@@ -790,7 +790,7 @@ CREATE TABLE user_credentials (
   user_id int(11) NOT NULL,
   username varchar(255) DEFAULT NULL,
   password varchar(255) DEFAULT NULL,
-  enabled tinyint(1) DEFAULT 1,
+  enabled tinyint(1) DEFAULT 1 NOT NULL,
   role varchar(255) DEFAULT NULL,
   employee_id int(11) DEFAULT NULL
 );

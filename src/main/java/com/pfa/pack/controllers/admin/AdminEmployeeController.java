@@ -1,14 +1,20 @@
 package com.pfa.pack.controllers.admin;
 
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.pfa.pack.enums.AccountEnum;
 import com.pfa.pack.models.entities.Employee;
 import com.pfa.pack.services.DepartmentService;
 import com.pfa.pack.services.EmployeeService;
@@ -34,6 +40,13 @@ public class AdminEmployeeController {
 		this.departmentService = departmentService;
 	}
 	
+	@GetMapping(value = {"/admin-employee-credentials", "/credentials"})
+	public String displayAdminEmployeeCredentialsList(@RequestParam("userId") final String userId, final Model model) {
+		
+		model.addAttribute("userCredential", this.userCredentialService.findById(Integer.parseInt(userId)));
+		return "admins/employees/admin-employee-credentials";
+	}
+	
 	@GetMapping(value = {"", "/", "/admin-employees-list"})
 	public String displayAdminEmployeesList(final Model model) {
 		
@@ -44,16 +57,32 @@ public class AdminEmployeeController {
 	@GetMapping(value = {"/admin-employees-add", "/add"})
 	public String displayAdminEmployeesAdd(final Model model) {
 		
-		model.addAttribute("listDepartment", this.departmentService.findAll().getDepartments());
-		model.addAttribute("listManager", this.employeeService.findAllManagers());
 		model.addAttribute("employee", new Employee());
+		model.addAttribute("listManager", this.employeeService.findAllManagers());
+		model.addAttribute("listDepartment", this.departmentService.findAll().getDepartments());
+		model.addAttribute("roles", AccountEnum.values());
 		return "admins/employees/admin-employees-add";
 	}
 	
 	@PostMapping(value = {"/admin-employees-add"})
-	public String handleAdminEmployeesAdd() {
+	public String handleAdminEmployeesAdd(@ModelAttribute("employee") @Valid final Employee employee, final BindingResult error, final Model model) {
 		
+		if (error.hasErrors()) {
+			model.addAttribute("listManager", this.employeeService.findAllManagers());
+			model.addAttribute("listDepartment", this.departmentService.findAll().getDepartments());
+			model.addAttribute("roles", AccountEnum.values());
+			model.addAttribute("msg", "Problem happened here, please check again !");
+			model.addAttribute("msgColour", "danger");
+		}
 		
+		this.employeeService.save(employee);
+		logger.info("Employee with employeeId : {} has been saved successfully", employee.getEmployeeId());
+		
+		model.addAttribute("listManager", this.employeeService.findAllManagers());
+		model.addAttribute("listDepartment", this.departmentService.findAll().getDepartments());
+		model.addAttribute("roles", AccountEnum.values());
+		model.addAttribute("msg", "This employee has been created successfully");
+		model.addAttribute("msgColour", "success");
 		
 		return "admins/employees/admin-employees-add";
 	}
@@ -67,11 +96,28 @@ public class AdminEmployeeController {
 	}
 	
 	@PostMapping(value = {"/admin-employees-edit"})
-	public String handleAdminEmployeesEdit() {
+	public String handleAdminEmployeesEdit(@ModelAttribute("employee") final Employee employee, final BindingResult error, final Model model) {
 		
 		
 		
 		return "admins/employees/admin-employees-edit";
+	}
+	
+	@GetMapping(value = {"/admin-employees-inactive", "/inactive"})
+	public String handleAdminEmployeesInActive(@RequestParam("employeeId") final String employeeId) {
+		
+		
+		
+		return "redirect:/app/admins/employees/admin-employees-list";
+	}
+	
+	@GetMapping(value = {"/admin-employees-delete", "/delete"})
+	public String handleAdminEmployeesDelete(@RequestParam("employeeId") final String employeeId) {
+		
+		this.employeeService.delete(Integer.parseInt(employeeId));
+		logger.info("Employee with employeeId : {} has been removed successfully", employeeId);
+		
+		return "redirect:/app/admins/employees/admin-employees-list";
 	}
 	
 	

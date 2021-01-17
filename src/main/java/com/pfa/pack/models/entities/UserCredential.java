@@ -2,6 +2,7 @@ package com.pfa.pack.models.entities;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -39,12 +40,28 @@ public final class UserCredential implements Serializable {
 	private String role;
 	
 	@JsonIgnore
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "employee_id")
 	private Employee employee;
 	
 	public UserCredential() {
 		
+	}
+	
+	public UserCredential(final String username, final String password, final String role, final Employee employee) {
+		this.username = username;
+		this.password = password;
+		this.enabled = true;
+		this.role = role;
+		this.employee = employee;
+	}
+	
+	public UserCredential(final String username, final String password, final Boolean enabled, final String role, final Employee employee) {
+		this.username = username;
+		this.password = password;
+		this.enabled = enabled;
+		this.role = role;
+		this.employee = employee;
 	}
 	
 	@Override

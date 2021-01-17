@@ -10,6 +10,7 @@ import javax.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.pfa.pack.converters.EmployeeAssignedProjectConverter;
@@ -25,6 +26,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	
 	private final EmployeeRepository rep;
 	private final EmployeeAssignedProjectConverter employeeAssignedProjectConverter;
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	private static final Logger logger = LoggerFactory.getLogger(EmployeeServiceImpl.class);
 	
 	static {
@@ -32,9 +34,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 	
 	@Autowired
-	public EmployeeServiceImpl(final EmployeeRepository rep, final EmployeeAssignedProjectConverter employeeAssignedProjectConverter) {
+	public EmployeeServiceImpl(final EmployeeRepository rep, final BCryptPasswordEncoder bCryptPasswordEncoder, final EmployeeAssignedProjectConverter employeeAssignedProjectConverter) {
 		this.rep = rep;
 		this.employeeAssignedProjectConverter = employeeAssignedProjectConverter;
+		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
 	}
 	
 	@Override
@@ -49,6 +52,13 @@ public class EmployeeServiceImpl implements EmployeeService {
 	
 	@Override
 	public Employee save(final Employee employee) {
+		
+		employee.setDepartment(employee.getManager().getDepartment());
+		employee.getUserCredential().setPassword(this.bCryptPasswordEncoder.encode(employee.getUserCredential().getPassword()));
+		employee.getUserCredential().setEnabled(true);
+		employee.getUserCredential().setRole("ROLE_" + employee.getUserCredential().getRole().toUpperCase());
+		employee.getUserCredential().setEmployee(employee);
+		
 		return this.rep.save(employee);
 	}
 	

@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.Collections;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -19,6 +20,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -50,14 +52,15 @@ public final class Employee implements Serializable {
 	private String lastName;
 	
 	@Email
-	@NotBlank
+	// @NotBlank(message = "** Must give an email **")
 	@Column(name = "email", length = 200)
 	private String email;
 	
-	@NotBlank(message = "** Must give a phone number **")
+	// @NotBlank(message = "** Must give a phone number **")
 	@Column(name = "phone", length = 20)
 	private String phone;
 	
+	// @NotBlank(message = "** Must give a hiredate **")
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@JsonFormat(shape = Shape.STRING, pattern = "dd/MM/yyyy")
 	@JsonSerialize(using = LocalDateSerializer.class)
@@ -69,10 +72,11 @@ public final class Employee implements Serializable {
 	@Column(name = "job", length = 200)
 	private String job;
 	
-	@NotBlank(message = "** Must give a salary **")
+	@NotNull(message = "** Must give a salary **")
 	@Column(name = "salary", precision = 7, scale = 2)
 	private Double salary;
 	
+	// @NotNull(message = "**Must not NULL**")
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "manager_id")
 	private Employee manager;
@@ -82,14 +86,14 @@ public final class Employee implements Serializable {
 	private Set<Employee> employees;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "employee")
+	@OneToMany(mappedBy = "employee", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Assignment> assignments;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "department_id")
 	private Department department;
 	
-	@OneToOne(mappedBy = "employee", fetch = FetchType.LAZY)
+	@OneToOne(mappedBy = "employee", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private UserCredential userCredential;
 	
 	public Employee() {
