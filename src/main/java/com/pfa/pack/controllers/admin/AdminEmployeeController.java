@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.pfa.pack.enums.AccountEnum;
 import com.pfa.pack.models.entities.Employee;
+import com.pfa.pack.models.entities.UserCredential;
 import com.pfa.pack.services.DepartmentService;
 import com.pfa.pack.services.EmployeeService;
 import com.pfa.pack.services.UserCredentialService;
@@ -103,10 +104,14 @@ public class AdminEmployeeController {
 		return "admins/employees/admin-employees-edit";
 	}
 	
-	@GetMapping(value = {"/admin-employees-inactive", "/inactive"})
+	@GetMapping(value = {"/admin-employees-isactive", "/isactive"})
 	public String handleAdminEmployeesInActive(@RequestParam("employeeId") final String employeeId) {
 		
+		final UserCredential userCredential = this.employeeService.findById(Integer.parseInt(employeeId)).getUserCredential();
+		userCredential.setEnabled(!userCredential.getEnabled());
 		
+		this.userCredentialService.save(userCredential);
+		logger.info("Employee with employeeId : {} has been enabled/disabled successfully", userCredential.getEmployee().getEmployeeId());
 		
 		return "redirect:/app/admins/employees/admin-employees-list";
 	}
