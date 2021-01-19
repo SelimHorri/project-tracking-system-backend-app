@@ -64,6 +64,14 @@ public class EmployeeServiceImpl implements EmployeeService {
 	
 	@Override
 	public Employee update(final Employee employee) {
+		
+		employee.setDepartment(employee.getManager().getDepartment());
+		employee.getUserCredential().setPassword(this.bCryptPasswordEncoder.encode(employee.getUserCredential().getPassword()));
+		// employee.getUserCredential().setEnabled(employee.getUserCredential().getEnabled());
+		employee.getUserCredential().setEnabled(true); // TODO this is baaaaaaaaaaaaddd
+		employee.getUserCredential().setRole("ROLE_" + employee.getUserCredential().getRole());
+		employee.getUserCredential().setEmployee(employee);
+		
 		return this.rep.save(employee);
 	}
 	

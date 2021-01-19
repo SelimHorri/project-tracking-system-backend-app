@@ -60,7 +60,6 @@ public class AdminEmployeeController {
 		
 		model.addAttribute("employee", new Employee());
 		model.addAttribute("listManager", this.employeeService.findAllManagers());
-		model.addAttribute("listDepartment", this.departmentService.findAll().getDepartments());
 		model.addAttribute("roles", AccountEnum.values());
 		return "admins/employees/admin-employees-add";
 	}
@@ -70,7 +69,6 @@ public class AdminEmployeeController {
 		
 		if (error.hasErrors()) {
 			model.addAttribute("listManager", this.employeeService.findAllManagers());
-			model.addAttribute("listDepartment", this.departmentService.findAll().getDepartments());
 			model.addAttribute("roles", AccountEnum.values());
 			model.addAttribute("msg", "Problem happened here, please check again !");
 			model.addAttribute("msgColour", "danger");
@@ -80,7 +78,6 @@ public class AdminEmployeeController {
 		logger.info("Employee with employeeId : {} has been saved successfully", employee.getEmployeeId());
 		
 		model.addAttribute("listManager", this.employeeService.findAllManagers());
-		model.addAttribute("listDepartment", this.departmentService.findAll().getDepartments());
 		model.addAttribute("roles", AccountEnum.values());
 		model.addAttribute("msg", "This employee has been created successfully");
 		model.addAttribute("msgColour", "success");
@@ -89,17 +86,31 @@ public class AdminEmployeeController {
 	}
 	
 	@GetMapping(value = {"/admin-employees-edit", "/edit"})
-	public String displayAdminEmployeesEdit() {
+	public String displayAdminEmployeesEdit(@RequestParam("employeeId") final String employeeId, final Model model) {
 		
-		
-		
+		model.addAttribute("employee", this.employeeService.findById(Integer.parseInt(employeeId)));
+		model.addAttribute("listManager", this.employeeService.findAllManagers());
+		model.addAttribute("roles", AccountEnum.values());
 		return "admins/employees/admin-employees-edit";
 	}
 	
 	@PostMapping(value = {"/admin-employees-edit"})
-	public String handleAdminEmployeesEdit(@ModelAttribute("employee") final Employee employee, final BindingResult error, final Model model) {
+	public String handleAdminEmployeesEdit(@ModelAttribute("employee") @Valid final Employee employee, final BindingResult error, final Model model) {
 		
+		if (error.hasErrors()) {
+			model.addAttribute("employee", this.employeeService.findById(employee.getEmployeeId()));
+			model.addAttribute("listManager", this.employeeService.findAllManagers());
+			model.addAttribute("roles", AccountEnum.values());
+			return "admins/employees/admin-employees-edit";
+		}
 		
+		this.employeeService.update(employee);
+		logger.info("Employee with employeeId : {} has been updated successfully", employee.getEmployeeId());
+		
+		model.addAttribute("listManager", this.employeeService.findAllManagers());
+		model.addAttribute("roles", AccountEnum.values());
+		model.addAttribute("msg", "This employee has been updated successfully");
+		model.addAttribute("msgColour", "success");
 		
 		return "admins/employees/admin-employees-edit";
 	}

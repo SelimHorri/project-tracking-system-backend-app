@@ -37,11 +37,11 @@
 					<input th:field='*{phone}' type="text" class="form-control col-sm-8" placeholder="Enter phone..." id="inputDefault" />
 					<span class='text-danger' th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></span>
 				</div>
-				<div class="form-group">
+				<!-- <div class="form-group">
 					<label class="col-form-label" for="inputDefault">Hiredate</label>
 					<input th:field='*{hiredate}' type="date" class="form-control col-sm-8" placeholder="Enter hiredate..." id="inputDefault" />
 					<span class='text-danger' th:if="${#fields.hasErrors('hiredate')}" th:errors="*{hiredate}"></span>
-				</div>
+				</div> -->
 				<div class="form-group">
 					<label class="col-form-label" for="inputDefault">Job</label>
 					<input th:field='*{job}' type="text" class="form-control col-sm-8" placeholder="Enter job..." id="inputDefault" />

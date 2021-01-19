@@ -66,10 +66,18 @@ public final class UserCredential implements Serializable {
 	
 	@Override
 	public String toString() {
-		return "UserCredential [userId=" + userId + ", username=" + username + ", password=" + password + ", enabled="
+		return "UserCredential [userId=" + getUserId() + ", username=" + username + ", password=" + password + ", enabled="
 				+ enabled + ", role=" + role + "]";
 	}
+	
+	public Integer getUserId() {
+		return userId;
+	}
 
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
+	
 	public String getUsername() {
 		return username;
 	}
@@ -108,10 +116,6 @@ public final class UserCredential implements Serializable {
 
 	public void setEmployee(final Employee employee) {
 		this.employee = employee;
-	}
-
-	public Integer getUserId() {
-		return userId;
 	}
 	
 	
