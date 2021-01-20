@@ -78,7 +78,7 @@ public class AdminLocationController {
 		if (error.hasErrors()) {
 			model.addAttribute("msg", "Problem happened here, please check again !");
 			model.addAttribute("msgColour", "danger");
-			return "admins/locations/admin-locations-edit";
+			return "admins/locations/admin-loclocations location0_ations-edit";
 		}
 		
 		this.locationService.update(location);

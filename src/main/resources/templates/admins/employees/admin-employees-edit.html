@@ -43,7 +43,7 @@
 				</div>
 				<!-- <div class="form-group">
 					<label class="col-form-label" for="inputDefault">Hiredate</label>
-					<input th:field='*{hiredate}' type="date" class="form-control col-sm-8" placeholder="Enter hiredate..." id="inputDefault" />
+					<input th:name="hiredate" th:value="${#temporals.format(employee.hiredate, 'dd/MM/yyyy')}" type="date" class="form-control col-sm-8" placeholder="Enter hiredate..." id="inputDefault" />
 					<span class='text-danger' th:if="${#fields.hasErrors('hiredate')}" th:errors="*{hiredate}"></span>
 				</div> -->
 				<div class="form-group">

@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.pfa.pack.enums.AccountEnum;
 import com.pfa.pack.models.entities.Employee;
 import com.pfa.pack.models.entities.UserCredential;
-import com.pfa.pack.services.DepartmentService;
 import com.pfa.pack.services.EmployeeService;
 import com.pfa.pack.services.UserCredentialService;
 
@@ -27,7 +26,6 @@ public class AdminEmployeeController {
 	
 	private final EmployeeService employeeService;
 	private final UserCredentialService userCredentialService;
-	private final DepartmentService departmentService;
 	private static final Logger logger = LoggerFactory.getLogger(AdminEmployeeController.class);
 	
 	static {
@@ -35,10 +33,9 @@ public class AdminEmployeeController {
 	}
 	
 	@Autowired
-	public AdminEmployeeController(final EmployeeService employeeService, final UserCredentialService userCredentialService, final DepartmentService departmentService) {
+	public AdminEmployeeController(final EmployeeService employeeService, final UserCredentialService userCredentialService) {
 		this.employeeService = employeeService;
 		this.userCredentialService = userCredentialService;
-		this.departmentService = departmentService;
 	}
 	
 	@GetMapping(value = {"/admin-employee-credentials", "/credentials"})

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Collections;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -39,7 +40,7 @@ public final class Location implements Serializable {
 	private String city;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "location")
+	@OneToMany(mappedBy = "location", cascade = CascadeType.ALL)
 	private Set<Department> departments;
 	
 	public Location() {
