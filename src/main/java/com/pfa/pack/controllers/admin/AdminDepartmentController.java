@@ -34,7 +34,7 @@ public class AdminDepartmentController {
 		this.locationService = locationService;
 	}
 
-	@GetMapping(value = {"", "/", "/admin-departments-list"})
+	@GetMapping(value = {"/", "/admin-departments-list"})
 	public String displayAdminDepartmentsList(final Model model) {
 		
 		model.addAttribute("departments", this.departmentService.findAll().getDepartments());

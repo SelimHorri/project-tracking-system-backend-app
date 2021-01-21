@@ -45,7 +45,7 @@ public class AdminEmployeeController {
 		return "admins/employees/admin-employee-credentials";
 	}
 	
-	@GetMapping(value = {"", "/", "/admin-employees-list"})
+	@GetMapping(value = {"/", "/admin-employees-list"})
 	public String displayAdminEmployeesList(final Model model) {
 		
 		model.addAttribute("employees", this.employeeService.findAll().getEmployees());
