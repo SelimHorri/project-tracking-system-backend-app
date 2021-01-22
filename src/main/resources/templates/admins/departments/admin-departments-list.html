@@ -35,7 +35,7 @@
 							<td th:text="${d.departmentName}"></td>
 							<td th:text="${d.location.adr + ', ' + d.location.postalCode + ', ' + d.location.city}"></td>
 							<td><a class='btn btn-outline-warning' th:href="@{/app/admins/departments/admin-departments-edit(departmentId=${d.departmentId})}">Edit</a></td>
-							<td><a class='btn btn-outline-danger' th:href="@{/app/admins/departments/admin-departments-delete(departmentId=${d.departmentId})}" onClick="if (!(confirm('Do you confirm you want DELETE this department ?'))) return false" >Delete</a></td>
+							<td><a class='btn btn-outline-danger' th:href="@{/app/admins/departments/admin-departments-delete(departmentId=${d.departmentId})}" onClick="if (!(confirm('Do you confirm you want DELETE this department ?\n this will provoke deletion of employees related to this department'))) return false" >Delete</a></td>
 		                </tr>
 	            	</tbody>
 	        	</table>

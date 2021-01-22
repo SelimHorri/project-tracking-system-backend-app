@@ -4,8 +4,10 @@ import java.io.Serializable;
 import java.util.Collections;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -39,7 +41,7 @@ public final class Department implements Serializable {
 	private Location location;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "department")
+	@OneToMany(mappedBy = "department", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Employee> employees;
 	
 	public Department() {
