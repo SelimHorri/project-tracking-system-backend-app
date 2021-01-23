@@ -1,6 +1,8 @@
 package com.pfa.pack.services.impls;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Service;
 import com.pfa.pack.models.collectionwrappers.AssignmentsCollection;
 import com.pfa.pack.models.dto.EmployeeProjectData;
 import com.pfa.pack.models.dto.ProjectCommit;
+import com.pfa.pack.models.dto.SearchProjectsDto;
 import com.pfa.pack.models.entities.Assignment;
 import com.pfa.pack.repositories.AssignmentRepository;
 import com.pfa.pack.services.AssignmentService;
@@ -119,6 +122,15 @@ public class AssignmentServiceImpl implements AssignmentService {
 	@Override
 	public ProjectCommit findByEmployeeIdAndProjectIdAndCommitDate(final Integer employeeId, final Integer projectId, final LocalDateTime commitDate) {
 		return this.rep.findByEmployeeIdAndProjectIdAndCommitDate(employeeId, projectId, commitDate).orElseThrow(() -> new NoSuchElementException("\\n------------ NO ELEMENT FOUND !!!!! ------------\\n"));
+	}
+	
+	@Override
+	public List<ProjectCommit> findByProjectIdAndCommitDateFromAndCommitDateTo(final SearchProjectsDto searchProjectsDto) {
+		
+		if (searchProjectsDto.getCommitDateFrom() == null || searchProjectsDto.getCommitDateTo() == null)
+			throw new IllegalArgumentException("commitDateFrom/commitDateTo is/are not designed");
+		
+		return new ArrayList<>(this.rep.findByProjectIdAndCommitDateFromAndCommitDateTo(Integer.parseInt(searchProjectsDto.getProjectId()), LocalDate.parse(searchProjectsDto.getCommitDateFrom()), LocalDate.parse(searchProjectsDto.getCommitDateTo())));
 	}
 	
 	

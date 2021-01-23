@@ -26,6 +26,7 @@ import com.pfa.pack.models.dto.EmployeeAssignedProjectDto;
 import com.pfa.pack.models.dto.ManagerProjectData;
 import com.pfa.pack.models.dto.ProjectCommit;
 import com.pfa.pack.models.dto.ProjectDTO;
+import com.pfa.pack.models.dto.SearchProjectsDto;
 import com.pfa.pack.models.entities.Assignment;
 import com.pfa.pack.models.entities.Employee;
 import com.pfa.pack.models.entities.Project;
@@ -252,6 +253,49 @@ public class ManagerController {
 		
 		model.addAttribute("commits", allProjectCommits);
 		model.addAttribute("project", project);
+		
+		return "managers/manager-show-commits";
+	}
+	
+	@GetMapping(value = {"/manager-search-commits"})
+	public String displayManagerSearchCommits(final Authentication authentication, final Model model) {
+		
+		final SearchProjectsDto searchProjectsDto = new SearchProjectsDto();
+		searchProjectsDto.setDataProjects(this.projectService.findByEmployeeId(this.userCredentialService.findByUsername(authentication.getName()).getEmployee().getEmployeeId()));
+		
+		model.addAttribute("searchProjectsDto", searchProjectsDto);
+		
+		return "managers/manager-search-commits";
+	}
+	
+	@PostMapping(value = {"/manager-search-commits"})
+	public String handleManagerSearchCommits(@ModelAttribute("searchProjectsDto") @Valid final SearchProjectsDto searchProjectsDto, final BindingResult error, final Authentication authentication, final Model model) {
+		
+		if (error.hasErrors()) {
+			searchProjectsDto.setDataProjects(this.projectService.findByEmployeeId(this.userCredentialService.findByUsername(authentication.getName()).getEmployee().getEmployeeId()));
+			model.addAttribute("searchProjectsDto", searchProjectsDto);
+			model.addAttribute("msg", "Problem happened here, please check again...");
+			model.addAttribute("msgColour", "danger");
+			return "managers/manager-search-commits";
+		}
+		
+		final LocalDate commitDateFrom = LocalDate.parse(searchProjectsDto.getCommitDateFrom());
+		final LocalDate commitDateTo = LocalDate.parse(searchProjectsDto.getCommitDateTo());
+		
+		if (commitDateFrom.isAfter(commitDateTo)) {
+			searchProjectsDto.setDataProjects(this.projectService.findByEmployeeId(this.userCredentialService.findByUsername(authentication.getName()).getEmployee().getEmployeeId()));
+			model.addAttribute("searchProjectsDto", searchProjectsDto);
+			model.addAttribute("msg", "commitDateFrom must be before commitDateTo...");
+			model.addAttribute("msgColour", "danger");
+			return "managers/manager-search-commits";
+		}
+		
+		System.err.println(searchProjectsDto);
+		
+		final List<ProjectCommit> commits = this.assignmentService.findByProjectIdAndCommitDateFromAndCommitDateTo(searchProjectsDto);
+		
+		model.addAttribute("project", this.projectService.findById(Integer.parseInt(searchProjectsDto.getProjectId())));
+		model.addAttribute("commits", commits);
 		
 		return "managers/manager-show-commits";
 	}

@@ -6,6 +6,7 @@ import java.util.List;
 import com.pfa.pack.models.collectionwrappers.AssignmentsCollection;
 import com.pfa.pack.models.dto.EmployeeProjectData;
 import com.pfa.pack.models.dto.ProjectCommit;
+import com.pfa.pack.models.dto.SearchProjectsDto;
 import com.pfa.pack.models.entities.Assignment;
 
 public interface AssignmentService {
@@ -20,5 +21,6 @@ public interface AssignmentService {
 	public abstract List<ProjectCommit> findByEmployeeIdAndProjectId(final Integer employeeId, final Integer projectId);
 	public abstract void deleteByProjectId(final Integer projectId);
 	public abstract ProjectCommit findByEmployeeIdAndProjectIdAndCommitDate(final Integer employeeId, final Integer projectId, final LocalDateTime commitDate);
+	public abstract List<ProjectCommit> findByProjectIdAndCommitDateFromAndCommitDateTo(final SearchProjectsDto searchProjectsDto);
 	
 }

@@ -1,8 +1,10 @@
 package com.pfa.pack.repositories;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -35,6 +37,9 @@ public interface AssignmentRepository extends JpaRepository<Assignment, Integer>
 	
 	@Query(name = "ProjectCommit.findByEmployeeIdAndProjectIdAndCommitDate", nativeQuery = true)
 	public abstract Optional<ProjectCommit> findByEmployeeIdAndProjectIdAndCommitDate(@Param("employeeId") final int employeeId, @Param("projectId") final int projectId, @Param("commitDate") final LocalDateTime commitDate);
+	
+	@Query(name = "Set<ProjectCommit>.findByProjectIdAndCommitDateFromAndCommitDateTo", nativeQuery = true)
+	public abstract Set<ProjectCommit> findByProjectIdAndCommitDateFromAndCommitDateTo(@Param("projectId") final int projectId, @Param("commitDateFrom") final LocalDate commitDateFrom, @Param("commitDateTo") final LocalDate commitDateTo);
 	
 }
 

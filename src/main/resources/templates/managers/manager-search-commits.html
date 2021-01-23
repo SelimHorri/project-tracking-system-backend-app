@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+
+<html xmlns:th = "http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Search commits</title>
+	<div th:replace = "layouts :: stylish"></div>
+</head>
+
+<body>
+	
+	<div th:replace = "layouts :: managerNavbar"></div>
+	<br><br><br><br><br>
+		
+	<div class='container container-fluid'>
+		
+		<form class='form jumbotron' th:object="${searchProjectsDto}" th:action='@{/app/managers/manager-search-commits}' method='POST'>
+			<fieldset>
+				<div class=''>
+					<div class="form-group">
+						<label for="exampleSelect1">Project</label>
+						<select th:field="*{projectId}" class="custom-select " id="exampleSelect1">
+							<option selected value=''>---------- Select item here ----------</option>
+							<option th:each="p : ${searchProjectsDto.dataProjects}" th:text="${p.title + ' : ' + p.status}" th:value="${p.projectId}"></option>
+						</select>
+						<span th:if="${#fields.hasErrors('projectId')}" th:errors="*{projectId}" class='badge badge-danger'></span>
+					</div>
+					<div class="form-group">
+						<label class="col-form-label" for="inputDefault">From</label>
+						<input th:field="*{commitDateFrom}" type="date" class="form-control col-sm-8" placeholder="Enter commitDateFrom..." id="inputDefault" />
+						<span th:if="${#fields.hasErrors('commitDateFrom')}" th:errors="*{commitDateFrom}" class='badge badge-danger'></span>
+					</div>
+					<div class="form-group">
+						<label class="col-form-label" for="inputDefault">To</label>
+						<input th:field="*{commitDateTo}" type="date" class="form-control col-sm-8" placeholder="Enter commitDateTo..." id="inputDefault" />
+						<span th:if="${#fields.hasErrors('commitDateTo')}" th:errors="*{commitDateTo}" class='badge badge-danger'></span>
+					</div>
+				</div>
+				<br>
+				<div th:switch="${msgColour}">
+					<p th:case="success"><span class="badge badge-success" th:text="${msg}"></span></p>
+					<p th:case="danger"><span class="badge badge-danger" th:text="${msg}"></span></p>
+				</div>
+				<div class=' '>
+					<input type='submit' class='btn btn-info btn-lg' value='Search' />
+				</div>
+			</fieldset>
+			
+		</form>
+		
+	</div>
+	
+	<br><br><br><br><br>
+	
+	<div th:replace = "layouts :: javascript"></div>
+	
+</body>
+</html>
+
+
+
+
+
+
+
