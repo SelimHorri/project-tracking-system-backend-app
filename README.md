@@ -30,11 +30,17 @@ Delete the sample code, replace with your own and you’re good to go.
 - [x] Bootstrap - CSS
 - [x] Web - HTML, JavaScript (jQuery)
 - [x] Content Negotiation
-- [x] Security (Basic Authentication)
-- [ ] Material Design for Bootstrap
-- [ ] Docker
-- [ ] Spring Boot Admin
-- [ ] MySQL 
+- [x] Material Design for Bootstrap
+- [x] Docker
+- [x] Spring Boot Admin
+- [x] Spring Security
+- [x] Spring Data Jpa
+- [x] Spring AOP
+- [x] MySQL 
+- [x] Swagger
+- [x] Twilio API
+- [x] JFreeChart
+- [x] 
 - [ ] More .... ;) 
 
 
@@ -276,4 +282,5 @@ This Project uses GitHub's integrated issue tracking system to record bugs and f
 
 
 -- ## License
+
 
