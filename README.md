@@ -40,7 +40,7 @@ Delete the sample code, replace with your own and you’re good to go.
 - [x] Swagger
 - [x] Twilio API
 - [x] JFreeChart
-- [x] 
+- [x] Heroku deployment
 - [ ] More .... ;) 
 
 
