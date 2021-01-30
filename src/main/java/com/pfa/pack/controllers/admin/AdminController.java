@@ -22,7 +22,7 @@ public class AdminController {
 	private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
 	
 	static {
-		logger.info("************ entering " + AdminController.class.getName() + " ************");
+		logger.info("************* entering " + AdminController.class.getName() + " *************");
 	}
 	
 	@Autowired
