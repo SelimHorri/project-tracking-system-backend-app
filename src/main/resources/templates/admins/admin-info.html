@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+
+<html xmlns:th = "http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<div th:replace = "layouts :: stylish"></div>
+</head>
+
+<body>
+	
+	<div th:replace = "layouts :: adminNavbar"></div>
+	<br><br><br><br><br>
+		
+	<div class='container container-fluid'>
+		
+		<div class = 'row'>
+			
+			<div class="card" style="max-width: 100rem;">
+				<div class="card-body" style="max-width: 100rem;">
+					<h2 class="card-title text-success" th:text="${a.firstName + ' ' + a.lastName}" ></h2>
+					<h5 class="card-subtitle mb-2 text-muted" th:text="${'Service : ' + a.job}" ></h5>
+					<hr>
+					<h4 class="card-title text-primary" th:text="${'Username : ' + a.userCredential.username}" ></h4>
+					<h4 class="card-title text-primary" th:text="${'isActive : ' + a.userCredential.enabled}" ></h4>
+					<h4 class="card-title text-primary" th:text="${'Email : ' + a.email}" ></h4>
+ 					<!--<h4 class="card-title text-primary" th:text="${'Department : ' + a.department.departmentName}" ></h4> -->
+					<h4 class="card-title text-primary" th:text="${'Phone number : ' + a.phone}" ></h4>
+					<h4 class="card-title text-primary" th:text="${'Hiredate : ' + a.hiredate}" ></h4>
+					<h4 class="card-title text-primary" th:text="${'Salary : ' + a.salary}" ></h4>
+ 					<hr>
+ 					<!--<a th:href="@{/app/admins/admin-index}" class='btn btn-outline-success'>Show my projects ?</a> -->
+ 					<!--<a href="#" class="card-link">Another link</a> -->
+ 					&nbsp;
+ 					<a th:href="@{/app/credentials/credential-edit}" class='btn btn-outline-success' >Edit credentials ?</a>
+				</div>
+			</div>
+			
+		</div>
+		
+	</div>
+	
+	<br><br><br><br><br>
+	
+	<div th:replace = "layouts :: javascript"></div>
+	
+</body>
+</html>
+
+
+
+
+
+
+

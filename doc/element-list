@@ -4,9 +4,15 @@ com.pfa.pack.configs.modelmapper
 com.pfa.pack.configs.swagger
 com.pfa.pack.configs.twilio
 com.pfa.pack.controllers
+com.pfa.pack.controllers.admin
 com.pfa.pack.controllers.api
+com.pfa.pack.controllers.employee
+com.pfa.pack.controllers.manager
 com.pfa.pack.converters
 com.pfa.pack.enums
+com.pfa.pack.exceptions
+com.pfa.pack.exceptions.customs
+com.pfa.pack.exceptions.payloads
 com.pfa.pack.models.collectionwrappers
 com.pfa.pack.models.dto
 com.pfa.pack.models.entities
