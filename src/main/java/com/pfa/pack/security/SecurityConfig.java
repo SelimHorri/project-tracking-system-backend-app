@@ -44,8 +44,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/app/api/**").permitAll()
 			.antMatchers("**/css/**").permitAll()
 			.antMatchers("**/js/**").permitAll()
+			.antMatchers("/h2-console/**").permitAll()
 			.antMatchers("/", "/app").permitAll()
 		.and().formLogin();
+		http.headers().frameOptions().sameOrigin(); // h2 db
 	}
 	
 	

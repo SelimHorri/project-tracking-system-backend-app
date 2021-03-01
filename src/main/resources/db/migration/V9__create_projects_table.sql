@@ -1,7 +1,8 @@
+
 CREATE TABLE projects (
-  project_id INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  title VARCHAR(255) DEFAULT NULL,
-  start_date DATE DEFAULT NULL,
-  end_date DATE DEFAULT NULL,
-  status VARCHAR(255) DEFAULT NULL
+  project_id int(11) NOT NULL primary key auto_increment,
+  title varchar(255) DEFAULT NULL,
+  start_date date DEFAULT NULL,
+  end_date date DEFAULT NULL,
+  status varchar(255) DEFAULT NULL
 );
