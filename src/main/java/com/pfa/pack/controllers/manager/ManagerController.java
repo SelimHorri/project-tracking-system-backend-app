@@ -215,7 +215,7 @@ public class ManagerController {
 		projectDTO.getAssignedEmployees().forEach((employeeId) -> {
 			assignment.setEmployeeId(Integer.parseInt(employeeId));
 			assignment.setProjectId(project.getProjectId());
-			assignment.setCommitDate(LocalDateTime.now());
+			// assignment.setCommitDate(LocalDateTime.now());
 			assignment.setCommitMgrDesc("init"); // 'init' to tell this is the assignment
 			final Employee employee = this.employeeService.findById(Integer.parseInt(employeeId));
 			assignment.setEmployee(employee);
@@ -439,7 +439,7 @@ public class ManagerController {
 		assignEmployeesDto.getAssignedEmployees().forEach((employeeId) -> {
 			assignment.setEmployeeId(Integer.parseInt(employeeId));
 			assignment.setProjectId(Integer.parseInt(assignEmployeesDto.getProjectId()));
-			assignment.setCommitDate(LocalDateTime.now());
+			// assignment.setCommitDate(LocalDateTime.now());
 			assignment.setCommitMgrDesc("init");
 			assignment.setEmployee(this.employeeService.findById(Integer.parseInt(employeeId)));
 			assignment.setProject(this.projectService.findById(Integer.parseInt(assignEmployeesDto.getProjectId())));

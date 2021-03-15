@@ -192,7 +192,7 @@ public class EmployeeController {
 		final Assignment assignment = new Assignment();
 		assignment.setEmployeeId(userCredential.getEmployee().getEmployeeId());
 		assignment.setProjectId(Integer.parseInt(projectId));
-		assignment.setCommitDate(LocalDateTime.now());
+		// assignment.setCommitDate(LocalDateTime.now());
 		assignment.setEmployee(userCredential.getEmployee());
 		assignment.setProject(this.projectService.findById(Integer.parseInt(projectId)));
 		assignment.setCommitEmpDesc(commitEmpDesc);
