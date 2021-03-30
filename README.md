@@ -223,7 +223,7 @@ The project (a.k.a. project directory) has a particular directory structure. A r
 │           │   ├── home
 │           ├── application.properties
 │           ├── application-dev.properties
-│           ├── application-qa.properties
+│           ├── application-test.properties
 │           ├── application-prod.properties
 │           ├
 │           └── 
