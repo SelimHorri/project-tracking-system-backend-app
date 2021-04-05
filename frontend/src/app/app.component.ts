@@ -1,7 +1,7 @@
-import { EmployeesCollection } from './model/dto/employees-collection';
 import { Component, OnInit } from '@angular/core';
 import { EmployeeService } from './service/employee.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { EmployeesCollection } from './model/collection/employees-collection';
 
 @Component({
   selector: 'app-root',

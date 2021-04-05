@@ -1,8 +1,8 @@
-import { EmployeesCollection } from './../model/dto/employees-collection';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { EmployeesCollection } from '../model/collection/employees-collection';
 import { Employee } from '../model/entity/employee';
 
 @Injectable({
