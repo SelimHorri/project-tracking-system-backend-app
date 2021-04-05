@@ -2,10 +2,11 @@
 export class Project {
 	
 	constructor(
-		public locationId: number,
-		public adr: string,
-		public postalCode: string,
-		public city: string) {
+		public projectId: number,
+		public title: string,
+		public startDate: Date,
+		public endDate: Date,
+		public status: string) {
 		
 	}
 	
