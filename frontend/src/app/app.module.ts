@@ -15,6 +15,9 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
+import { EmployeeIndexComponent } from './employee/employee-index/employee-index.component';
+import { EmployeeTeamComponent } from './employee/employee-team/employee-team.component';
+import { EmployeeInfoComponent } from './employee/employee-info/employee-info.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +25,10 @@ import { FooterComponent } from './footer/footer.component';
     HomeComponent,
     LoginComponent,
     NavbarComponent,
-    FooterComponent
+    FooterComponent,
+    EmployeeIndexComponent,
+    EmployeeTeamComponent,
+    EmployeeInfoComponent
   ],
   imports: [
     BrowserModule,
