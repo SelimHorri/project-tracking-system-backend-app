@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit {
     this.employeeService.findAll().subscribe(
       (response: EmployeesCollection) => {
         response.employees.forEach((e) => {
-          console.log(e.firstName + " " + e.lastName + " : " + e.email);
+          console.log(JSON.stringify(e) + " : " + e.email);
         });
       },
       (error: HttpErrorResponse) => {
