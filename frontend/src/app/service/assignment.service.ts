@@ -1,4 +1,3 @@
-
 import { AssignmentsCollection } from './../model/collection/assignments-collection';
 import { Assignment } from './../model/entity/assignment';
 import { Observable } from 'rxjs';

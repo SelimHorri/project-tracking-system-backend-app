@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { EmployeesCollection } from '../model/collection/employees-collection';
+import { EmployeeProjectData } from '../model/dto/employee-project-data';
 import { Employee } from '../model/entity/employee';
 
 @Injectable({
@@ -34,6 +35,10 @@ export class EmployeeService {
   
   public deleteById(employeeId: number): Observable<any> {
     return this.http.delete<any>(this.apiUrl + "/" + employeeId);
+  }
+  
+  public findByEmployeeId(employeeId: number): Observable<EmployeeProjectData[]> {
+    return this.http.get<EmployeeProjectData[]>(this.apiUrl + "/display-projects/" + employeeId);
   }
   
   

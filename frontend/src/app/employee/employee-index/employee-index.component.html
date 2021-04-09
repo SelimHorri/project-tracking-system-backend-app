@@ -79,12 +79,13 @@
                   <th scope="col">Action</th>
                 </tr>
               </thead>
-              <tbody *ngFor="" >
+              <tbody *ngFor="let data of employeeProjectDatas" >
                 <tr>
-                  <td>Redesign - Landing page</td>
-                  <td>10/6/2019</td>
+                  <td>{{data?.title}}</td>
+                  <td>{{data?.startDate | date}}</td>
+									<td>{{data?.endDate | date}}</td>
                   <td>
-                    <span class="text-primary font-12"><i class="mdi mdi-checkbox-blank-circle mr-1"></i> Pending</span>
+                    <span class="text-primary font-12"><i class="mdi mdi-checkbox-blank-circle mr-1"></i> {{data?.status}} </span>
                   </td>
                   <td>
                     <div class="team">
