@@ -1,4 +1,7 @@
+
 import { Component, OnInit } from '@angular/core';
+import { Employee } from 'src/app/model/entity/employee';
+import { EmployeeService } from 'src/app/service/employee.service';
 
 @Component({
   selector: 'app-employee-index',
@@ -6,10 +9,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./employee-index.component.css']
 })
 export class EmployeeIndexComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
+  
+  public employees!: Employee[];
+  public employee!: Employee;
+  
+  constructor(private employeeService: EmployeeService) {
+      
   }
-
+  
+  ngOnInit(): void {
+    
+  }
+  
+  
+  
 }
