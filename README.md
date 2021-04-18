@@ -1,5 +1,5 @@
-# **************** Project Tracker **************** 
-## Spring Boot & Thymeleaf
+# Project Tracking System repo
+## Spring Boot project
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FSpring-Boot-Framework%2FSpring-Boot-Application-Template.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FSpring-Boot-Framework%2FSpring-Boot-Application-Template?ref=badge_shield)
 
 The only thing better than a Maven archetype is a repo you can fork with everything already setup. Skip the documentation and just fork-and-code. 
@@ -223,7 +223,7 @@ The project (a.k.a. project directory) has a particular directory structure. A r
 │           │   ├── home
 │           ├── application.properties
 │           ├── application-dev.properties
-│           ├── application-qa.properties
+│           ├── application-test.properties
 │           ├── application-prod.properties
 │           ├
 │           └── 
