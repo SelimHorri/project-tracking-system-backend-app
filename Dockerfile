@@ -1,5 +1,7 @@
+
 FROM openjdk:11
-VOLUME /tmp
-EXPOSE 8080
-ADD target/project-tracking-system.jar project-tracking-system.jar
-ENTRYPOINT ["java", "-jar", "project-tracking-system.jar"]
+RUN mkdir -p /home/app
+ENV SPRING_PROFILES_ACTIVE=dev
+COPY . /home/app
+ENTRYPOINT ["java", "-Dspring.profiles.active=${SPRING_PROFILES_ACTIVE}", "-jar", "/home/app/target/project-tracking-system.jar"]
+
