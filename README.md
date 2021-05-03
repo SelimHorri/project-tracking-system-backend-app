@@ -36,7 +36,8 @@ Delete the sample code, replace with your own and you’re good to go.
 - [x] Spring Security
 - [x] Spring Data Jpa
 - [x] Spring AOP
-- [x] MySQL 
+- [x] MySQL
+- [x] H2
 - [x] Swagger
 - [x] Twilio API
 - [x] JFreeChart
