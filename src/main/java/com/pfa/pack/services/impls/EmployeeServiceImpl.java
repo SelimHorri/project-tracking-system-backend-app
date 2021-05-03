@@ -1,9 +1,6 @@
 package com.pfa.pack.services.impls;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 import javax.transaction.Transactional;
 
@@ -96,7 +93,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 	
 	@Override
 	public List<EmployeeAssignedProjectDto> findByManagerIdAndProjectId(final Integer managerId, final Integer projectId) {
-		return this.employeeAssignedProjectConverter.convert(this.rep.findByManagerIdAndProjectId(managerId, projectId));
+		Set<Integer> byManagerIdAndProjectId = this.rep.findByManagerIdAndProjectId(managerId, projectId);
+		List<Employee> allByEmployeeIdIn = this.rep.getAllByEmployeeIdIn(byManagerIdAndProjectId);
+		return this.employeeAssignedProjectConverter.convert(allByEmployeeIdIn);
 	}
 	
 	@Override
