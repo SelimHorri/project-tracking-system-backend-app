@@ -54,8 +54,8 @@ public class AssignmentServiceImpl implements AssignmentService {
 	 * @return a specific assignment
 	 */
 	@Override
-	public Assignment findByCompositeIds(final Integer employeeId, final Integer projectId, final LocalDateTime commitDate) {
-		return this.rep.findByCompositeIds(employeeId, projectId, commitDate).orElseThrow(() -> new NoSuchElementException("\\n------------ NO ELEMENT FOUND !!!!! ------------\\n"));
+	public Assignment findById(final Integer employeeId, final Integer projectId, final LocalDateTime commitDate) {
+		return this.rep.findById(employeeId, projectId, commitDate).orElseThrow(() -> new NoSuchElementException("\\n------------ NO ELEMENT FOUND !!!!! ------------\\n"));
 	}
 	
 	/**
@@ -83,7 +83,7 @@ public class AssignmentServiceImpl implements AssignmentService {
 	 */
 	@Override
 	public void delete(final Integer employeeId, final Integer projectId, final LocalDateTime commitDate) {
-		this.rep.delete(this.findByCompositeIds(employeeId, projectId, commitDate));
+		this.rep.delete(this.findById(employeeId, projectId, commitDate));
 	}
 	
 	/**

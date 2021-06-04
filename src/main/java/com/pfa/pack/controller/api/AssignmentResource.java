@@ -1,6 +1,7 @@
 package com.pfa.pack.controller.api;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,11 +47,10 @@ public class AssignmentResource {
 	@GetMapping(value = {"/{employeeId}/{projectId}/{commitDate}"})
 	public ResponseEntity<Assignment> findByCompositeIds(@PathVariable("employeeId") final String employeeId, 
 														 @PathVariable("projectId") final String projectId,
-														 @PathVariable("commitDate") @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss") final String commitDate
-												  		) {
+														 @PathVariable("commitDate") final String commitDate) {
 		final int id1 = Integer.parseInt(employeeId);
 		final int id2 = Integer.parseInt(projectId);
-		return new ResponseEntity<>(this.service.findByCompositeIds(id1, id2, LocalDateTime.parse(commitDate)), HttpStatus.OK);
+		return new ResponseEntity<>(this.service.findById(id1, id2, LocalDateTime.parse(commitDate, DateTimeFormatter.ofPattern("dd-MM-yyyyHH:mm:ss"))), HttpStatus.OK);
 	}
 	
 	@PostMapping(value = {"", "/save"})

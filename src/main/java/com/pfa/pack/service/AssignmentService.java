@@ -12,7 +12,7 @@ import com.pfa.pack.model.entity.Assignment;
 public interface AssignmentService {
 	
 	public abstract DtoCollection<Assignment> findAll();
-	public abstract Assignment findByCompositeIds(final Integer employeeId, final Integer projectId, final LocalDateTime commitDate);
+	public abstract Assignment findById(final Integer employeeId, final Integer projectId, final LocalDateTime commitDate);
 	public abstract Assignment save(final Assignment assignment);
 	public abstract Assignment update(final Assignment assignment);
 	public abstract void delete(final Integer employeeId, final Integer projectId, final LocalDateTime commitDate);

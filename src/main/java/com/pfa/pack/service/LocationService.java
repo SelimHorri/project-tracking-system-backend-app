@@ -5,10 +5,10 @@ import com.pfa.pack.model.entity.Location;
 
 public interface LocationService {
 	
-	public abstract DtoCollection<Location> findAll();
-	public abstract Location findById(final Integer locationId);
-	public abstract Location save(final Location location);
-	public abstract Location update(final Location location);
-	public abstract void delete(final Integer locationId);
+	DtoCollection<Location> findAll();
+	Location findById(final Integer locationId);
+	Location save(final Location location);
+	Location update(final Location location);
+	void delete(final Integer locationId);
 	
 }
