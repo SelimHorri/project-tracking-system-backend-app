@@ -20,17 +20,17 @@ import com.pfa.pack.service.DepartmentService;
 
 @RestController
 @RequestMapping(value = {"/app/api/departments"})
-public class DepartmentRESTController {
+public class DepartmentResource {
 	
 	private final DepartmentService service;
-	private static final Logger logger = LoggerFactory.getLogger(DepartmentRESTController.class);
+	private static final Logger logger = LoggerFactory.getLogger(DepartmentResource.class);
 	
 	static {
-		logger.info("************ entering " + DepartmentRESTController.class.getName() + " ************");
+		logger.info("************ entering " + DepartmentResource.class.getName() + " ************");
 	}
 	
 	@Autowired
-	public DepartmentRESTController(final DepartmentService service) {
+	public DepartmentResource(final DepartmentService service) {
 		this.service = service;
 	}
 	

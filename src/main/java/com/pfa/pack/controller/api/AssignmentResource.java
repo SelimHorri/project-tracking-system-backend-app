@@ -23,17 +23,17 @@ import com.pfa.pack.service.AssignmentService;
 
 @RestController
 @RequestMapping(value = {"/app/api/assignments"})
-public class AssignmentRESTController {
+public class AssignmentResource {
 	
 	private final AssignmentService service;
-	private static final Logger logger = LoggerFactory.getLogger(AssignmentRESTController.class);
+	private static final Logger logger = LoggerFactory.getLogger(AssignmentResource.class);
 	
 	static {
-		logger.info("************ entering " + AssignmentRESTController.class.getName() + " ************");
+		logger.info("************ entering " + AssignmentResource.class.getName() + " ************");
 	}
 	
 	@Autowired
-	public AssignmentRESTController(final AssignmentService service) {
+	public AssignmentResource(final AssignmentService service) {
 		this.service = service;
 	}
 	

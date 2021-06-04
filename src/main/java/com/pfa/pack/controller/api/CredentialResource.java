@@ -20,17 +20,17 @@ import com.pfa.pack.service.CredentialService;
 
 @RestController
 @RequestMapping(value = {"/app/api/credentials"})
-public class CredentialRESTController {
+public class CredentialResource {
 	
 	private final CredentialService service;
-	private static final Logger logger = LoggerFactory.getLogger(CredentialRESTController.class);
+	private static final Logger logger = LoggerFactory.getLogger(CredentialResource.class);
 	
 	static {
-		logger.info("************ entering " + CredentialRESTController.class.getName() + " ************");
+		logger.info("************ entering " + CredentialResource.class.getName() + " ************");
 	}
 	
 	@Autowired
-	public CredentialRESTController(final CredentialService service) {
+	public CredentialResource(final CredentialService service) {
 		this.service = service;
 	}
 	

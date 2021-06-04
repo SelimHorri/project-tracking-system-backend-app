@@ -20,17 +20,17 @@ import com.pfa.pack.service.EmployeeService;
 
 @RestController
 @RequestMapping(value = {"/app/api/employees"})
-public class EmployeeRESTController {
+public class EmployeeResource {
 	
 	private final EmployeeService service;
-	private static final Logger logger = LoggerFactory.getLogger(EmployeeRESTController.class);
+	private static final Logger logger = LoggerFactory.getLogger(EmployeeResource.class);
 	
 	static {
-		logger.info("************ entering " + EmployeeRESTController.class.getName() + " ************");
+		logger.info("************ entering " + EmployeeResource.class.getName() + " ************");
 	}
 	
 	@Autowired
-	public EmployeeRESTController(final EmployeeService service) {
+	public EmployeeResource(final EmployeeService service) {
 		this.service = service;
 	}
 	
