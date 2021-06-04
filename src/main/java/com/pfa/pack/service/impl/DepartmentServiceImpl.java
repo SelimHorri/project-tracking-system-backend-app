@@ -1,4 +1,4 @@
-package com.pfa.pack.service.impls;
+package com.pfa.pack.service.impl;
 
 import java.util.Collections;
 import java.util.NoSuchElementException;
@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.pfa.pack.exception.custom.ObjectNotFoundException;
 import com.pfa.pack.model.dto.collection.DtoCollection;
 import com.pfa.pack.model.entity.Department;
 import com.pfa.pack.repository.DepartmentRepository;
@@ -38,7 +39,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 	
 	@Override
 	public Department findById(final Integer departmentId) {
-		return this.rep.findById(departmentId).orElseThrow(() -> new NoSuchElementException("\\n------------ NO ELEMENT FOUND !!!!! ------------\\n"));
+		return this.rep.findById(departmentId).orElseThrow(() -> new ObjectNotFoundException("\\n------------ NO Department object FOUND! ------------\\n"));
 	}
 	
 	@Override

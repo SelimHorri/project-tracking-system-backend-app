@@ -20,9 +20,6 @@ import com.pfa.pack.model.id.AssignmentId;
 @Repository
 public interface AssignmentRepository extends JpaRepository<Assignment, AssignmentId> {
 	
-	@Query(name = "Optional.findByCompositeIds", nativeQuery = true)
-	Optional<Assignment> findById(@Param("employeeId") final int employeeId, @Param("projectId") final int projectId, @Param("commitDate") final LocalDateTime commitDate);
-	
 	@Query(name = "List.findByEmployeeId", nativeQuery = true)
 	List<EmployeeProjectData> findByEmployeeId(@Param("employeeId") final int employeeId);
 	

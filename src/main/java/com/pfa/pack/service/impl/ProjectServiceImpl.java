@@ -1,9 +1,8 @@
-package com.pfa.pack.service.impls;
+package com.pfa.pack.service.impl;
 
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 import javax.transaction.Transactional;
 
@@ -14,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.pfa.pack.converter.ProjectDtoProjectConverter;
 import com.pfa.pack.converter.ProjectProjectDtoConverter;
+import com.pfa.pack.exception.custom.ObjectNotFoundException;
 import com.pfa.pack.model.dto.ChartData;
 import com.pfa.pack.model.dto.ManagerProjectData;
 import com.pfa.pack.model.dto.ProjectCommitInfoDTO;
@@ -50,7 +50,7 @@ public class ProjectServiceImpl implements ProjectService {
 	
 	@Override
 	public Project findById(final Integer projectId) {
-		return this.rep.findById(projectId).orElseThrow(() -> new NoSuchElementException("\\n------------ NO ELEMENT FOUND !!!!! ------------\\n"));
+		return this.rep.findById(projectId).orElseThrow(() -> new ObjectNotFoundException("\\n------------ NO Project object FOUND! ------------\\n"));
 	}
 	
 	@Override
@@ -99,7 +99,7 @@ public class ProjectServiceImpl implements ProjectService {
 	
 	@Override
 	public ProjectCommitInfoDTO findByUsernameAndProjectId(final String username, final Integer projectId) {
-		return this.rep.findByUsernameAndProjectId(username, projectId).orElseThrow(() -> new NoSuchElementException("\\n------------ NO PROJECT FOUND !!!!! ------------\\n"));
+		return this.rep.findByUsernameAndProjectId(username, projectId).orElseThrow(() -> new ObjectNotFoundException("\\n------------ NO ProjectCommitInfoDTO object FOUND! ------------\\n"));
 	}
 	
 	@Override

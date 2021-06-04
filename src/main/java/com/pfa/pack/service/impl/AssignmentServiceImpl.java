@@ -1,4 +1,4 @@
-package com.pfa.pack.service.impls;
+package com.pfa.pack.service.impl;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -14,11 +14,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.pfa.pack.exception.custom.ObjectNotFoundException;
 import com.pfa.pack.model.dto.EmployeeProjectData;
 import com.pfa.pack.model.dto.ProjectCommit;
 import com.pfa.pack.model.dto.SearchProjectsDto;
 import com.pfa.pack.model.dto.collection.DtoCollection;
 import com.pfa.pack.model.entity.Assignment;
+import com.pfa.pack.model.id.AssignmentId;
 import com.pfa.pack.repository.AssignmentRepository;
 import com.pfa.pack.service.AssignmentService;
 
@@ -53,9 +55,14 @@ public class AssignmentServiceImpl implements AssignmentService {
 	 * @param commitDate
 	 * @return a specific assignment
 	 */
-	@Override
+	/*@Override
 	public Assignment findById(final Integer employeeId, final Integer projectId, final LocalDateTime commitDate) {
 		return this.rep.findById(employeeId, projectId, commitDate).orElseThrow(() -> new NoSuchElementException("\\n------------ NO ELEMENT FOUND !!!!! ------------\\n"));
+	}*/
+	
+	@Override
+	public Assignment findById(final Integer employeeId, final Integer projectId, final LocalDateTime commitDate) {
+		return this.rep.findById(new AssignmentId(employeeId, projectId, commitDate)).orElseThrow(() -> new ObjectNotFoundException("\\n------------ NO Assignment object FOUND! ------------\\n"));
 	}
 	
 	/**
@@ -82,7 +89,7 @@ public class AssignmentServiceImpl implements AssignmentService {
 	 * @param commitDate
 	 */
 	@Override
-	public void delete(final Integer employeeId, final Integer projectId, final LocalDateTime commitDate) {
+	public void deleteById(final Integer employeeId, final Integer projectId, final LocalDateTime commitDate) {
 		this.rep.delete(this.findById(employeeId, projectId, commitDate));
 	}
 	
@@ -121,7 +128,7 @@ public class AssignmentServiceImpl implements AssignmentService {
 	
 	@Override
 	public ProjectCommit findByEmployeeIdAndProjectIdAndCommitDate(final Integer employeeId, final Integer projectId, final LocalDateTime commitDate) {
-		return this.rep.findByEmployeeIdAndProjectIdAndCommitDate(employeeId, projectId, commitDate).orElseThrow(() -> new NoSuchElementException("\\n------------ NO ELEMENT FOUND !!!!! ------------\\n"));
+		return this.rep.findByEmployeeIdAndProjectIdAndCommitDate(employeeId, projectId, commitDate).orElseThrow(() -> new NoSuchElementException("\\n------------ NO ProjectCommit object FOUND! ------------\\n"));
 	}
 	
 	@Override

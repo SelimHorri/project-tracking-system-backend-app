@@ -11,16 +11,16 @@ import com.pfa.pack.model.entity.Assignment;
 
 public interface AssignmentService {
 	
-	public abstract DtoCollection<Assignment> findAll();
-	public abstract Assignment findById(final Integer employeeId, final Integer projectId, final LocalDateTime commitDate);
-	public abstract Assignment save(final Assignment assignment);
-	public abstract Assignment update(final Assignment assignment);
-	public abstract void delete(final Integer employeeId, final Integer projectId, final LocalDateTime commitDate);
-	public abstract List<EmployeeProjectData> findByEmployeeId(final Integer employeeId);
-	public abstract List<ProjectCommit> findByProjectId(final Integer projectId);
-	public abstract List<ProjectCommit> findByEmployeeIdAndProjectId(final Integer employeeId, final Integer projectId);
-	public abstract void deleteByProjectId(final Integer projectId);
-	public abstract ProjectCommit findByEmployeeIdAndProjectIdAndCommitDate(final Integer employeeId, final Integer projectId, final LocalDateTime commitDate);
-	public abstract List<ProjectCommit> findByProjectIdAndCommitDateFromAndCommitDateTo(final SearchProjectsDto searchProjectsDto);
+	DtoCollection<Assignment> findAll();
+	Assignment findById(final Integer employeeId, final Integer projectId, final LocalDateTime commitDate);
+	Assignment save(final Assignment assignment);
+	Assignment update(final Assignment assignment);
+	void deleteById(final Integer employeeId, final Integer projectId, final LocalDateTime commitDate);
+	List<EmployeeProjectData> findByEmployeeId(final Integer employeeId);
+	List<ProjectCommit> findByProjectId(final Integer projectId);
+	List<ProjectCommit> findByEmployeeIdAndProjectId(final Integer employeeId, final Integer projectId);
+	void deleteByProjectId(final Integer projectId);
+	ProjectCommit findByEmployeeIdAndProjectIdAndCommitDate(final Integer employeeId, final Integer projectId, final LocalDateTime commitDate);
+	List<ProjectCommit> findByProjectIdAndCommitDateFromAndCommitDateTo(final SearchProjectsDto searchProjectsDto);
 	
 }

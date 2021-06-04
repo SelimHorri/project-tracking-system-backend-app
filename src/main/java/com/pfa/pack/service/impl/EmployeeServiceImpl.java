@@ -1,9 +1,8 @@
-package com.pfa.pack.service.impls;
+package com.pfa.pack.service.impl;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Set;
 
 import javax.transaction.Transactional;
@@ -15,6 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.pfa.pack.converter.EmployeeAssignedProjectConverter;
+import com.pfa.pack.exception.custom.ObjectNotFoundException;
 import com.pfa.pack.model.dto.EmployeeAssignedProjectDto;
 import com.pfa.pack.model.dto.collection.DtoCollection;
 import com.pfa.pack.model.entity.Employee;
@@ -48,7 +48,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	
 	@Override
 	public Employee findById(final Integer employeeId) {
-		return this.rep.findById(employeeId).orElseThrow(() -> new NoSuchElementException("\\n------------ NO ELEMENT FOUND !!!!! ------------\\n"));
+		return this.rep.findById(employeeId).orElseThrow(() -> new ObjectNotFoundException("\\n------------ NO Employee object FOUND! ------------\\n"));
 	}
 	
 	@Override
