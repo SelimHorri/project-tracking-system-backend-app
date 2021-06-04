@@ -35,9 +35,9 @@ public class EmployeeDto implements Serializable {
 		this.job = employee.getJob();
 		this.salary = String.valueOf(employee.getSalary());
 		this.managerId = String.valueOf(employee.getManager().getEmployeeId());
-		this.username = employee.getUserCredential().getUsername();
-		this.password = employee.getUserCredential().getPassword();
-		this.role = employee.getUserCredential().getRole();
+		this.username = employee.getCredential().getUsername();
+		this.password = employee.getCredential().getPassword();
+		this.role = employee.getCredential().getRole();
 	}
 	
 	@Override

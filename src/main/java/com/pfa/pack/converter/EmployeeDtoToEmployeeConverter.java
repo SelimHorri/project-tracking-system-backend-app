@@ -31,7 +31,7 @@ public class EmployeeDtoToEmployeeConverter implements Converter<EmployeeDto, Em
 		credential.setEnabled(true); // TODO hardcoded
 		credential.setRole(source.getRole());
 		
-		employee.setUserCredential(credential);
+		employee.setCredential(credential);
 		
 		
 		return employee;

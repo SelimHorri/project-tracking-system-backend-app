@@ -52,7 +52,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 	}
 	
 	@Override
-	public void delete(final Integer departmentId) {
+	public void deleteById(final Integer departmentId) {
 		this.rep.delete(this.findById(departmentId));
 	}
 	

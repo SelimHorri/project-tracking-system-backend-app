@@ -115,7 +115,7 @@ public class AdminEmployeeController {
 	@GetMapping(value = {"/admin-employees-isactive", "/isactive"})
 	public String handleAdminEmployeesInActive(@RequestParam("employeeId") final String employeeId) {
 		
-		final Credential credential = this.employeeService.findById(Integer.parseInt(employeeId)).getUserCredential();
+		final Credential credential = this.employeeService.findById(Integer.parseInt(employeeId)).getCredential();
 		credential.setEnabled(!credential.getEnabled());
 		
 		this.credentialService.save(credential);
@@ -127,7 +127,7 @@ public class AdminEmployeeController {
 	@GetMapping(value = {"/admin-employees-delete", "/delete"})
 	public String handleAdminEmployeesDelete(@RequestParam("employeeId") final String employeeId) {
 		
-		this.employeeService.delete(Integer.parseInt(employeeId));
+		this.employeeService.deleteById(Integer.parseInt(employeeId));
 		logger.info("Employee with employeeId : {} has been removed successfully", employeeId);
 		
 		return "redirect:/app/admins/employees/admin-employees-list";

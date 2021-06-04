@@ -22,7 +22,7 @@ import com.pfa.pack.service.DepartmentService;
 @RequestMapping(value = {"/app/api/departments"})
 public class DepartmentResource {
 	
-	private final DepartmentService service;
+	private final DepartmentService departmentService;
 	private static final Logger logger = LoggerFactory.getLogger(DepartmentResource.class);
 	
 	static {
@@ -31,32 +31,33 @@ public class DepartmentResource {
 	
 	@Autowired
 	public DepartmentResource(final DepartmentService service) {
-		this.service = service;
+		this.departmentService = service;
 	}
 	
 	@GetMapping(value = {"", "/"})
 	public ResponseEntity<DtoCollection<Department>> findAll() {
-		return new ResponseEntity<>(this.service.findAll(), HttpStatus.OK);
+		return new ResponseEntity<>(this.departmentService.findAll(), HttpStatus.OK);
 	}
 	
 	@GetMapping(value = {"/{id}"})
 	public ResponseEntity<Department> findById(@PathVariable("id") final String departmentId) {
-		return new ResponseEntity<>(this.service.findById(Integer.parseInt(departmentId)), HttpStatus.OK);
+		return new ResponseEntity<>(this.departmentService.findById(Integer.parseInt(departmentId)), HttpStatus.OK);
 	}
 	
 	@PostMapping(value = {"", "/save"})
 	public ResponseEntity<Department> save(@RequestBody final Department department) {
-		return new ResponseEntity<>(this.service.save(department), HttpStatus.OK);
+		return new ResponseEntity<>(this.departmentService.save(department), HttpStatus.OK);
 	}
 	
 	@PutMapping(value = {"", "/update"})
 	public ResponseEntity<Department> update(@RequestBody final Department department) {
-		return new ResponseEntity<>(this.service.update(department), HttpStatus.OK);
+		return new ResponseEntity<>(this.departmentService.update(department), HttpStatus.OK);
 	}
 	
 	@DeleteMapping(value = {"", "/delete"})
-	public void delete(final String departmentId) {
-		this.service.delete(Integer.parseInt(departmentId));
+	public ResponseEntity<Boolean> deleteById(final String departmentId) {
+		this.departmentService.deleteById(Integer.parseInt(departmentId));
+		return new ResponseEntity<>(true, HttpStatus.OK);
 	}
 	
 	

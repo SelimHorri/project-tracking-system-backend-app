@@ -52,7 +52,7 @@ public class LocationServiceImpl implements LocationService {
 	}
 	
 	@Override
-	public void delete(final Integer locationId) {
+	public void deleteById(final Integer locationId) {
 		this.rep.delete(this.findById(locationId));
 	}
 	

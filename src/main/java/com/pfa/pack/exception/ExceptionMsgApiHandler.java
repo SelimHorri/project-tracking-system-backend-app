@@ -21,7 +21,8 @@ public class ExceptionMsgApiHandler {
 			ObjectNotFoundException.class,
 			ObjectAlreadyExistsException.class,
 			UsernameNotFoundException.class,
-			DateTimeParseException.class
+			DateTimeParseException.class,
+			NumberFormatException.class
 		}
 	)
 	public <T extends RuntimeException> ResponseEntity<ExceptionMsg> handleExceptionOutputMsg(final T e) {
