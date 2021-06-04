@@ -5,14 +5,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import com.pfa.pack.services.UserCredentialService;
+import com.pfa.pack.service.CredentialService;
 
 public class UserDetailsServiceImpl implements UserDetailsService {
 	
-	private UserCredentialService service;
+	private CredentialService service;
 	
 	@Autowired
-	public UserDetailsServiceImpl(final UserCredentialService service) {
+	public UserDetailsServiceImpl(final CredentialService service) {
 		this.service = service;
 	}
 	
