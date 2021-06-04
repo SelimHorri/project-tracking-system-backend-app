@@ -22,7 +22,7 @@ import com.pfa.pack.service.LocationService;
 @RequestMapping(value = {"/app/api/locations"})
 public class LocationResource {
 	
-	private final LocationService service;
+	private final LocationService locationService;
 	private static final Logger logger = LoggerFactory.getLogger(LocationResource.class);
 	
 	static {
@@ -31,32 +31,32 @@ public class LocationResource {
 	
 	@Autowired
 	public LocationResource(final LocationService service) {
-		this.service = service;
+		this.locationService = service;
 	}
 	
 	@GetMapping(value = {"", "/"})
 	public ResponseEntity<DtoCollection<Location>> findAll() {
-		return new ResponseEntity<>(this.service.findAll(), HttpStatus.OK);
+		return new ResponseEntity<>(this.locationService.findAll(), HttpStatus.OK);
 	}
 	
 	@GetMapping(value = {"/{id}"})
 	public ResponseEntity<Location> findById(@PathVariable("id") final String locationId) {
-		return new ResponseEntity<>(this.service.findById(Integer.parseInt(locationId)), HttpStatus.OK);
+		return new ResponseEntity<>(this.locationService.findById(Integer.parseInt(locationId)), HttpStatus.OK);
 	}
 	
 	@PostMapping(value = {"", "/save"})
 	public ResponseEntity<Location> save(@RequestBody final Location location) {
-		return new ResponseEntity<>(this.service.save(location), HttpStatus.OK);
+		return new ResponseEntity<>(this.locationService.save(location), HttpStatus.OK);
 	}
 	
 	@PutMapping(value = {"", "/update"})
 	public ResponseEntity<Location> update(@RequestBody final Location location) {
-		return new ResponseEntity<>(this.service.update(location), HttpStatus.OK);
+		return new ResponseEntity<>(this.locationService.update(location), HttpStatus.OK);
 	}
 	
 	@DeleteMapping(value = {"", "/delete"})
-	public void delete(final String locationId) {
-		this.service.delete(Integer.parseInt(locationId));
+	public void deleteById(final String locationId) {
+		this.locationService.deleteById(Integer.parseInt(locationId));
 	}
 	
 	

@@ -22,7 +22,7 @@ import com.pfa.pack.service.EmployeeService;
 @RequestMapping(value = {"/app/api/employees"})
 public class EmployeeResource {
 	
-	private final EmployeeService service;
+	private final EmployeeService employeeService;
 	private static final Logger logger = LoggerFactory.getLogger(EmployeeResource.class);
 	
 	static {
@@ -31,32 +31,44 @@ public class EmployeeResource {
 	
 	@Autowired
 	public EmployeeResource(final EmployeeService service) {
-		this.service = service;
+		this.employeeService = service;
 	}
 	
 	@GetMapping(value = {"", "/"})
 	public ResponseEntity<DtoCollection<Employee>> findAll() {
-		return new ResponseEntity<>(this.service.findAll(), HttpStatus.OK);
+		return new ResponseEntity<>(this.employeeService.findAll(), HttpStatus.OK);
 	}
 	
 	@GetMapping(value = {"/{id}"})
 	public ResponseEntity<Employee> findById(@PathVariable("id") final String employeeId) {
-		return new ResponseEntity<>(this.service.findById(Integer.parseInt(employeeId)), HttpStatus.OK);
+		return new ResponseEntity<>(this.employeeService.findById(Integer.parseInt(employeeId)), HttpStatus.OK);
 	}
 	
 	@PostMapping(value = {"", "/save"})
 	public ResponseEntity<Employee> save(@RequestBody final Employee employee) {
-		return new ResponseEntity<>(this.service.save(employee), HttpStatus.OK);
+		return new ResponseEntity<>(this.employeeService.save(employee), HttpStatus.OK);
 	}
 	
 	@PutMapping(value = {"", "/update"})
 	public ResponseEntity<Employee> update(@RequestBody final Employee employee) {
-		return new ResponseEntity<>(this.service.update(employee), HttpStatus.OK);
+		return new ResponseEntity<>(this.employeeService.update(employee), HttpStatus.OK);
 	}
 	
 	@DeleteMapping(value = {"", "/delete"})
-	public void delete(final String employeeId) {
-		this.service.delete(Integer.parseInt(employeeId));
+	public ResponseEntity<Boolean> deleteById(final String employeeId) {
+		this.employeeService.deleteById(Integer.parseInt(employeeId));
+		return new ResponseEntity<>(true, HttpStatus.OK);
+	}
+	
+	@GetMapping(value = {"/username/{username}"})
+	public ResponseEntity<Employee> findByUsername(@PathVariable("username") final String username) {
+		return new ResponseEntity<>(this.employeeService.findByUsername(username), HttpStatus.OK);
+	}
+	
+	@DeleteMapping(value = {"/username/{username}"})
+	public ResponseEntity<Boolean> deleteByUsername(@PathVariable("username") final String username) {
+		this.employeeService.deleteByUsername(username);
+		return new ResponseEntity<>(true, HttpStatus.OK);
 	}
 	
 	

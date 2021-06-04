@@ -9,6 +9,6 @@ public interface DepartmentService {
 	Department findById(final Integer departmentId);
 	Department save(final Department department);
 	Department update(final Department department);
-	void delete(final Integer departmentId);
+	void deleteById(final Integer departmentId);
 	
 }

@@ -12,10 +12,12 @@ public interface EmployeeService {
 	Employee findById(final Integer employeeId);
 	Employee save(final Employee employee);
 	Employee update(final Employee employee);
-	void delete(final Integer employeeId);
+	void deleteById(final Integer employeeId);
 	List<Employee> findByDepartmentId(final Integer departmentId);
 	List<Employee> findByManagerId(final Integer managerId);
 	List<EmployeeAssignedProjectDto> findByManagerIdAndProjectId(final Integer managerId, final Integer projectId);
 	List<Employee> findAllManagers();
+	Employee findByUsername(final String username);
+	void deleteByUsername(final String username);
 	
 }

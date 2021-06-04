@@ -105,7 +105,7 @@ public class AdminDepartmentController {
 	@GetMapping(value = {"/admin-departments-delete", "/delete"})
 	public String handleAdminDepartmentsDelete(@RequestParam("departmentId") final String departmentId) {
 		
-		this.departmentService.delete(Integer.parseInt(departmentId));
+		this.departmentService.deleteById(Integer.parseInt(departmentId));
 		logger.info("Department with departmentId : {} has been removed successfully", departmentId);
 		
 		return "redirect:/app/admins/departments/admin-departments-list";

@@ -93,7 +93,7 @@ public class AdminLocationController {
 	@GetMapping(value = {"/admin-locations-delete", "/delete"})
 	public String handleAdminLocationsDelete(@RequestParam("locationId") final String locationId) {
 		
-		this.locationService.delete(Integer.parseInt(locationId));
+		this.locationService.deleteById(Integer.parseInt(locationId));
 		logger.info("Location with locationId : {} has been removed successfully", locationId);
 		
 		return "redirect:/app/admins/locations/admin-locations-list";

@@ -203,11 +203,11 @@ public final class Employee implements Serializable {
 		this.department = department;
 	}
 
-	public Credential getUserCredential() {
+	public Credential getCredential() {
 		return credential;
 	}
 
-	public void setUserCredential(final Credential credential) {
+	public void setCredential(final Credential credential) {
 		this.credential = credential;
 	}
 	

@@ -25,7 +25,7 @@ import com.pfa.pack.service.AssignmentService;
 @RequestMapping(value = {"/app/api/assignments"})
 public class AssignmentResource {
 	
-	private final AssignmentService service;
+	private final AssignmentService assignmentService;
 	private static final Logger logger = LoggerFactory.getLogger(AssignmentResource.class);
 	
 	static {
@@ -34,33 +34,33 @@ public class AssignmentResource {
 	
 	@Autowired
 	public AssignmentResource(final AssignmentService service) {
-		this.service = service;
+		this.assignmentService = service;
 	}
 	
 	@GetMapping(value = {"", "/"})
 	public ResponseEntity<DtoCollection<Assignment>> findAll() {
-		return new ResponseEntity<>(this.service.findAll(), HttpStatus.OK);
+		return new ResponseEntity<>(this.assignmentService.findAll(), HttpStatus.OK);
 	}
 	
 	// need to be tested
 	@GetMapping(value = {"/{employeeId}/{projectId}/{commitDate}"})
 	public ResponseEntity<Assignment> findByCompositeIds(@PathVariable("employeeId") final String employeeId, @PathVariable("projectId") final String projectId, @PathVariable("commitDate") final String commitDate) {
-		return new ResponseEntity<>(this.service.findById(Integer.parseInt(employeeId), Integer.parseInt(projectId), LocalDateTime.parse(commitDate, DateTimeFormatter.ofPattern("dd-MM-yyyyHH:mm:ss"))), HttpStatus.OK);
+		return new ResponseEntity<>(this.assignmentService.findById(Integer.parseInt(employeeId), Integer.parseInt(projectId), LocalDateTime.parse(commitDate, DateTimeFormatter.ofPattern("dd-MM-yyyyHH:mm:ss"))), HttpStatus.OK);
 	}
 	
 	@PostMapping(value = {"", "/save"})
 	public ResponseEntity<Assignment> save(@RequestBody final Assignment assignment) {
-		return new ResponseEntity<>(this.service.save(assignment), HttpStatus.OK);
+		return new ResponseEntity<>(this.assignmentService.save(assignment), HttpStatus.OK);
 	}
 	
 	@PutMapping(value = {"", "/update"})
 	public ResponseEntity<Assignment> update(@RequestBody final Assignment assignment) {
-		return new ResponseEntity<>(this.service.update(assignment), HttpStatus.OK);
+		return new ResponseEntity<>(this.assignmentService.update(assignment), HttpStatus.OK);
 	}
 	
 	@DeleteMapping(value = {"/{employeeId}/{projectId}/{commitDate}", "/delete/{employeeId}/{projectId}/{commitDate}"})
 	public ResponseEntity<?> deleteById(@PathVariable("employeeId") final String employeeId, @PathVariable("projectId") final String projectId, @PathVariable("commitDate") final String commitDate) {
-		this.service.deleteById(Integer.parseInt(employeeId), Integer.parseInt(projectId), LocalDateTime.parse(commitDate, DateTimeFormatter.ofPattern("dd-MM-yyyyHH:mm:ss")));
+		this.assignmentService.deleteById(Integer.parseInt(employeeId), Integer.parseInt(projectId), LocalDateTime.parse(commitDate, DateTimeFormatter.ofPattern("dd-MM-yyyyHH:mm:ss")));
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	

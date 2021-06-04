@@ -6,10 +6,11 @@ import com.pfa.pack.model.entity.Credential;
 public interface CredentialService {
 	
 	DtoCollection<Credential> findAll();
-	Credential findById(final Integer userCredentialId);
+	Credential findById(final Integer credentialId);
 	Credential save(final Credential credential);
 	Credential update(final Credential credential);
-	void delete(final Integer userCredentialId);
+	void deleteById(final Integer credentialId);
 	Credential findByUsername(final String username);
+	void deleteByUsername(final String username);
 	
 }

@@ -5,6 +5,7 @@ import java.time.format.DateTimeParseException;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -19,7 +20,9 @@ public class ExceptionMsgApiHandler {
 		value = {
 			ObjectNotFoundException.class,
 			ObjectAlreadyExistsException.class,
-			DateTimeParseException.class
+			UsernameNotFoundException.class,
+			DateTimeParseException.class,
+			NumberFormatException.class
 		}
 	)
 	public <T extends RuntimeException> ResponseEntity<ExceptionMsg> handleExceptionOutputMsg(final T e) {

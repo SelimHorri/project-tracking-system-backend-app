@@ -19,6 +19,7 @@ import com.pfa.pack.model.dto.EmployeeAssignedProjectDto;
 import com.pfa.pack.model.dto.collection.DtoCollection;
 import com.pfa.pack.model.entity.Employee;
 import com.pfa.pack.repository.EmployeeRepository;
+import com.pfa.pack.service.CredentialService;
 import com.pfa.pack.service.EmployeeService;
 
 @Service
@@ -26,6 +27,7 @@ import com.pfa.pack.service.EmployeeService;
 public class EmployeeServiceImpl implements EmployeeService {
 	
 	private final EmployeeRepository rep;
+	private final CredentialService credentialService;
 	private final EmployeeAssignedProjectConverter employeeAssignedProjectConverter;
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	private static final Logger logger = LoggerFactory.getLogger(EmployeeServiceImpl.class);
@@ -35,8 +37,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 	
 	@Autowired
-	public EmployeeServiceImpl(final EmployeeRepository rep, final BCryptPasswordEncoder bCryptPasswordEncoder, final EmployeeAssignedProjectConverter employeeAssignedProjectConverter) {
+	public EmployeeServiceImpl(final EmployeeRepository rep, final CredentialService credentialService, final BCryptPasswordEncoder bCryptPasswordEncoder, final EmployeeAssignedProjectConverter employeeAssignedProjectConverter) {
 		this.rep = rep;
+		this.credentialService = credentialService;
 		this.employeeAssignedProjectConverter = employeeAssignedProjectConverter;
 		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
 	}
@@ -55,10 +58,13 @@ public class EmployeeServiceImpl implements EmployeeService {
 	public Employee save(final Employee employee) {
 		
 		employee.setDepartment(employee.getManager().getDepartment());
-		employee.getUserCredential().setPassword(this.bCryptPasswordEncoder.encode(employee.getUserCredential().getPassword()));
-		employee.getUserCredential().setEnabled(true);
-		employee.getUserCredential().setRole("ROLE_" + employee.getUserCredential().getRole().toUpperCase());
-		employee.getUserCredential().setEmployee(employee);
+		employee.getCredential().setPassword(this.bCryptPasswordEncoder.encode(employee.getCredential().getPassword()));
+		employee.getCredential().setEnabled(true);
+		if (employee.getCredential().getRole().startsWith("ROLE_"))
+			employee.getCredential().setRole(employee.getCredential().getRole().toUpperCase());
+		else
+			employee.getCredential().setRole("ROLE_" + employee.getCredential().getRole().toUpperCase());
+		employee.getCredential().setEmployee(employee);
 		
 		return this.rep.save(employee);
 	}
@@ -67,17 +73,20 @@ public class EmployeeServiceImpl implements EmployeeService {
 	public Employee update(final Employee employee) {
 		
 		employee.setDepartment(employee.getManager().getDepartment());
-		employee.getUserCredential().setPassword(this.bCryptPasswordEncoder.encode(employee.getUserCredential().getPassword()));
+		employee.getCredential().setPassword(this.bCryptPasswordEncoder.encode(employee.getCredential().getPassword()));
 		// employee.getUserCredential().setEnabled(employee.getUserCredential().getEnabled());
-		employee.getUserCredential().setEnabled(true); // TODO this is baaaaaaaaaaaaddd
-		employee.getUserCredential().setRole("ROLE_" + employee.getUserCredential().getRole());
-		employee.getUserCredential().setEmployee(employee);
+		employee.getCredential().setEnabled(employee.getCredential().getEnabled()); // TODO this is baaaaaaaaaaaaddd
+		if (employee.getCredential().getRole().startsWith("ROLE_"))
+			employee.getCredential().setRole(employee.getCredential().getRole());
+		else
+			employee.getCredential().setRole("ROLE_" + employee.getCredential().getRole());
+		employee.getCredential().setEmployee(employee);
 		
 		return this.rep.save(employee);
 	}
 	
 	@Override
-	public void delete(final Integer employeeId) {
+	public void deleteById(final Integer employeeId) {
 		this.rep.delete(this.findById(employeeId));
 	}
 	
@@ -105,6 +114,16 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Override
 	public List<Employee> findAllManagers() {
 		return new ArrayList<>(this.rep.findAllManagers());
+	}
+	
+	@Override
+	public Employee findByUsername(final String username) {
+		return this.credentialService.findByUsername(username).getEmployee();
+	}
+	
+	@Override
+	public void deleteByUsername(final String username) {
+		this.rep.delete(this.credentialService.findByUsername(username).getEmployee());
 	}
 	
 	

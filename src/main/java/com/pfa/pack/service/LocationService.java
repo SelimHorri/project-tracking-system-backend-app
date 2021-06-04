@@ -9,6 +9,6 @@ public interface LocationService {
 	Location findById(final Integer locationId);
 	Location save(final Location location);
 	Location update(final Location location);
-	void delete(final Integer locationId);
+	void deleteById(final Integer locationId);
 	
 }

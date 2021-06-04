@@ -38,8 +38,8 @@ public class CredentialServiceImpl implements CredentialService {
 	}
 	
 	@Override
-	public Credential findById(final Integer userCredentialId) {
-		return this.rep.findById(userCredentialId).orElseThrow(() -> new ObjectNotFoundException("###### NO Credential object FOUND! ######"));
+	public Credential findById(final Integer credentialId) {
+		return this.rep.findById(credentialId).orElseThrow(() -> new ObjectNotFoundException("###### NO Credential object FOUND! ######"));
 	}
 	
 	@Override
@@ -53,8 +53,8 @@ public class CredentialServiceImpl implements CredentialService {
 	}
 	
 	@Override
-	public void delete(final Integer userCredentialId) {
-		this.rep.delete(this.findById(userCredentialId));
+	public void deleteById(final Integer credentialId) {
+		this.rep.delete(this.findById(credentialId));
 	}
 	
 	/**
@@ -63,7 +63,12 @@ public class CredentialServiceImpl implements CredentialService {
 	 */
 	@Override
 	public Credential findByUsername(final String username) {
-		return this.rep.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("\n-------------- NO Credential object FOUND with username: " + username + " ! --------------\n"));
+		return this.rep.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("###### NO Credential object FOUND with username: " + username + " ! ######"));
+	}
+	
+	@Override
+	public void deleteByUsername(final String username) {
+		this.rep.delete(this.findByUsername(username));
 	}
 	
 	

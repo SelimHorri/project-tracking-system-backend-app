@@ -22,7 +22,7 @@ import com.pfa.pack.service.ProjectService;
 @RequestMapping(value = {"/app/api/projects"})
 public class ProjectResource {
 	
-	private final ProjectService service;
+	private final ProjectService projectService;
 	private static final Logger logger = LoggerFactory.getLogger(ProjectResource.class);
 	
 	static {
@@ -31,32 +31,32 @@ public class ProjectResource {
 	
 	@Autowired
 	public ProjectResource(final ProjectService service) {
-		this.service = service;
+		this.projectService = service;
 	}
 	
 	@GetMapping(value = {"", "/"})
 	public ResponseEntity<DtoCollection<Project>> findAll() {
-		return new ResponseEntity<>(this.service.findAll(), HttpStatus.OK);
+		return new ResponseEntity<>(this.projectService.findAll(), HttpStatus.OK);
 	}
 	
 	@GetMapping(value = {"/{id}"})
 	public ResponseEntity<Project> findById(@PathVariable("id") final String projectId) {
-		return new ResponseEntity<>(this.service.findById(Integer.parseInt(projectId)), HttpStatus.OK);
+		return new ResponseEntity<>(this.projectService.findById(Integer.parseInt(projectId)), HttpStatus.OK);
 	}
 	
 	@PostMapping(value = {"", "/save"})
 	public ResponseEntity<Project> save(@RequestBody final Project project) {
-		return new ResponseEntity<>(this.service.save(project), HttpStatus.OK);
+		return new ResponseEntity<>(this.projectService.save(project), HttpStatus.OK);
 	}
 	
 	@PutMapping(value = {"", "/update"})
 	public ResponseEntity<Project> update(@RequestBody final Project project) {
-		return new ResponseEntity<>(this.service.update(project), HttpStatus.OK);
+		return new ResponseEntity<>(this.projectService.update(project), HttpStatus.OK);
 	}
 	
 	@DeleteMapping(value = {"", "/delete"})
-	public void delete(final String projectId) {
-		this.service.deleteById(Integer.parseInt(projectId));
+	public void deleteById(final String projectId) {
+		this.projectService.deleteById(Integer.parseInt(projectId));
 	}
 	
 	

@@ -22,7 +22,7 @@ import com.pfa.pack.service.CredentialService;
 @RequestMapping(value = {"/app/api/credentials"})
 public class CredentialResource {
 	
-	private final CredentialService service;
+	private final CredentialService credentialService;
 	private static final Logger logger = LoggerFactory.getLogger(CredentialResource.class);
 	
 	static {
@@ -31,32 +31,44 @@ public class CredentialResource {
 	
 	@Autowired
 	public CredentialResource(final CredentialService service) {
-		this.service = service;
+		this.credentialService = service;
 	}
 	
 	@GetMapping(value = {"", "/"})
 	public ResponseEntity<DtoCollection<Credential>> findAll() {
-		return new ResponseEntity<>(this.service.findAll(), HttpStatus.OK);
+		return new ResponseEntity<>(this.credentialService.findAll(), HttpStatus.OK);
 	}
 	
 	@GetMapping(value = {"/{id}"})
-	public ResponseEntity<Credential> findById(@PathVariable("id") final String userCredentialId) {
-		return new ResponseEntity<>(this.service.findById(Integer.parseInt(userCredentialId)), HttpStatus.OK);
+	public ResponseEntity<Credential> findById(@PathVariable("id") final String credentialId) {
+		return new ResponseEntity<>(this.credentialService.findById(Integer.parseInt(credentialId)), HttpStatus.OK);
 	}
 	
 	@PostMapping(value = {"", "/save"})
 	public ResponseEntity<Credential> save(@RequestBody final Credential credential) {
-		return new ResponseEntity<>(this.service.save(credential), HttpStatus.OK);
+		return new ResponseEntity<>(this.credentialService.save(credential), HttpStatus.OK);
 	}
 	
 	@PutMapping(value = {"", "/update"})
 	public ResponseEntity<Credential> update(@RequestBody final Credential credential) {
-		return new ResponseEntity<>(this.service.update(credential), HttpStatus.OK);
+		return new ResponseEntity<>(this.credentialService.update(credential), HttpStatus.OK);
 	}
 	
 	@DeleteMapping(value = {"", "/delete"})
-	public void delete(final String userCredentialId) {
-		this.service.delete(Integer.parseInt(userCredentialId));
+	public ResponseEntity<Boolean> deleteById(final String credentialId) {
+		this.credentialService.deleteById(Integer.parseInt(credentialId));
+		return new ResponseEntity<>(true, HttpStatus.OK);
+	}
+	
+	@GetMapping(value = {"/username/{username}"})
+	public ResponseEntity<Credential> findByUsername(@PathVariable("username") final String username) {
+		return new ResponseEntity<>(this.credentialService.findByUsername(username.trim()), HttpStatus.OK);
+	}
+	
+	@DeleteMapping(value = {"/username/{username}"})
+	public ResponseEntity<Boolean> deleteByUsername(@PathVariable("username") final String username) {
+		this.credentialService.deleteByUsername(username);
+		return new ResponseEntity<>(true, HttpStatus.OK);
 	}
 	
 	

@@ -13,6 +13,6 @@ import com.pfa.pack.model.entity.Credential;
 public interface CredentialRepository extends JpaRepository<Credential, Integer> {
 	
 	@Query(name = "Optional.findByUsername", nativeQuery = true)
-	public abstract Optional<Credential> findByUsername(@Param("username") final String username);
+	Optional<Credential> findByUsername(@Param("username") final String username);
 	
 }
