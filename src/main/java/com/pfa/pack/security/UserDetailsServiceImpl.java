@@ -5,7 +5,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import com.pfa.pack.services.UserCredentialService;
+import com.pfa.pack.service.UserCredentialService;
 
 public class UserDetailsServiceImpl implements UserDetailsService {
 	

@@ -7,7 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.pfa.pack.models.entities.UserCredential;
+import com.pfa.pack.model.entity.UserCredential;
 
 public class UserDetailsImpl implements UserDetails {
 
