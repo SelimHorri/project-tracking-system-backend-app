@@ -1,7 +1,6 @@
 package com.pfa.pack.service.impl;
 
 import java.util.Collections;
-import java.util.NoSuchElementException;
 
 import javax.transaction.Transactional;
 
@@ -39,7 +38,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 	
 	@Override
 	public Department findById(final Integer departmentId) {
-		return this.rep.findById(departmentId).orElseThrow(() -> new ObjectNotFoundException("\\n------------ NO Department object FOUND! ------------\\n"));
+		return this.rep.findById(departmentId).orElseThrow(() -> new ObjectNotFoundException("###### NO Department object FOUND! ######"));
 	}
 	
 	@Override

@@ -39,7 +39,7 @@ public class CredentialServiceImpl implements CredentialService {
 	
 	@Override
 	public Credential findById(final Integer userCredentialId) {
-		return this.rep.findById(userCredentialId).orElseThrow(() -> new ObjectNotFoundException("\\n------------ NO Credential object FOUND! ------------\\n"));
+		return this.rep.findById(userCredentialId).orElseThrow(() -> new ObjectNotFoundException("###### NO Credential object FOUND! ######"));
 	}
 	
 	@Override

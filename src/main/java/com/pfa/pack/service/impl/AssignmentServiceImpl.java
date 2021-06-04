@@ -57,12 +57,12 @@ public class AssignmentServiceImpl implements AssignmentService {
 	 */
 	/*@Override
 	public Assignment findById(final Integer employeeId, final Integer projectId, final LocalDateTime commitDate) {
-		return this.rep.findById(employeeId, projectId, commitDate).orElseThrow(() -> new NoSuchElementException("\\n------------ NO ELEMENT FOUND !!!!! ------------\\n"));
+		return this.rep.findById(employeeId, projectId, commitDate).orElseThrow(() -> new NoSuchElementException("###### NO ELEMENT FOUND !!!!! ######"));
 	}*/
 	
 	@Override
 	public Assignment findById(final Integer employeeId, final Integer projectId, final LocalDateTime commitDate) {
-		return this.rep.findById(new AssignmentId(employeeId, projectId, commitDate)).orElseThrow(() -> new ObjectNotFoundException("\\n------------ NO Assignment object FOUND! ------------\\n"));
+		return this.rep.findById(new AssignmentId(employeeId, projectId, commitDate)).orElseThrow(() -> new ObjectNotFoundException("###### NO Assignment object FOUND! ######"));
 	}
 	
 	/**
@@ -128,7 +128,7 @@ public class AssignmentServiceImpl implements AssignmentService {
 	
 	@Override
 	public ProjectCommit findByEmployeeIdAndProjectIdAndCommitDate(final Integer employeeId, final Integer projectId, final LocalDateTime commitDate) {
-		return this.rep.findByEmployeeIdAndProjectIdAndCommitDate(employeeId, projectId, commitDate).orElseThrow(() -> new NoSuchElementException("\\n------------ NO ProjectCommit object FOUND! ------------\\n"));
+		return this.rep.findByEmployeeIdAndProjectIdAndCommitDate(employeeId, projectId, commitDate).orElseThrow(() -> new NoSuchElementException("###### NO ProjectCommit object FOUND! ######"));
 	}
 	
 	@Override

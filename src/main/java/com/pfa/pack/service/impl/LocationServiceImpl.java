@@ -38,7 +38,7 @@ public class LocationServiceImpl implements LocationService {
 	
 	@Override
 	public Location findById(final Integer locationId) {
-		return this.rep.findById(locationId).orElseThrow(() -> new ObjectNotFoundException("\\n------------ NO Location object FOUND! ------------\\n"));
+		return this.rep.findById(locationId).orElseThrow(() -> new ObjectNotFoundException("###### NO Location object FOUND! ######"));
 	}
 	
 	@Override
