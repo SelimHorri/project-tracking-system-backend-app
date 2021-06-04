@@ -39,7 +39,7 @@ jobs:
         distribution: 'adopt'
     - name: Build with Maven
       run: mvn -B package --file pom.xml
-    - name: Build and Push Docker image
+    - name: Push Docker image
       uses: mr-smithers-excellent/docker-build-push@v5
       with:
         image: selimhorri/project-tracking-system
@@ -50,7 +50,7 @@ jobs:
     
   deploy:
     
-    needs: push
+    needs: build
     runs-on: ubuntu-latest
     
     steps:
