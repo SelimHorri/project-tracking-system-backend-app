@@ -18,14 +18,14 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity(name = "user_credentials")
 @Table(name = "user_credentials", indexes = {@Index(name = "user_credentials_username_IX", columnList = "username", unique = true)})
-public final class UserCredential implements Serializable {
+public final class Credential implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "user_id", unique = true, nullable = false, precision = 10)
-	private Integer userId;
+	private Integer credentialId;
 	
 	@Column(unique = true, length = 200)
 	private String username;
@@ -44,11 +44,11 @@ public final class UserCredential implements Serializable {
 	@JoinColumn(name = "employee_id")
 	private Employee employee;
 	
-	public UserCredential() {
+	public Credential() {
 		
 	}
 	
-	public UserCredential(final String username, final String password, final String role, final Employee employee) {
+	public Credential(final String username, final String password, final String role, final Employee employee) {
 		this.username = username;
 		this.password = password;
 		this.enabled = true;
@@ -56,7 +56,7 @@ public final class UserCredential implements Serializable {
 		this.employee = employee;
 	}
 	
-	public UserCredential(final String username, final String password, final Boolean enabled, final String role, final Employee employee) {
+	public Credential(final String username, final String password, final Boolean enabled, final String role, final Employee employee) {
 		this.username = username;
 		this.password = password;
 		this.enabled = enabled;
@@ -66,16 +66,16 @@ public final class UserCredential implements Serializable {
 	
 	@Override
 	public String toString() {
-		return "UserCredential [userId=" + getUserId() + ", username=" + username + ", password=" + password + ", enabled="
+		return "Credential [userId=" + getCredentialId() + ", username=" + username + ", password=" + password + ", enabled="
 				+ enabled + ", role=" + role + "]";
 	}
 	
-	public Integer getUserId() {
-		return userId;
+	public Integer getCredentialId() {
+		return credentialId;
 	}
 
-	public void setUserId(Integer userId) {
-		this.userId = userId;
+	public void setCredentialId(Integer userId) {
+		this.credentialId = userId;
 	}
 	
 	public String getUsername() {

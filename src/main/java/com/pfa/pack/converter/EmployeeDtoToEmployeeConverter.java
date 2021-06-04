@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 import com.pfa.pack.model.dto.EmployeeDto;
 import com.pfa.pack.model.entity.Employee;
-import com.pfa.pack.model.entity.UserCredential;
+import com.pfa.pack.model.entity.Credential;
 
 @Component
 public class EmployeeDtoToEmployeeConverter implements Converter<EmployeeDto, Employee> {
@@ -25,13 +25,13 @@ public class EmployeeDtoToEmployeeConverter implements Converter<EmployeeDto, Em
 		employee.setJob(source.getJob());
 		employee.setSalary(Double.parseDouble(source.getSalary()));
 		
-		final UserCredential userCredential = new UserCredential();
-		userCredential.setUsername(source.getUsername());
-		userCredential.setPassword(source.getPassword());
-		userCredential.setEnabled(true); // TODO hardcoded
-		userCredential.setRole(source.getRole());
+		final Credential credential = new Credential();
+		credential.setUsername(source.getUsername());
+		credential.setPassword(source.getPassword());
+		credential.setEnabled(true); // TODO hardcoded
+		credential.setRole(source.getRole());
 		
-		employee.setUserCredential(userCredential);
+		employee.setUserCredential(credential);
 		
 		
 		return employee;

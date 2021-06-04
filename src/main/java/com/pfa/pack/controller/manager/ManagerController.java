@@ -30,11 +30,11 @@ import com.pfa.pack.model.dto.SearchProjectsDto;
 import com.pfa.pack.model.entity.Assignment;
 import com.pfa.pack.model.entity.Employee;
 import com.pfa.pack.model.entity.Project;
-import com.pfa.pack.model.entity.UserCredential;
+import com.pfa.pack.model.entity.Credential;
 import com.pfa.pack.service.AssignmentService;
 import com.pfa.pack.service.EmployeeService;
 import com.pfa.pack.service.ProjectService;
-import com.pfa.pack.service.UserCredentialService;
+import com.pfa.pack.service.CredentialService;
 import com.pfa.pack.util.email.EmailUtil;
 import com.pfa.pack.util.sms.Sms;
 import com.pfa.pack.util.sms.SmsUtil;
@@ -44,7 +44,7 @@ import com.pfa.pack.util.sms.SmsUtil;
 public class ManagerController {
 	
 	private final EmployeeService employeeService;
-	private final UserCredentialService userCredentialService;
+	private final CredentialService credentialService;
 	private final AssignmentService assignmentService;
 	private final ProjectService projectService;
 	private final EmailUtil emailUtil;
@@ -58,14 +58,14 @@ public class ManagerController {
 	/**
 	 * Inject dependencies
 	 * @param employeeService
-	 * @param userCredentialService
+	 * @param credentialService
 	 * @param assignmentService
 	 * @param projectService
 	 */
 	@Autowired
-	public ManagerController(final EmployeeService employeeService, final UserCredentialService userCredentialService, final AssignmentService assignmentService, final ProjectService projectService, final EmailUtil emailUtil, final SmsUtil smsUtil) {
+	public ManagerController(final EmployeeService employeeService, final CredentialService credentialService, final AssignmentService assignmentService, final ProjectService projectService, final EmailUtil emailUtil, final SmsUtil smsUtil) {
 		this.employeeService = employeeService;
-		this.userCredentialService = userCredentialService;
+		this.credentialService = credentialService;
 		this.assignmentService = assignmentService;
 		this.projectService = projectService;
 		this.emailUtil = emailUtil;
@@ -81,11 +81,11 @@ public class ManagerController {
 	@GetMapping(value = {"", "/", "/manager-index"})
 	public String displayManagerIndex(final Authentication authentication, final Model model) {
 		
-		final UserCredential userCredential = this.userCredentialService.findByUsername(authentication.getName());
-		final List<ManagerProjectData> managerProjectDatas = this.projectService.findByEmployeeId(userCredential.getEmployee().getEmployeeId());
+		final Credential credential = this.credentialService.findByUsername(authentication.getName());
+		final List<ManagerProjectData> managerProjectDatas = this.projectService.findByEmployeeId(credential.getEmployee().getEmployeeId());
 		
-		model.addAttribute("fname", userCredential.getEmployee().getFirstName().toUpperCase().charAt(0) + userCredential.getEmployee().getFirstName().toLowerCase().substring(1));
-		model.addAttribute("lname", userCredential.getEmployee().getLastName().toUpperCase().charAt(0) + userCredential.getEmployee().getLastName().toLowerCase().substring(1));
+		model.addAttribute("fname", credential.getEmployee().getFirstName().toUpperCase().charAt(0) + credential.getEmployee().getFirstName().toLowerCase().substring(1));
+		model.addAttribute("lname", credential.getEmployee().getLastName().toUpperCase().charAt(0) + credential.getEmployee().getLastName().toLowerCase().substring(1));
 		model.addAttribute("managerProjectDatas", managerProjectDatas);
 		
 		return "managers/manager-index";
@@ -100,7 +100,7 @@ public class ManagerController {
 	@GetMapping(value = {"/manager-info"})
 	public String displayManagerInfo(final Authentication authentication, final Model model) {
 		
-		final Employee manager = this.employeeService.findById(this.userCredentialService.findByUsername(authentication.getName()).getEmployee().getEmployeeId());
+		final Employee manager = this.employeeService.findById(this.credentialService.findByUsername(authentication.getName()).getEmployee().getEmployeeId());
 		model.addAttribute("m", manager);
 		
 		return "managers/manager-info";
@@ -115,8 +115,8 @@ public class ManagerController {
 	@GetMapping(value = {"/manager-team"})
 	public String displayManagerTeam(final Authentication authentication, final Model model) {
 		
-		final UserCredential userCredential = this.userCredentialService.findByUsername(authentication.getName());
-		final List<Employee> team = this.employeeService.findByDepartmentId(userCredential.getEmployee().getDepartment().getDepartmentId());
+		final Credential credential = this.credentialService.findByUsername(authentication.getName());
+		final List<Employee> team = this.employeeService.findByDepartmentId(credential.getEmployee().getDepartment().getDepartmentId());
 		
 		model.addAttribute("team", team);
 		
@@ -140,7 +140,7 @@ public class ManagerController {
 	@GetMapping(value = {"/manager-add-project"})
 	public String displayManagerAddProject(final Authentication authentication, final Model model) {
 		
-		final List<Employee> managerSubEmployees = this.employeeService.findByManagerId(this.userCredentialService.findByUsername(authentication.getName()).getEmployee().getEmployeeId());
+		final List<Employee> managerSubEmployees = this.employeeService.findByManagerId(this.credentialService.findByUsername(authentication.getName()).getEmployee().getEmployeeId());
 		
 		model.addAttribute("listStatus", StatusEnum.values());
 		model.addAttribute("managerSubEmployees", managerSubEmployees);
@@ -162,7 +162,7 @@ public class ManagerController {
 	@PostMapping(value = {"/manager-add-project"})
 	public String handleManagerAddProject(@ModelAttribute("project") @Valid final ProjectDTO projectDTO, final BindingResult error, final Authentication authentication, final Model model) {
 		
-		final List<Employee> managerSubEmployees = this.employeeService.findByManagerId(this.userCredentialService.findByUsername(authentication.getName()).getEmployee().getEmployeeId());
+		final List<Employee> managerSubEmployees = this.employeeService.findByManagerId(this.credentialService.findByUsername(authentication.getName()).getEmployee().getEmployeeId());
 		
 		// to check of binding variables
 		if (error.hasErrors()) {
@@ -262,7 +262,7 @@ public class ManagerController {
 	public String displayManagerSearchCommits(final Authentication authentication, final Model model) {
 		
 		final SearchProjectsDto searchProjectsDto = new SearchProjectsDto();
-		searchProjectsDto.setDataProjects(this.projectService.findByEmployeeId(this.userCredentialService.findByUsername(authentication.getName()).getEmployee().getEmployeeId()));
+		searchProjectsDto.setDataProjects(this.projectService.findByEmployeeId(this.credentialService.findByUsername(authentication.getName()).getEmployee().getEmployeeId()));
 		
 		model.addAttribute("searchProjectsDto", searchProjectsDto);
 		
@@ -273,7 +273,7 @@ public class ManagerController {
 	public String handleManagerSearchCommits(@ModelAttribute("searchProjectsDto") @Valid final SearchProjectsDto searchProjectsDto, final BindingResult error, final Authentication authentication, final Model model) {
 		
 		if (error.hasErrors()) {
-			searchProjectsDto.setDataProjects(this.projectService.findByEmployeeId(this.userCredentialService.findByUsername(authentication.getName()).getEmployee().getEmployeeId()));
+			searchProjectsDto.setDataProjects(this.projectService.findByEmployeeId(this.credentialService.findByUsername(authentication.getName()).getEmployee().getEmployeeId()));
 			model.addAttribute("searchProjectsDto", searchProjectsDto);
 			model.addAttribute("msg", "Problem happened here, please check again...");
 			model.addAttribute("msgColour", "danger");
@@ -284,7 +284,7 @@ public class ManagerController {
 		final LocalDate commitDateTo = LocalDate.parse(searchProjectsDto.getCommitDateTo());
 		
 		if (commitDateFrom.isAfter(commitDateTo)) {
-			searchProjectsDto.setDataProjects(this.projectService.findByEmployeeId(this.userCredentialService.findByUsername(authentication.getName()).getEmployee().getEmployeeId()));
+			searchProjectsDto.setDataProjects(this.projectService.findByEmployeeId(this.credentialService.findByUsername(authentication.getName()).getEmployee().getEmployeeId()));
 			model.addAttribute("searchProjectsDto", searchProjectsDto);
 			model.addAttribute("msg", "commitDateFrom must be before commitDateTo...");
 			model.addAttribute("msgColour", "danger");
@@ -386,7 +386,7 @@ public class ManagerController {
 	@GetMapping(value = {"/manager-assign"})
 	public String displayManagerAssign(@RequestParam("projectId") final String projectId, final Authentication authentication, final Model model) {
 		
-		final List<EmployeeAssignedProjectDto> managerSubEmployees = this.employeeService.findByManagerIdAndProjectId(this.userCredentialService.findByUsername(authentication.getName()).getEmployee().getEmployeeId(), Integer.parseInt(projectId));
+		final List<EmployeeAssignedProjectDto> managerSubEmployees = this.employeeService.findByManagerIdAndProjectId(this.credentialService.findByUsername(authentication.getName()).getEmployee().getEmployeeId(), Integer.parseInt(projectId));
 		
 		model.addAttribute("username", authentication.getName());
 		model.addAttribute("managerSubEmployees", managerSubEmployees);
@@ -410,7 +410,7 @@ public class ManagerController {
 		
 		if (error.hasErrors()) {
 			
-			final List<EmployeeAssignedProjectDto> managerSubEmployees = this.employeeService.findByManagerIdAndProjectId(this.userCredentialService.findByUsername(authentication.getName()).getEmployee().getEmployeeId(), Integer.parseInt(assignEmployeesDto.getProjectId()));
+			final List<EmployeeAssignedProjectDto> managerSubEmployees = this.employeeService.findByManagerIdAndProjectId(this.credentialService.findByUsername(authentication.getName()).getEmployee().getEmployeeId(), Integer.parseInt(assignEmployeesDto.getProjectId()));
 			
 			model.addAttribute("username", authentication.getName());
 			model.addAttribute("managerSubEmployees", managerSubEmployees);
@@ -421,7 +421,7 @@ public class ManagerController {
 			return "managers/manager-assign";
 		}
 		if (assignEmployeesDto.getAssignedEmployees() == null) {
-			final List<EmployeeAssignedProjectDto> managerSubEmployees = this.employeeService.findByManagerIdAndProjectId(this.userCredentialService.findByUsername(authentication.getName()).getEmployee().getEmployeeId(), Integer.parseInt(assignEmployeesDto.getProjectId()));
+			final List<EmployeeAssignedProjectDto> managerSubEmployees = this.employeeService.findByManagerIdAndProjectId(this.credentialService.findByUsername(authentication.getName()).getEmployee().getEmployeeId(), Integer.parseInt(assignEmployeesDto.getProjectId()));
 			
 			model.addAttribute("username", authentication.getName());
 			model.addAttribute("managerSubEmployees", managerSubEmployees);
@@ -449,7 +449,7 @@ public class ManagerController {
 			logger.info("employeeId : {} is assigned to this project with projectId : {}", employeeId, assignEmployeesDto.getProjectId());
 		});
 		
-		final List<EmployeeAssignedProjectDto> managerSubEmployees = this.employeeService.findByManagerIdAndProjectId(this.userCredentialService.findByUsername(authentication.getName()).getEmployee().getEmployeeId(), Integer.parseInt(assignEmployeesDto.getProjectId()));
+		final List<EmployeeAssignedProjectDto> managerSubEmployees = this.employeeService.findByManagerIdAndProjectId(this.credentialService.findByUsername(authentication.getName()).getEmployee().getEmployeeId(), Integer.parseInt(assignEmployeesDto.getProjectId()));
 		
 		model.addAttribute("username", authentication.getName());
 		model.addAttribute("managerSubEmployees", managerSubEmployees);

@@ -7,12 +7,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.pfa.pack.model.entity.UserCredential;
+import com.pfa.pack.model.entity.Credential;
 
 @Repository
-public interface UserCredentialRepository extends JpaRepository<UserCredential, Integer> {
+public interface CredentialRepository extends JpaRepository<Credential, Integer> {
 	
 	@Query(name = "Optional.findByUsername", nativeQuery = true)
-	public abstract Optional<UserCredential> findByUsername(@Param("username") final String username);
+	public abstract Optional<Credential> findByUsername(@Param("username") final String username);
 	
 }

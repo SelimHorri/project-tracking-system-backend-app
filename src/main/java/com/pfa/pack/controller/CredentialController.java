@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.pfa.pack.constant.AccountEnum;
-import com.pfa.pack.model.entity.UserCredential;
-import com.pfa.pack.service.UserCredentialService;
+import com.pfa.pack.model.entity.Credential;
+import com.pfa.pack.service.CredentialService;
 import com.pfa.pack.util.email.EmailUtil;
 import com.pfa.pack.util.sms.Sms;
 import com.pfa.pack.util.sms.SmsUtil;
@@ -25,29 +25,29 @@ import com.pfa.pack.util.sms.SmsUtil;
 @Controller
 @Lazy
 @RequestMapping(value = {"/app/credentials"})
-public class UserCredentialController {
+public class CredentialController {
 	
-	private final UserCredentialService userCredentialService;
+	private final CredentialService credentialService;
 	private final BCryptPasswordEncoder bCryptPasswordEncoder;
 	private final EmailUtil emailUtil;
 	private final SmsUtil smsUtil;
-	private static final Logger logger = LoggerFactory.getLogger(UserCredentialController.class);
+	private static final Logger logger = LoggerFactory.getLogger(CredentialController.class);
 	
 	static {
-		logger.info("************ entering " + UserCredentialController.class.getName() + " ************");
+		logger.info("************ entering " + CredentialController.class.getName() + " ************");
 	}
 	
 	/**
 	 * Inject dependencies
-	 * @param userCredentialService
+	 * @param credentialService
 	 * @param employeeService
 	 * @param bCryptPasswordEncoder
 	 * @param emailUtil
 	 * @param smsUtil
 	 */
 	@Autowired
-	public UserCredentialController(final UserCredentialService userCredentialService, final BCryptPasswordEncoder bCryptPasswordEncoder, final EmailUtil emailUtil, final SmsUtil smsUtil) {
-		this.userCredentialService = userCredentialService;
+	public CredentialController(final CredentialService credentialService, final BCryptPasswordEncoder bCryptPasswordEncoder, final EmailUtil emailUtil, final SmsUtil smsUtil) {
+		this.credentialService = credentialService;
 		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
 		this.emailUtil = emailUtil;
 		this.smsUtil = smsUtil;
@@ -62,13 +62,13 @@ public class UserCredentialController {
 	@GetMapping(value = {"/credential-edit"})
 	public String displayCredentialEdit(final Authentication authentication, final Model model) {
 		
-		final UserCredential userCredential = this.userCredentialService.findByUsername(authentication.getName());
+		final Credential credential = this.credentialService.findByUsername(authentication.getName());
 		
-		if (userCredential.getRole().equalsIgnoreCase("ROLE_EMP")) {
+		if (credential.getRole().equalsIgnoreCase("ROLE_EMP")) {
 			model.addAttribute("account", AccountEnum.EMPLOYEE.toString());
 		}
 		else {
-			if (userCredential.getRole().equalsIgnoreCase("ROLE_MGR")) {
+			if (credential.getRole().equalsIgnoreCase("ROLE_MGR")) {
 				model.addAttribute("account", AccountEnum.MANAGER.toString());
 			}
 			else {
@@ -91,13 +91,13 @@ public class UserCredentialController {
 	@PostMapping(value = {"/credential-edit"})
 	public String handleCredentialEdit(@RequestParam("pwd1") final String pwd1, @RequestParam("pwd2") final String pwd2, final Authentication authentication, final Model model) {
 		
-		final UserCredential userCredential = this.userCredentialService.findByUsername(authentication.getName());
+		final Credential credential = this.credentialService.findByUsername(authentication.getName());
 		
-		if (userCredential.getRole().equalsIgnoreCase("ROLE_EMP")) {
+		if (credential.getRole().equalsIgnoreCase("ROLE_EMP")) {
 			model.addAttribute("account", AccountEnum.EMPLOYEE.toString());
 		}
 		else {
-			if (userCredential.getRole().equalsIgnoreCase("ROLE_MGR")) {
+			if (credential.getRole().equalsIgnoreCase("ROLE_MGR")) {
 				model.addAttribute("account", AccountEnum.MANAGER.toString());
 			}
 			else {
@@ -124,19 +124,19 @@ public class UserCredentialController {
 			
 		}
 		
-		userCredential.setUsername(authentication.getName());
-		userCredential.setPassword(this.bCryptPasswordEncoder.encode(pwd1));
+		credential.setUsername(authentication.getName());
+		credential.setPassword(this.bCryptPasswordEncoder.encode(pwd1));
 		
 		final String msg = "You've changed some credentials : " + LocalDateTime.now() + "\n" + "Username : " + authentication.getName() + "\n" + "Password : " + pwd1;
 		
-		this.userCredentialService.update(userCredential);
+		this.credentialService.update(credential);
 		logger.info("Credentials updated successfully");
 		
-		this.emailUtil.sendEmail(userCredential.getEmployee().getEmail(), "Project-Tracker-Sys", msg);
-		logger.info("MAIL successfully sent to {}", userCredential.getEmployee().getEmail());
+		this.emailUtil.sendEmail(credential.getEmployee().getEmail(), "Project-Tracker-Sys", msg);
+		logger.info("MAIL successfully sent to {}", credential.getEmployee().getEmail());
 		
-		this.smsUtil.sendSms(new Sms(userCredential.getEmployee().getPhone(), msg));
-		logger.info("SMS successfully sent to {}", userCredential.getEmployee().getPhone());
+		this.smsUtil.sendSms(new Sms(credential.getEmployee().getPhone(), msg));
+		logger.info("SMS successfully sent to {}", credential.getEmployee().getPhone());
 		
 		model.addAttribute("username", authentication.getName());
 		model.addAttribute("msg", "Credentials updated successfully");

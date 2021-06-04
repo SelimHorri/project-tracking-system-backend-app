@@ -15,43 +15,43 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pfa.pack.model.dto.collection.DtoCollection;
-import com.pfa.pack.model.entity.UserCredential;
-import com.pfa.pack.service.UserCredentialService;
+import com.pfa.pack.model.entity.Credential;
+import com.pfa.pack.service.CredentialService;
 
 @RestController
-@RequestMapping(value = {"/app/api/userCredentials"})
-public class UserCredentialRESTController {
+@RequestMapping(value = {"/app/api/credentials"})
+public class CredentialRESTController {
 	
-	private final UserCredentialService service;
-	private static final Logger logger = LoggerFactory.getLogger(UserCredentialRESTController.class);
+	private final CredentialService service;
+	private static final Logger logger = LoggerFactory.getLogger(CredentialRESTController.class);
 	
 	static {
-		logger.info("************ entering " + UserCredentialRESTController.class.getName() + " ************");
+		logger.info("************ entering " + CredentialRESTController.class.getName() + " ************");
 	}
 	
 	@Autowired
-	public UserCredentialRESTController(final UserCredentialService service) {
+	public CredentialRESTController(final CredentialService service) {
 		this.service = service;
 	}
 	
 	@GetMapping(value = {"", "/"})
-	public ResponseEntity<DtoCollection<UserCredential>> findAll() {
+	public ResponseEntity<DtoCollection<Credential>> findAll() {
 		return new ResponseEntity<>(this.service.findAll(), HttpStatus.OK);
 	}
 	
 	@GetMapping(value = {"/{id}"})
-	public ResponseEntity<UserCredential> findById(@PathVariable("id") final String userCredentialId) {
+	public ResponseEntity<Credential> findById(@PathVariable("id") final String userCredentialId) {
 		return new ResponseEntity<>(this.service.findById(Integer.parseInt(userCredentialId)), HttpStatus.OK);
 	}
 	
 	@PostMapping(value = {"", "/save"})
-	public ResponseEntity<UserCredential> save(@RequestBody final UserCredential userCredential) {
-		return new ResponseEntity<>(this.service.save(userCredential), HttpStatus.OK);
+	public ResponseEntity<Credential> save(@RequestBody final Credential credential) {
+		return new ResponseEntity<>(this.service.save(credential), HttpStatus.OK);
 	}
 	
 	@PutMapping(value = {"", "/update"})
-	public ResponseEntity<UserCredential> update(@RequestBody final UserCredential userCredential) {
-		return new ResponseEntity<>(this.service.update(userCredential), HttpStatus.OK);
+	public ResponseEntity<Credential> update(@RequestBody final Credential credential) {
+		return new ResponseEntity<>(this.service.update(credential), HttpStatus.OK);
 	}
 	
 	@DeleteMapping(value = {"", "/delete"})

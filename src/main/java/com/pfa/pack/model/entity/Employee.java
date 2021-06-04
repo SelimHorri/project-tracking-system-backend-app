@@ -94,7 +94,7 @@ public final class Employee implements Serializable {
 	private Department department;
 	
 	@OneToOne(mappedBy = "employee", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private UserCredential userCredential;
+	private Credential credential;
 	
 	public Employee() {
 		
@@ -104,7 +104,7 @@ public final class Employee implements Serializable {
 	public String toString() {
 		return "Employee [employeeId=" + employeeId + ", firstName=" + firstName + ", lastName=" + lastName + ", email="
 				+ email + ", phone=" + phone + ", hiredate=" + hiredate + ", job=" + job + ", salary=" + salary
-				+ ", manager=" + manager + ", department=" + department + ", userCredential=" + userCredential + "]";
+				+ ", manager=" + manager + ", department=" + department + ", credential=" + credential + "]";
 	}
 	
 	public Integer getEmployeeId() {
@@ -203,12 +203,12 @@ public final class Employee implements Serializable {
 		this.department = department;
 	}
 
-	public UserCredential getUserCredential() {
-		return userCredential;
+	public Credential getUserCredential() {
+		return credential;
 	}
 
-	public void setUserCredential(final UserCredential userCredential) {
-		this.userCredential = userCredential;
+	public void setUserCredential(final Credential credential) {
+		this.credential = credential;
 	}
 	
 	

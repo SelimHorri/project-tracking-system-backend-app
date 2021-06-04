@@ -16,16 +16,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.pfa.pack.constant.AccountEnum;
 import com.pfa.pack.model.entity.Employee;
-import com.pfa.pack.model.entity.UserCredential;
+import com.pfa.pack.model.entity.Credential;
 import com.pfa.pack.service.EmployeeService;
-import com.pfa.pack.service.UserCredentialService;
+import com.pfa.pack.service.CredentialService;
 
 @Controller
 @RequestMapping(value = {"/app/admins/employees"})
 public class AdminEmployeeController {
 	
 	private final EmployeeService employeeService;
-	private final UserCredentialService userCredentialService;
+	private final CredentialService credentialService;
 	private static final Logger logger = LoggerFactory.getLogger(AdminEmployeeController.class);
 	
 	static {
@@ -33,15 +33,15 @@ public class AdminEmployeeController {
 	}
 	
 	@Autowired
-	public AdminEmployeeController(final EmployeeService employeeService, final UserCredentialService userCredentialService) {
+	public AdminEmployeeController(final EmployeeService employeeService, final CredentialService credentialService) {
 		this.employeeService = employeeService;
-		this.userCredentialService = userCredentialService;
+		this.credentialService = credentialService;
 	}
 	
 	@GetMapping(value = {"/admin-employee-credentials", "/credentials"})
 	public String displayAdminEmployeeCredentialsList(@RequestParam("userId") final String userId, final Model model) {
 		
-		model.addAttribute("userCredential", this.userCredentialService.findById(Integer.parseInt(userId)));
+		model.addAttribute("userCredential", this.credentialService.findById(Integer.parseInt(userId)));
 		return "admins/employees/admin-employee-credentials";
 	}
 	
@@ -115,11 +115,11 @@ public class AdminEmployeeController {
 	@GetMapping(value = {"/admin-employees-isactive", "/isactive"})
 	public String handleAdminEmployeesInActive(@RequestParam("employeeId") final String employeeId) {
 		
-		final UserCredential userCredential = this.employeeService.findById(Integer.parseInt(employeeId)).getUserCredential();
-		userCredential.setEnabled(!userCredential.getEnabled());
+		final Credential credential = this.employeeService.findById(Integer.parseInt(employeeId)).getUserCredential();
+		credential.setEnabled(!credential.getEnabled());
 		
-		this.userCredentialService.save(userCredential);
-		logger.info("Employee with employeeId : {} has been enabled/disabled successfully", userCredential.getEmployee().getEmployeeId());
+		this.credentialService.save(credential);
+		logger.info("Employee with employeeId : {} has been enabled/disabled successfully", credential.getEmployee().getEmployeeId());
 		
 		return "redirect:/app/admins/employees/admin-employees-list";
 	}

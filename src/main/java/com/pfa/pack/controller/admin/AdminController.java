@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.pfa.pack.model.entity.Employee;
 import com.pfa.pack.service.EmployeeService;
-import com.pfa.pack.service.UserCredentialService;
+import com.pfa.pack.service.CredentialService;
 
 @Controller
 @RequestMapping(value = {"/app/admins"})
 public class AdminController {
 	
 	private final EmployeeService employeeService;
-	private final UserCredentialService userCredentialService;
+	private final CredentialService credentialService;
 	private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
 	
 	static {
@@ -26,9 +26,9 @@ public class AdminController {
 	}
 	
 	@Autowired
-	public AdminController(final EmployeeService employeeService, final UserCredentialService userCredentialService) {
+	public AdminController(final EmployeeService employeeService, final CredentialService credentialService) {
 		this.employeeService = employeeService;
-		this.userCredentialService = userCredentialService;
+		this.credentialService = credentialService;
 	}
 	
 	@GetMapping(value = {"", "/", "/admin-index"})
@@ -39,7 +39,7 @@ public class AdminController {
 	@GetMapping(value = {"/admin-info"})
 	public String displayManagerInfo(final Authentication authentication, final Model model) {
 		
-		final Employee admin = this.employeeService.findById(this.userCredentialService.findByUsername(authentication.getName()).getEmployee().getEmployeeId());
+		final Employee admin = this.employeeService.findById(this.credentialService.findByUsername(authentication.getName()).getEmployee().getEmployeeId());
 		model.addAttribute("a", admin);
 		
 		return "admins/admin-info";
