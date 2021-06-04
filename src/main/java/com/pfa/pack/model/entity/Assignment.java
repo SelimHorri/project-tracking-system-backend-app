@@ -37,8 +37,8 @@ public final class Assignment implements Serializable {
 	private Integer projectId;
 	
 	@Id
-	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
-	@JsonFormat(shape = Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
+	@DateTimeFormat(pattern = "dd-MM-yyyyHH:mm:ss")
+	@JsonFormat(shape = Shape.STRING, pattern = "dd-MM-yyyyHH:mm:ss")
 	@JsonSerialize(using = LocalDateTimeSerializer.class)
 	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
 	@Column(name = "commit_date", unique = true, nullable = false)

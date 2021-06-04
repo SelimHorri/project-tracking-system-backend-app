@@ -15,48 +15,48 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pfa.pack.model.dto.collection.DtoCollection;
-import com.pfa.pack.model.entity.Project;
-import com.pfa.pack.service.ProjectService;
+import com.pfa.pack.model.entity.Location;
+import com.pfa.pack.service.LocationService;
 
 @RestController
-@RequestMapping(value = {"/app/api/projects"})
-public class ProjectRESTController {
+@RequestMapping(value = {"/app/api/locations"})
+public class LocationResource {
 	
-	private final ProjectService service;
-	private static final Logger logger = LoggerFactory.getLogger(ProjectRESTController.class);
+	private final LocationService service;
+	private static final Logger logger = LoggerFactory.getLogger(LocationResource.class);
 	
 	static {
-		logger.info("************ entering " + ProjectRESTController.class.getName() + " ************");
+		logger.info("************ entering " + LocationResource.class.getName() + " ************");
 	}
 	
 	@Autowired
-	public ProjectRESTController(final ProjectService service) {
+	public LocationResource(final LocationService service) {
 		this.service = service;
 	}
 	
 	@GetMapping(value = {"", "/"})
-	public ResponseEntity<DtoCollection<Project>> findAll() {
+	public ResponseEntity<DtoCollection<Location>> findAll() {
 		return new ResponseEntity<>(this.service.findAll(), HttpStatus.OK);
 	}
 	
 	@GetMapping(value = {"/{id}"})
-	public ResponseEntity<Project> findById(@PathVariable("id") final String projectId) {
-		return new ResponseEntity<>(this.service.findById(Integer.parseInt(projectId)), HttpStatus.OK);
+	public ResponseEntity<Location> findById(@PathVariable("id") final String locationId) {
+		return new ResponseEntity<>(this.service.findById(Integer.parseInt(locationId)), HttpStatus.OK);
 	}
 	
 	@PostMapping(value = {"", "/save"})
-	public ResponseEntity<Project> save(@RequestBody final Project project) {
-		return new ResponseEntity<>(this.service.save(project), HttpStatus.OK);
+	public ResponseEntity<Location> save(@RequestBody final Location location) {
+		return new ResponseEntity<>(this.service.save(location), HttpStatus.OK);
 	}
 	
 	@PutMapping(value = {"", "/update"})
-	public ResponseEntity<Project> update(@RequestBody final Project project) {
-		return new ResponseEntity<>(this.service.update(project), HttpStatus.OK);
+	public ResponseEntity<Location> update(@RequestBody final Location location) {
+		return new ResponseEntity<>(this.service.update(location), HttpStatus.OK);
 	}
 	
 	@DeleteMapping(value = {"", "/delete"})
-	public void delete(final String projectId) {
-		this.service.deleteById(Integer.parseInt(projectId));
+	public void delete(final String locationId) {
+		this.service.delete(Integer.parseInt(locationId));
 	}
 	
 	

@@ -1,11 +1,11 @@
 package com.pfa.pack.controller.api;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,17 +23,17 @@ import com.pfa.pack.service.AssignmentService;
 
 @RestController
 @RequestMapping(value = {"/app/api/assignments"})
-public class AssignmentRESTController {
+public class AssignmentResource {
 	
 	private final AssignmentService service;
-	private static final Logger logger = LoggerFactory.getLogger(AssignmentRESTController.class);
+	private static final Logger logger = LoggerFactory.getLogger(AssignmentResource.class);
 	
 	static {
-		logger.info("************ entering " + AssignmentRESTController.class.getName() + " ************");
+		logger.info("************ entering " + AssignmentResource.class.getName() + " ************");
 	}
 	
 	@Autowired
-	public AssignmentRESTController(final AssignmentService service) {
+	public AssignmentResource(final AssignmentService service) {
 		this.service = service;
 	}
 	
@@ -44,13 +44,8 @@ public class AssignmentRESTController {
 	
 	// need to be tested
 	@GetMapping(value = {"/{employeeId}/{projectId}/{commitDate}"})
-	public ResponseEntity<Assignment> findByCompositeIds(@PathVariable("employeeId") final String employeeId, 
-														 @PathVariable("projectId") final String projectId,
-														 @PathVariable("commitDate") @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss") final String commitDate
-												  		) {
-		final int id1 = Integer.parseInt(employeeId);
-		final int id2 = Integer.parseInt(projectId);
-		return new ResponseEntity<>(this.service.findByCompositeIds(id1, id2, LocalDateTime.parse(commitDate)), HttpStatus.OK);
+	public ResponseEntity<Assignment> findByCompositeIds(@PathVariable("employeeId") final String employeeId, @PathVariable("projectId") final String projectId, @PathVariable("commitDate") final String commitDate) {
+		return new ResponseEntity<>(this.service.findById(Integer.parseInt(employeeId), Integer.parseInt(projectId), LocalDateTime.parse(commitDate, DateTimeFormatter.ofPattern("dd-MM-yyyyHH:mm:ss"))), HttpStatus.OK);
 	}
 	
 	@PostMapping(value = {"", "/save"})
@@ -63,12 +58,10 @@ public class AssignmentRESTController {
 		return new ResponseEntity<>(this.service.update(assignment), HttpStatus.OK);
 	}
 	
-	@DeleteMapping(value = {"", "/delete"})
-	public void delete(@PathVariable("employeeId") final String employeeId, @PathVariable("projectId") final String projectId, @PathVariable("commitDate") @DateTimeFormat(pattern = "dd-MM-yyyy##HH:mm:ss") final LocalDateTime commitDate) {
-		final int id1 = Integer.parseInt(employeeId);
-		final int id2 = Integer.parseInt(projectId);
-		
-		this.service.delete(id1, id2, commitDate);
+	@DeleteMapping(value = {"/{employeeId}/{projectId}/{commitDate}", "/delete/{employeeId}/{projectId}/{commitDate}"})
+	public ResponseEntity<?> deleteById(@PathVariable("employeeId") final String employeeId, @PathVariable("projectId") final String projectId, @PathVariable("commitDate") final String commitDate) {
+		this.service.deleteById(Integer.parseInt(employeeId), Integer.parseInt(projectId), LocalDateTime.parse(commitDate, DateTimeFormatter.ofPattern("dd-MM-yyyyHH:mm:ss")));
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
 	// TODO: create this method in order to get a list of assignment by employeeId & managerId

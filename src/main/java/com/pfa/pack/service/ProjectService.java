@@ -11,17 +11,17 @@ import com.pfa.pack.model.entity.Project;
 
 public interface ProjectService {
 	
-	public abstract DtoCollection<Project> findAll();
-	public abstract Project findById(final Integer projectId);
-	public abstract ProjectDTO findProjectDtoById(final Project project);
-	public abstract Project save(final Project project);
-	public abstract Project save(final ProjectDTO projectDTO);
-	public abstract Project update(final Project project);
-	public abstract Project update(final Integer projectId, final ProjectDTO projectDTO);
-	public abstract void deleteById(final Integer projectId);
-	public abstract List<ChartData> getProjectStatus();
-	public abstract ProjectCommitInfoDTO findByUsernameAndProjectId(final String username, final Integer projectId);
-	public abstract List<ManagerProjectData> findByEmployeeId(final int employeeId);
+	DtoCollection<Project> findAll();
+	Project findById(final Integer projectId);
+	ProjectDTO findProjectDtoById(final Project project);
+	Project save(final Project project);
+	Project save(final ProjectDTO projectDTO);
+	Project update(final Project project);
+	Project update(final Integer projectId, final ProjectDTO projectDTO);
+	void deleteById(final Integer projectId);
+	List<ChartData> getProjectStatus();
+	ProjectCommitInfoDTO findByUsernameAndProjectId(final String username, final Integer projectId);
+	List<ManagerProjectData> findByEmployeeId(final int employeeId);
 	
 }
 

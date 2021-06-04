@@ -1,4 +1,4 @@
-package com.pfa.pack.config.modelmapper;
+package com.pfa.pack.config.mapper;
 
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;

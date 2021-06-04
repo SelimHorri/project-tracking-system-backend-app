@@ -15,31 +15,29 @@ import org.springframework.stereotype.Repository;
 import com.pfa.pack.model.dto.EmployeeProjectData;
 import com.pfa.pack.model.dto.ProjectCommit;
 import com.pfa.pack.model.entity.Assignment;
+import com.pfa.pack.model.id.AssignmentId;
 
 @Repository
-public interface AssignmentRepository extends JpaRepository<Assignment, Integer> {
-	
-	@Query(name = "Optional.findByCompositeIds", nativeQuery = true)
-	public abstract Optional<Assignment> findByCompositeIds(@Param("employeeId") final int employeeId, @Param("projectId") final int projectId, @Param("commitDate") final LocalDateTime commitDate);
+public interface AssignmentRepository extends JpaRepository<Assignment, AssignmentId> {
 	
 	@Query(name = "List.findByEmployeeId", nativeQuery = true)
-	public abstract List<EmployeeProjectData> findByEmployeeId(@Param("employeeId") final int employeeId);
+	List<EmployeeProjectData> findByEmployeeId(@Param("employeeId") final int employeeId);
 	
 	@Query(name = "List.findByProjectId", nativeQuery = true)
-	public abstract List<ProjectCommit> findByProjectId(@Param("projectId") final int projectId);
+	List<ProjectCommit> findByProjectId(@Param("projectId") final int projectId);
 	
 	@Query(name = "List.findByEmployeeIdAndProjectId", nativeQuery = true)
-	public abstract List<ProjectCommit> findByEmployeeIdAndProjectId(@Param("employeeId") final int employeeId, @Param("projectId") final int projectId);
+	List<ProjectCommit> findByEmployeeIdAndProjectId(@Param("employeeId") final int employeeId, @Param("projectId") final int projectId);
 	
 	@Modifying
 	@Query(name = "void.deleteByProjectId", nativeQuery = true)
-	public abstract void deleteByProjectId(@Param("projectId") final int projectId);
+	void deleteByProjectId(@Param("projectId") final int projectId);
 	
 	@Query(name = "ProjectCommit.findByEmployeeIdAndProjectIdAndCommitDate", nativeQuery = true)
-	public abstract Optional<ProjectCommit> findByEmployeeIdAndProjectIdAndCommitDate(@Param("employeeId") final int employeeId, @Param("projectId") final int projectId, @Param("commitDate") final LocalDateTime commitDate);
+	Optional<ProjectCommit> findByEmployeeIdAndProjectIdAndCommitDate(@Param("employeeId") final int employeeId, @Param("projectId") final int projectId, @Param("commitDate") final LocalDateTime commitDate);
 	
 	@Query(name = "Set<ProjectCommit>.findByProjectIdAndCommitDateFromAndCommitDateTo", nativeQuery = true)
-	public abstract Set<ProjectCommit> findByProjectIdAndCommitDateFromAndCommitDateTo(@Param("projectId") final int projectId, @Param("commitDateFrom") final LocalDate commitDateFrom, @Param("commitDateTo") final LocalDate commitDateTo);
+	Set<ProjectCommit> findByProjectIdAndCommitDateFromAndCommitDateTo(@Param("projectId") final int projectId, @Param("commitDateFrom") final LocalDate commitDateFrom, @Param("commitDateTo") final LocalDate commitDateTo);
 	
 }
 

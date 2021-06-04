@@ -1,7 +1,6 @@
-package com.pfa.pack.service.impls;
+package com.pfa.pack.service.impl;
 
 import java.util.Collections;
-import java.util.NoSuchElementException;
 
 import javax.transaction.Transactional;
 
@@ -11,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.pfa.pack.exception.custom.ObjectNotFoundException;
 import com.pfa.pack.model.dto.collection.DtoCollection;
 import com.pfa.pack.model.entity.Credential;
 import com.pfa.pack.repository.CredentialRepository;
@@ -39,7 +39,7 @@ public class CredentialServiceImpl implements CredentialService {
 	
 	@Override
 	public Credential findById(final Integer userCredentialId) {
-		return this.rep.findById(userCredentialId).orElseThrow(() -> new NoSuchElementException("\\n------------ NO ELEMENT FOUND !!!!! ------------\\n"));
+		return this.rep.findById(userCredentialId).orElseThrow(() -> new ObjectNotFoundException("\\n------------ NO Credential object FOUND! ------------\\n"));
 	}
 	
 	@Override
@@ -63,7 +63,7 @@ public class CredentialServiceImpl implements CredentialService {
 	 */
 	@Override
 	public Credential findByUsername(final String username) {
-		return this.rep.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("\n-------------- NO SUCH ELEMENT by username: " + username + " --------------\n"));
+		return this.rep.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("\n-------------- NO Credential object FOUND with username: " + username + " ! --------------\n"));
 	}
 	
 	
