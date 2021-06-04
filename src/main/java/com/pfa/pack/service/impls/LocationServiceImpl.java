@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.pfa.pack.model.collection.LocationsCollection;
+import com.pfa.pack.model.dto.collection.DtoCollection;
 import com.pfa.pack.model.entity.Location;
 import com.pfa.pack.repository.LocationRepository;
 import com.pfa.pack.service.LocationService;
@@ -32,8 +32,8 @@ public class LocationServiceImpl implements LocationService {
 	}
 	
 	@Override
-	public LocationsCollection findAll() {
-		return new LocationsCollection(Collections.unmodifiableList(this.rep.findAll()));
+	public DtoCollection<Location> findAll() {
+		return new DtoCollection<>(Collections.unmodifiableList(this.rep.findAll()));
 	}
 	
 	@Override

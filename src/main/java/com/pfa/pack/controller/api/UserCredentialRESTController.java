@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.pfa.pack.model.collection.UserCredentialsCollection;
+import com.pfa.pack.model.dto.collection.DtoCollection;
 import com.pfa.pack.model.entity.UserCredential;
 import com.pfa.pack.service.UserCredentialService;
 
@@ -35,7 +35,7 @@ public class UserCredentialRESTController {
 	}
 	
 	@GetMapping(value = {"", "/"})
-	public ResponseEntity<UserCredentialsCollection> findAll() {
+	public ResponseEntity<DtoCollection<UserCredential>> findAll() {
 		return new ResponseEntity<>(this.service.findAll(), HttpStatus.OK);
 	}
 	

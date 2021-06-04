@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.pfa.pack.model.collection.UserCredentialsCollection;
+import com.pfa.pack.model.dto.collection.DtoCollection;
 import com.pfa.pack.model.entity.UserCredential;
 import com.pfa.pack.repository.UserCredentialRepository;
 import com.pfa.pack.service.UserCredentialService;
@@ -33,8 +33,8 @@ public class UserCredentialServiceImpl implements UserCredentialService {
 	}
 	
 	@Override
-	public UserCredentialsCollection findAll() {
-		return new UserCredentialsCollection(Collections.unmodifiableList(this.rep.findAll()));
+	public DtoCollection<UserCredential> findAll() {
+		return new DtoCollection<>(Collections.unmodifiableList(this.rep.findAll()));
 	}
 	
 	@Override

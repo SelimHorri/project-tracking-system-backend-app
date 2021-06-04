@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.pfa.pack.model.collection.LocationsCollection;
+import com.pfa.pack.model.dto.collection.DtoCollection;
 import com.pfa.pack.model.entity.Location;
 import com.pfa.pack.service.LocationService;
 
@@ -35,7 +35,7 @@ public class LocationRESTController {
 	}
 	
 	@GetMapping(value = {"", "/"})
-	public ResponseEntity<LocationsCollection> findAll() {
+	public ResponseEntity<DtoCollection<Location>> findAll() {
 		return new ResponseEntity<>(this.service.findAll(), HttpStatus.OK);
 	}
 	

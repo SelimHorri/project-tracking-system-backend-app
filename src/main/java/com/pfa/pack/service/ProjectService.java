@@ -2,16 +2,16 @@ package com.pfa.pack.service;
 
 import java.util.List;
 
-import com.pfa.pack.model.collection.ProjectsCollection;
 import com.pfa.pack.model.dto.ChartData;
 import com.pfa.pack.model.dto.ManagerProjectData;
 import com.pfa.pack.model.dto.ProjectCommitInfoDTO;
 import com.pfa.pack.model.dto.ProjectDTO;
+import com.pfa.pack.model.dto.collection.DtoCollection;
 import com.pfa.pack.model.entity.Project;
 
 public interface ProjectService {
 	
-	public abstract ProjectsCollection findAll();
+	public abstract DtoCollection<Project> findAll();
 	public abstract Project findById(final Integer projectId);
 	public abstract ProjectDTO findProjectDtoById(final Project project);
 	public abstract Project save(final Project project);

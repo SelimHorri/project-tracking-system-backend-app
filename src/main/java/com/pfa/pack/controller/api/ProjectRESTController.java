@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.pfa.pack.model.collection.ProjectsCollection;
+import com.pfa.pack.model.dto.collection.DtoCollection;
 import com.pfa.pack.model.entity.Project;
 import com.pfa.pack.service.ProjectService;
 
@@ -35,7 +35,7 @@ public class ProjectRESTController {
 	}
 	
 	@GetMapping(value = {"", "/"})
-	public ResponseEntity<ProjectsCollection> findAll() {
+	public ResponseEntity<DtoCollection<Project>> findAll() {
 		return new ResponseEntity<>(this.service.findAll(), HttpStatus.OK);
 	}
 	

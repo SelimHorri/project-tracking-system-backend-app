@@ -14,10 +14,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.pfa.pack.model.collection.AssignmentsCollection;
 import com.pfa.pack.model.dto.EmployeeProjectData;
 import com.pfa.pack.model.dto.ProjectCommit;
 import com.pfa.pack.model.dto.SearchProjectsDto;
+import com.pfa.pack.model.dto.collection.DtoCollection;
 import com.pfa.pack.model.entity.Assignment;
 import com.pfa.pack.repository.AssignmentRepository;
 import com.pfa.pack.service.AssignmentService;
@@ -42,8 +42,8 @@ public class AssignmentServiceImpl implements AssignmentService {
 	 * @return: all assignments
 	 */
 	@Override
-	public AssignmentsCollection findAll() {
-		return new AssignmentsCollection(Collections.unmodifiableList(this.rep.findAll()));
+	public DtoCollection<Assignment> findAll() {
+		return new DtoCollection<>(Collections.unmodifiableList(this.rep.findAll()));
 	}
 	
 	/**

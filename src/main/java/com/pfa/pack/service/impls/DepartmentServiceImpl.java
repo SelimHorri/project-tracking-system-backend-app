@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.pfa.pack.model.collection.DepartmentsCollection;
+import com.pfa.pack.model.dto.collection.DtoCollection;
 import com.pfa.pack.model.entity.Department;
 import com.pfa.pack.repository.DepartmentRepository;
 import com.pfa.pack.service.DepartmentService;
@@ -32,8 +32,8 @@ public class DepartmentServiceImpl implements DepartmentService {
 	}
 	
 	@Override
-	public DepartmentsCollection findAll() {
-		return new DepartmentsCollection(Collections.unmodifiableList(this.rep.findAll()));
+	public DtoCollection<Department> findAll() {
+		return new DtoCollection<>(Collections.unmodifiableList(this.rep.findAll()));
 	}
 	
 	@Override

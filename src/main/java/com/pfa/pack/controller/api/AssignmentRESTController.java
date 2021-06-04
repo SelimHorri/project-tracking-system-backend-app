@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.pfa.pack.model.collection.AssignmentsCollection;
+import com.pfa.pack.model.dto.collection.DtoCollection;
 import com.pfa.pack.model.entity.Assignment;
 import com.pfa.pack.service.AssignmentService;
 
@@ -38,7 +38,7 @@ public class AssignmentRESTController {
 	}
 	
 	@GetMapping(value = {"", "/"})
-	public ResponseEntity<AssignmentsCollection> findAll() {
+	public ResponseEntity<DtoCollection<Assignment>> findAll() {
 		return new ResponseEntity<>(this.service.findAll(), HttpStatus.OK);
 	}
 	
@@ -73,7 +73,7 @@ public class AssignmentRESTController {
 	
 	// TODO: create this method in order to get a list of assignment by employeeId & managerId
 	@GetMapping(value = {"/{employeeId}/{projectId}"})
-	public ResponseEntity<AssignmentsCollection> findAllByEmployeeIdAndManagerId(@PathVariable("employeeId") final String employeeId, @PathVariable("projectId") final String managerId) {
+	public ResponseEntity<DtoCollection<Assignment>> findAllByEmployeeIdAndManagerId(@PathVariable("employeeId") final String employeeId, @PathVariable("projectId") final String managerId) {
 		return new ResponseEntity<>(null, null);
 	}
 	

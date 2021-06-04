@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.pfa.pack.model.collection.DepartmentsCollection;
+import com.pfa.pack.model.dto.collection.DtoCollection;
 import com.pfa.pack.model.entity.Department;
 import com.pfa.pack.service.DepartmentService;
 
@@ -35,7 +35,7 @@ public class DepartmentRESTController {
 	}
 	
 	@GetMapping(value = {"", "/"})
-	public ResponseEntity<DepartmentsCollection> findAll() {
+	public ResponseEntity<DtoCollection<Department>> findAll() {
 		return new ResponseEntity<>(this.service.findAll(), HttpStatus.OK);
 	}
 	

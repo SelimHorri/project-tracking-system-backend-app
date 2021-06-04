@@ -14,11 +14,11 @@ import org.springframework.stereotype.Service;
 
 import com.pfa.pack.converter.ProjectDtoProjectConverter;
 import com.pfa.pack.converter.ProjectProjectDtoConverter;
-import com.pfa.pack.model.collection.ProjectsCollection;
 import com.pfa.pack.model.dto.ChartData;
 import com.pfa.pack.model.dto.ManagerProjectData;
 import com.pfa.pack.model.dto.ProjectCommitInfoDTO;
 import com.pfa.pack.model.dto.ProjectDTO;
+import com.pfa.pack.model.dto.collection.DtoCollection;
 import com.pfa.pack.model.entity.Project;
 import com.pfa.pack.repository.ProjectRepository;
 import com.pfa.pack.service.ProjectService;
@@ -44,8 +44,8 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 	
 	@Override
-	public ProjectsCollection findAll() {
-		return new ProjectsCollection(Collections.unmodifiableList(this.rep.findAll()));
+	public DtoCollection<Project> findAll() {
+		return new DtoCollection<>(Collections.unmodifiableList(this.rep.findAll()));
 	}
 	
 	@Override

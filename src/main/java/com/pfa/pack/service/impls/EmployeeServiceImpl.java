@@ -1,6 +1,10 @@
 package com.pfa.pack.service.impls;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Set;
 
 import javax.transaction.Transactional;
 
@@ -11,8 +15,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.pfa.pack.converter.EmployeeAssignedProjectConverter;
-import com.pfa.pack.model.collection.EmployeesCollection;
 import com.pfa.pack.model.dto.EmployeeAssignedProjectDto;
+import com.pfa.pack.model.dto.collection.DtoCollection;
 import com.pfa.pack.model.entity.Employee;
 import com.pfa.pack.repository.EmployeeRepository;
 import com.pfa.pack.service.EmployeeService;
@@ -38,8 +42,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 	
 	@Override
-	public EmployeesCollection findAll() {
-		return new EmployeesCollection(Collections.unmodifiableList(this.rep.findAll()));
+	public DtoCollection<Employee> findAll() {
+		return new DtoCollection<>(Collections.unmodifiableList(this.rep.findAll()));
 	}
 	
 	@Override

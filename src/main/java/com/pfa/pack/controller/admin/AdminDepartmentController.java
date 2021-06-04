@@ -37,14 +37,14 @@ public class AdminDepartmentController {
 	@GetMapping(value = {"/", "/admin-departments-list"})
 	public String displayAdminDepartmentsList(final Model model) {
 		
-		model.addAttribute("departments", this.departmentService.findAll().getDepartments());
+		model.addAttribute("departments", this.departmentService.findAll().getCollection());
 		return "admins/departments/admin-departments-list";
 	}
 	
 	@GetMapping(value = {"/admin-departments-add", "/add"})
 	public String displayAdminDepartmentsAdd(final Model model) {
 		
-		model.addAttribute("listLocation", this.locationService.findAll().getLocations());
+		model.addAttribute("listLocation", this.locationService.findAll().getCollection());
 		model.addAttribute("department", new Department());
 		return "admins/departments/admin-departments-add";
 	}
@@ -53,7 +53,7 @@ public class AdminDepartmentController {
 	public String handleAdminDepartmentsAdd(@ModelAttribute("department") final Department department, @RequestParam("locationId") final String locationId, final BindingResult error, final Model model) {
 		
 		if (error.hasErrors()) {
-			model.addAttribute("listLocation", this.locationService.findAll().getLocations());
+			model.addAttribute("listLocation", this.locationService.findAll().getCollection());
 			model.addAttribute("department", new Department());
 			model.addAttribute("msg", "Problem happened here, please check again !");
 			model.addAttribute("msgColour", "danger");
@@ -65,7 +65,7 @@ public class AdminDepartmentController {
 		this.departmentService.save(department);
 		logger.info("department with departmentId : {} has been saved successfully", department.getDepartmentId());
 		
-		model.addAttribute("listLocation", this.locationService.findAll().getLocations());
+		model.addAttribute("listLocation", this.locationService.findAll().getCollection());
 		model.addAttribute("msg", "This department has been created successfully");
 		model.addAttribute("msgColour", "success");
 		
@@ -76,7 +76,7 @@ public class AdminDepartmentController {
 	public String displayAdminDepartmentsEdit(@RequestParam("departmentId") final String departmentId, final Model model) {
 		
 		model.addAttribute("department", this.departmentService.findById(Integer.parseInt(departmentId)));
-		model.addAttribute("listLocation", this.locationService.findAll().getLocations());
+		model.addAttribute("listLocation", this.locationService.findAll().getCollection());
 		return "admins/departments/admin-departments-edit";
 	}
 	
@@ -84,7 +84,7 @@ public class AdminDepartmentController {
 	public String handleAdminDepartmentsEdit(@ModelAttribute("department") final Department department, @RequestParam("locationId") final String locationId, final BindingResult error, final Model model) {
 		
 		if (error.hasErrors()) {
-			model.addAttribute("listLocation", this.locationService.findAll().getLocations());
+			model.addAttribute("listLocation", this.locationService.findAll().getCollection());
 			model.addAttribute("msg", "Problem happened here, please check again !");
 			model.addAttribute("msgColour", "danger");
 			return "admins/departments/admin-departments-edit";
@@ -95,7 +95,7 @@ public class AdminDepartmentController {
 		this.departmentService.update(department);
 		logger.info("department with departmentId : {} has been modified successfully", department.getDepartmentId());
 		
-		model.addAttribute("listLocation", this.locationService.findAll().getLocations());
+		model.addAttribute("listLocation", this.locationService.findAll().getCollection());
 		model.addAttribute("msg", "This department has been modified successfully");
 		model.addAttribute("msgColour", "success");
 		

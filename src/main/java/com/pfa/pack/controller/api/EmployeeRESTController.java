@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.pfa.pack.model.collection.EmployeesCollection;
+import com.pfa.pack.model.dto.collection.DtoCollection;
 import com.pfa.pack.model.entity.Employee;
 import com.pfa.pack.service.EmployeeService;
 
@@ -35,7 +35,7 @@ public class EmployeeRESTController {
 	}
 	
 	@GetMapping(value = {"", "/"})
-	public ResponseEntity<EmployeesCollection> findAll() {
+	public ResponseEntity<DtoCollection<Employee>> findAll() {
 		return new ResponseEntity<>(this.service.findAll(), HttpStatus.OK);
 	}
 	
