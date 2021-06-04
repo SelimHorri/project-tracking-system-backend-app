@@ -50,7 +50,7 @@ public class ProjectServiceImpl implements ProjectService {
 	
 	@Override
 	public Project findById(final Integer projectId) {
-		return this.rep.findById(projectId).orElseThrow(() -> new ObjectNotFoundException("\\n------------ NO Project object FOUND! ------------\\n"));
+		return this.rep.findById(projectId).orElseThrow(() -> new ObjectNotFoundException("###### NO Project object FOUND! ######"));
 	}
 	
 	@Override
@@ -99,7 +99,7 @@ public class ProjectServiceImpl implements ProjectService {
 	
 	@Override
 	public ProjectCommitInfoDTO findByUsernameAndProjectId(final String username, final Integer projectId) {
-		return this.rep.findByUsernameAndProjectId(username, projectId).orElseThrow(() -> new ObjectNotFoundException("\\n------------ NO ProjectCommitInfoDTO object FOUND! ------------\\n"));
+		return this.rep.findByUsernameAndProjectId(username, projectId).orElseThrow(() -> new ObjectNotFoundException("###### NO ProjectCommitInfoDTO object FOUND! ######"));
 	}
 	
 	@Override

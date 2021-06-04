@@ -48,7 +48,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	
 	@Override
 	public Employee findById(final Integer employeeId) {
-		return this.rep.findById(employeeId).orElseThrow(() -> new ObjectNotFoundException("\\n------------ NO Employee object FOUND! ------------\\n"));
+		return this.rep.findById(employeeId).orElseThrow(() -> new ObjectNotFoundException("###### NO Employee object FOUND! ######"));
 	}
 	
 	@Override
