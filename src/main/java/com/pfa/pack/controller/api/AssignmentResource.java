@@ -44,7 +44,7 @@ public class AssignmentResource {
 	
 	// need to be tested
 	@GetMapping(value = {"/{employeeId}/{projectId}/{commitDate}"})
-	public ResponseEntity<Assignment> findByCompositeIds(@PathVariable("employeeId") final String employeeId, @PathVariable("projectId") final String projectId, @PathVariable("commitDate") final String commitDate) {
+	public ResponseEntity<Assignment> findById(@PathVariable("employeeId") final String employeeId, @PathVariable("projectId") final String projectId, @PathVariable("commitDate") final String commitDate) {
 		return new ResponseEntity<>(this.assignmentService.findById(Integer.parseInt(employeeId), Integer.parseInt(projectId), LocalDateTime.parse(commitDate, DateTimeFormatter.ofPattern("dd-MM-yyyyHH:mm:ss"))), HttpStatus.OK);
 	}
 	
