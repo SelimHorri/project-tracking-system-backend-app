@@ -1,4 +1,4 @@
-package com.pfa.pack.controller.admin;
+package com.pfa.pack.controller.business.admin;
 
 import javax.validation.Valid;
 

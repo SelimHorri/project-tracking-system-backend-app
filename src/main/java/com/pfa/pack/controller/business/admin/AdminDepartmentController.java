@@ -1,4 +1,4 @@
-package com.pfa.pack.controller.admin;
+package com.pfa.pack.controller.business.admin;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
