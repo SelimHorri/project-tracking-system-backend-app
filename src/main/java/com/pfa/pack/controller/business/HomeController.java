@@ -1,4 +1,4 @@
-package com.pfa.pack.controller;
+package com.pfa.pack.controller.business;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

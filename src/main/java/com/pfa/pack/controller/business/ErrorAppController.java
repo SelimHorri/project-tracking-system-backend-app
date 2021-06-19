@@ -1,4 +1,4 @@
-package com.pfa.pack.controller;
+package com.pfa.pack.controller.business;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
