@@ -6,8 +6,6 @@ name: project-tracking-system workflow CI/CD pipeline
 on:
   push:
     branches: [ master ]
-  pull_request:
-    branches: [ master ]
 
 jobs:
   
