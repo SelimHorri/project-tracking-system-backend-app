@@ -14,24 +14,28 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.pfa.pack.model.dto.EmployeeProjectData;
 import com.pfa.pack.model.dto.collection.DtoCollection;
 import com.pfa.pack.model.entity.Employee;
+import com.pfa.pack.service.AssignmentService;
 import com.pfa.pack.service.EmployeeService;
 
 @RestController
 @RequestMapping(value = {"/app/api/employees"})
 public class EmployeeResource {
 	
-	private final EmployeeService employeeService;
 	private static final Logger logger = LoggerFactory.getLogger(EmployeeResource.class);
+	private final EmployeeService employeeService;
+	private final AssignmentService assignmentService;
 	
 	static {
 		logger.info("************ entering " + EmployeeResource.class.getName() + " ************");
 	}
 	
 	@Autowired
-	public EmployeeResource(final EmployeeService service) {
+	public EmployeeResource(final EmployeeService service, final AssignmentService assignmentService) {
 		this.employeeService = service;
+		this.assignmentService = assignmentService;
 	}
 	
 	@GetMapping(value = {"", "/"})
@@ -69,6 +73,11 @@ public class EmployeeResource {
 	public ResponseEntity<Boolean> deleteByUsername(@PathVariable("username") final String username) {
 		this.employeeService.deleteByUsername(username);
 		return new ResponseEntity<>(true, HttpStatus.OK);
+	}
+	
+	@GetMapping(value = {"/data/employee-project-data/{employeeId}"})
+	public ResponseEntity<DtoCollection<EmployeeProjectData>> findByEmployeeId(@PathVariable("employeeId") final String employeeId) {
+		return new ResponseEntity<>(new DtoCollection<>(this.assignmentService.findByEmployeeId(Integer.parseInt(employeeId))), HttpStatus.OK);
 	}
 	
 	
