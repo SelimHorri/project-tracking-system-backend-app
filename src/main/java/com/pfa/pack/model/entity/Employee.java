@@ -32,7 +32,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 
-@Entity(name = "employees")
+@Entity
 @Table(name = "employees", indexes = {@Index(name = "employees_email_IX", columnList = "email", unique = true)})
 public final class Employee implements Serializable {
 	

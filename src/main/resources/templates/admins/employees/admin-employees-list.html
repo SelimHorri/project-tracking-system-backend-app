@@ -49,7 +49,7 @@
 							<td th:text="${e.salary}"></td>
  							<td th:text="${e.manager != null} ? ${e.manager.firstName + ' ' + e.manager.lastName} : '-'"></td>
  							<td th:text="${e.department != null} ? ${e.department.departmentName} : '-'"></td>
- 							<td><a class='btn btn-outline-info ' th:href="@{/app/admins/employees/admin-employee-credentials(userId=${e.userCredential.userId})}" >Credentials</a></td>
+ 							<td><a class='btn btn-outline-info ' th:href="@{/app/admins/employees/admin-employee-credentials(userId=${e.credential.credentialId})}" >Credentials</a></td>
 							<td><a class='btn btn-outline-success' th:href="@{/app/admins/employees/admin-employees-edit(employeeId=${e.employeeId})}">Edit</a></td>
 							<td><a class='btn btn-outline-warning ' th:href="@{/app/admins/employees/admin-employees-isactive(employeeId=${e.employeeId})}" onClick="if (!(confirm('Do you confirm you want enable/disable this employee ?'))) return false" >Enable/Disable</a></td>
 							<td><a class='btn btn-outline-danger' th:href="@{/app/admins/employees/admin-employees-delete(employeeId=${e.employeeId})}" onClick="if (!(confirm('Do you confirm you want DELETE this employee ?'))) return false" >Delete</a></td>
