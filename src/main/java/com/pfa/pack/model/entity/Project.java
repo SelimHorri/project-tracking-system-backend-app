@@ -39,15 +39,15 @@ public final class Project implements Serializable {
 	@Column(name = "title", length = 200)
 	private String title;
 	
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	@JsonFormat(shape = Shape.STRING, pattern = "dd/MM/yyyy")
+	@DateTimeFormat(pattern = "dd-MM-yyyy")
+	@JsonFormat(shape = Shape.STRING, pattern = "dd-MM-yyyy")
 	@JsonSerialize(using = LocalDateSerializer.class)
 	@JsonDeserialize(using = LocalDateDeserializer.class)
 	@Column(name = "start_date")
 	private LocalDate startDate;
 	
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	@JsonFormat(shape = Shape.STRING, pattern = "dd/MM/yyyy")
+	@DateTimeFormat(pattern = "dd-MM-yyyy")
+	@JsonFormat(shape = Shape.STRING, pattern = "dd-MM-yyyy")
 	@JsonSerialize(using = LocalDateSerializer.class)
 	@JsonDeserialize(using = LocalDateDeserializer.class)
 	@Column(name = "end_date")

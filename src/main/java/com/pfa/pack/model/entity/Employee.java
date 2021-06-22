@@ -61,8 +61,8 @@ public final class Employee implements Serializable {
 	private String phone;
 	
 	// @NotBlank(message = "** Must give a hiredate **")
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	@JsonFormat(shape = Shape.STRING, pattern = "dd/MM/yyyy")
+	@DateTimeFormat(pattern = "dd-MM-yyyy")
+	@JsonFormat(shape = Shape.STRING, pattern = "dd-MM-yyyy")
 	@JsonSerialize(using = LocalDateSerializer.class)
 	@JsonDeserialize(using = LocalDateDeserializer.class)
 	@Column(name = "hiredate")
