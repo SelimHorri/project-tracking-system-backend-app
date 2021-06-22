@@ -20,7 +20,7 @@ import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@Entity(name = "departments")
+@Entity
 @Table(name = "departments")
 public final class Department implements Serializable {
 	

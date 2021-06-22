@@ -75,7 +75,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 		employee.setDepartment(employee.getManager().getDepartment());
 		employee.getCredential().setPassword(this.bCryptPasswordEncoder.encode(employee.getCredential().getPassword()));
 		// employee.getUserCredential().setEnabled(employee.getUserCredential().getEnabled());
-		employee.getCredential().setEnabled(employee.getCredential().getEnabled()); // TODO this is baaaaaaaaaaaaddd
+		employee.getCredential().setEnabled(true); // TODO this is baaaaaaaaaaaaddd
 		if (employee.getCredential().getRole().startsWith("ROLE_"))
 			employee.getCredential().setRole(employee.getCredential().getRole());
 		else

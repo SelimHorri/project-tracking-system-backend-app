@@ -70,21 +70,21 @@
 				</div> -->
 				<div class="form-group">
 					<label class="col-form-label" for="inputDefault">Username</label>
-					<input th:field='*{userCredential.username}' type="text" class="form-control col-sm-8" placeholder="Enter username..." id="inputDefault" />
-					<span class='text-danger' th:if="${#fields.hasErrors('userCredential.username')}" th:errors="*{userCredential.username}"></span>
+					<input th:field='*{credential.username}' type="text" class="form-control col-sm-8" placeholder="Enter username..." id="inputDefault" />
+					<span class='text-danger' th:if="${#fields.hasErrors('credential.username')}" th:errors="*{credential.username}"></span>
 				</div>
 				<div class="form-group">
 					<label class="col-form-label" for="inputDefault">Password</label>
-					<input th:field='*{userCredential.password}' type="password" class="form-control col-sm-8" placeholder="Enter password..." id="inputDefault" />
-					<span class='text-danger' th:if="${#fields.hasErrors('userCredential.password')}" th:errors="*{userCredential.password}"></span>
+					<input th:field='*{credential.password}' type="password" class="form-control col-sm-8" placeholder="Enter password..." id="inputDefault" />
+					<span class='text-danger' th:if="${#fields.hasErrors('credential.password')}" th:errors="*{credential.password}"></span>
 				</div>
 				<div class="form-group">
 					<label for="exampleSelect1">Role</label>
-					<select  th:field='*{userCredential.role}' class="custom-select " id="exampleSelect1">
+					<select  th:field='*{credential.role}' class="custom-select " id="exampleSelect1">
  						<!--<option selected value='' >---------- Select item here ----------</option> -->
 						<option th:each="r : ${roles}" th:text="${r}" th:value="${r.toString() == 'EMPLOYEE'} ? 'EMP' : (${r.toString() == 'MANAGER'} ? 'MGR' : 'ADMIN')"  ></option>
 					</select>
-					<span th:if="${#fields.hasErrors('userCredential.role')}" th:errors="*{userCredential.role}"  class='text-danger' ></span>
+					<span th:if="${#fields.hasErrors('credential.role')}" th:errors="*{credential.role}"  class='text-danger' ></span>
 				</div>
 			</fieldset>
 			<br>

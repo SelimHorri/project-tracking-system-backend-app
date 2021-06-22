@@ -16,7 +16,7 @@ import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@Entity(name = "locations")
+@Entity
 @Table(name = "locations")
 public final class Location implements Serializable {
 	
