@@ -15,8 +15,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
-	private UserDetailsService userDetailsService;
-	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	private final UserDetailsService userDetailsService;
+	private final BCryptPasswordEncoder bCryptPasswordEncoder;
 	
 	@Autowired
 	public SecurityConfig(final UserDetailsService userDetailsService, final BCryptPasswordEncoder bCryptPasswordEncoder) {
@@ -35,8 +35,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.authorizeRequests()
 			// .antMatchers("/app/api/employees/**").hasAnyRole("EMP", "ADMIN")
 			// .antMatchers("/app/api/managers/**").hasAnyRole("MGR", "ADMIN")
-			.antMatchers("/app/employees/**").hasAnyRole("EMP", "MGR", "ADMIN")
-			.antMatchers("/app/managers/**").hasAnyRole("MGR", "ADMIN")
+			.antMatchers("/app/employees/**").hasAnyRole("EMP", "MGR")
+			.antMatchers("/app/managers/**").hasAnyRole("MGR")
 			.antMatchers("/app/admins/**").hasAnyRole("ADMIN")
 			.antMatchers("/app/api/**").permitAll()
 			.antMatchers("**/css/**").permitAll()

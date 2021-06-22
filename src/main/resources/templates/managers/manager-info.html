@@ -22,8 +22,8 @@
 					<h2 class="card-title text-success" th:text="${m.firstName + ' ' + m.lastName}" ></h2>
 					<h5 class="card-subtitle mb-2 text-muted" th:text="${'Service : ' + m.job}" ></h5>
 					<hr>
-					<h4 class="card-title text-primary" th:text="${'Username : ' + m.userCredential.username}" ></h4>
-					<h4 class="card-title text-primary" th:text="${'isActive : ' + m.userCredential.enabled}" ></h4>
+					<h4 class="card-title text-primary" th:text="${'Username : ' + m.credential.username}" ></h4>
+					<h4 class="card-title text-primary" th:text="${'isActive : ' + m.credential.enabled}" ></h4>
 					<h4 class="card-title text-primary" th:text="${'Email : ' + m.email}" ></h4>
 					<h4 class="card-title text-primary" th:text="${'Department : ' + m.department.departmentName}" ></h4>
 					<h4 class="card-title text-primary" th:text="${'Phone number : ' + m.phone}" ></h4>
