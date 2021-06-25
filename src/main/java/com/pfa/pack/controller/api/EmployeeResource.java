@@ -86,12 +86,10 @@ public class EmployeeResource {
 		return ResponseEntity.ok(new DtoCollection<>(this.assignmentService.findByProjectId(Integer.parseInt(projectId))));
 	}
 	
-	/*
 	@GetMapping(value = {"/data/project-commit/{employeeId}/{projectId}"})
 	public ResponseEntity<DtoCollection<ProjectCommit>> findByEmployeeIdAndProjectId(@PathVariable("employeeId")final String employeeId, @PathVariable("projectId") String projectId) {
 		return ResponseEntity.ok(new DtoCollection<>(this.assignmentService.findByEmployeeIdAndProjectId(Integer.parseInt(employeeId), Integer.parseInt(projectId))));
 	}
-	*/
 	
 	
 	
