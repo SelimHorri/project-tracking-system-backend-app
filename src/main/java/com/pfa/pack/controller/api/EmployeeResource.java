@@ -80,6 +80,11 @@ public class EmployeeResource {
 		return new ResponseEntity<>(new DtoCollection<>(this.assignmentService.findByEmployeeId(Integer.parseInt(employeeId))), HttpStatus.OK);
 	}
 	
+	@GetMapping(value = {"/data/department/{departmentId}"})
+	public ResponseEntity<DtoCollection<Employee>> findByDepartmentId(@PathVariable("departmentId") final String departmentId) {
+		return new ResponseEntity<>(new DtoCollection<>(this.employeeService.findByDepartmentId(Integer.parseInt(departmentId))), HttpStatus.OK);
+	}
+	
 	
 	
 }
