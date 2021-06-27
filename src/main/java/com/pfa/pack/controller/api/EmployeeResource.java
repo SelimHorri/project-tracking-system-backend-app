@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pfa.pack.model.dto.EmployeeProjectData;
-import com.pfa.pack.model.dto.ProjectCommit;
 import com.pfa.pack.model.dto.collection.DtoCollection;
 import com.pfa.pack.model.entity.Employee;
 import com.pfa.pack.service.AssignmentService;
@@ -79,16 +78,6 @@ public class EmployeeResource {
 	@GetMapping(value = {"/data/employee-project-data/{employeeId}"})
 	public ResponseEntity<DtoCollection<EmployeeProjectData>> findByEmployeeId(@PathVariable("employeeId") final String employeeId) {
 		return new ResponseEntity<>(new DtoCollection<>(this.assignmentService.findByEmployeeId(Integer.parseInt(employeeId))), HttpStatus.OK);
-	}
-	
-	@GetMapping(value = {"/data/project-commit/{projectId}"})
-	public ResponseEntity<DtoCollection<ProjectCommit>> findByProjectId(@PathVariable("projectId") final String projectId) {
-		return ResponseEntity.ok(new DtoCollection<>(this.assignmentService.findByProjectId(Integer.parseInt(projectId))));
-	}
-	
-	@GetMapping(value = {"/data/project-commit/{employeeId}/{projectId}"})
-	public ResponseEntity<DtoCollection<ProjectCommit>> findByEmployeeIdAndProjectId(@PathVariable("employeeId")final String employeeId, @PathVariable("projectId") String projectId) {
-		return ResponseEntity.ok(new DtoCollection<>(this.assignmentService.findByEmployeeIdAndProjectId(Integer.parseInt(employeeId), Integer.parseInt(projectId))));
 	}
 	
 	
