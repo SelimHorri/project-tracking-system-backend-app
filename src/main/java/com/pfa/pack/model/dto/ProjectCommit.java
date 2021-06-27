@@ -11,7 +11,7 @@ public interface ProjectCommit {
 	public abstract String getLastName();
 	public abstract Integer getProjectId();
 	
-	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
+	@DateTimeFormat(pattern = "dd-MM-yyyyHH:mm:ss")
 	public abstract LocalDateTime getCommitDate();
 	
 	public abstract String getCommitEmpDesc();
