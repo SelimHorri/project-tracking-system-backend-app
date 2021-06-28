@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,7 +27,6 @@ import com.pfa.pack.util.sms.SmsUtil;
 public class CredentialController {
 	
 	private final CredentialService credentialService;
-	private final BCryptPasswordEncoder bCryptPasswordEncoder;
 	private final EmailUtil emailUtil;
 	private final SmsUtil smsUtil;
 	private static final Logger logger = LoggerFactory.getLogger(CredentialController.class);
@@ -46,9 +44,8 @@ public class CredentialController {
 	 * @param smsUtil
 	 */
 	@Autowired
-	public CredentialController(final CredentialService credentialService, final BCryptPasswordEncoder bCryptPasswordEncoder, final EmailUtil emailUtil, final SmsUtil smsUtil) {
+	public CredentialController(final CredentialService credentialService, final EmailUtil emailUtil, final SmsUtil smsUtil) {
 		this.credentialService = credentialService;
-		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
 		this.emailUtil = emailUtil;
 		this.smsUtil = smsUtil;
 	}
@@ -93,16 +90,13 @@ public class CredentialController {
 		
 		final Credential credential = this.credentialService.findByUsername(authentication.getName());
 		
-		if (credential.getRole().equalsIgnoreCase("ROLE_EMP")) {
+		if (credential.getRole().equalsIgnoreCase("ROLE_EMP"))
 			model.addAttribute("account", AccountEnum.EMPLOYEE.toString());
-		}
 		else {
-			if (credential.getRole().equalsIgnoreCase("ROLE_MGR")) {
+			if (credential.getRole().equalsIgnoreCase("ROLE_MGR"))
 				model.addAttribute("account", AccountEnum.MANAGER.toString());
-			}
-			else {
+			else 
 				model.addAttribute("account", AccountEnum.ADMIN.toString());
-			}
 		}
 		
 		final boolean isBlank = pwd1.isEmpty() || pwd2.isEmpty();
@@ -124,8 +118,7 @@ public class CredentialController {
 			
 		}
 		
-		credential.setUsername(authentication.getName());
-		credential.setPassword(this.bCryptPasswordEncoder.encode(pwd1));
+		credential.setPassword(pwd1);
 		
 		final String msg = "You've changed some credentials : " + LocalDateTime.now() + "\n" + "Username : " + authentication.getName() + "\n" + "Password : " + pwd1;
 		
