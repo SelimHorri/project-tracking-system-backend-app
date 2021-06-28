@@ -66,16 +66,16 @@ public final class Credential implements Serializable {
 	
 	@Override
 	public String toString() {
-		return "Credential [userId=" + getCredentialId() + ", username=" + username + ", password=" + password + ", enabled="
-				+ enabled + ", role=" + role + "]";
+		return "Credential [credentialId=" + credentialId + ", username=" + username + ", password=" + password
+				+ ", enabled=" + enabled + ", role=" + role + ", employeeId=" + employee.getEmployeeId() + "]";
 	}
 	
 	public Integer getCredentialId() {
 		return credentialId;
 	}
 
-	public void setCredentialId(Integer userId) {
-		this.credentialId = userId;
+	public void setCredentialId(Integer credentialId) {
+		this.credentialId = credentialId;
 	}
 	
 	public String getUsername() {

@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.pfa.pack.exception.custom.ObjectNotFoundException;
@@ -21,6 +22,7 @@ import com.pfa.pack.service.CredentialService;
 public class CredentialServiceImpl implements CredentialService {
 	
 	private final CredentialRepository rep;
+	private final BCryptPasswordEncoder encoder;
 	private static final Logger logger = LoggerFactory.getLogger(CredentialServiceImpl.class);
 	
 	static {
@@ -28,8 +30,9 @@ public class CredentialServiceImpl implements CredentialService {
 	}
 	
 	@Autowired
-	public CredentialServiceImpl(final CredentialRepository rep) {
+	public CredentialServiceImpl(final CredentialRepository rep, final BCryptPasswordEncoder encoder) {
 		this.rep = rep;
+		this.encoder = encoder;
 	}
 	
 	@Override
@@ -44,11 +47,13 @@ public class CredentialServiceImpl implements CredentialService {
 	
 	@Override
 	public Credential save(final Credential credential) {
+		// credential.setPassword(this.encoder.encode(credential.getPassword()));
 		return this.rep.save(credential);
 	}
 	
 	@Override
 	public Credential update(final Credential credential) {
+		credential.setPassword(this.encoder.encode(credential.getPassword()));
 		return this.rep.save(credential);
 	}
 	
