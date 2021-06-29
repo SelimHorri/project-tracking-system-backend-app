@@ -15,10 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pfa.pack.model.dto.EmployeeProjectData;
+import com.pfa.pack.model.dto.ManagerProjectData;
 import com.pfa.pack.model.dto.collection.DtoCollection;
 import com.pfa.pack.model.entity.Employee;
 import com.pfa.pack.service.AssignmentService;
 import com.pfa.pack.service.EmployeeService;
+import com.pfa.pack.service.ProjectService;
 
 @RestController
 @RequestMapping(value = {"/app/api/employees"})
@@ -27,15 +29,17 @@ public class EmployeeResource {
 	private static final Logger logger = LoggerFactory.getLogger(EmployeeResource.class);
 	private final EmployeeService employeeService;
 	private final AssignmentService assignmentService;
+	private final ProjectService projectService;
 	
 	static {
 		logger.info("************ entering " + EmployeeResource.class.getName() + " ************");
 	}
 	
 	@Autowired
-	public EmployeeResource(final EmployeeService service, final AssignmentService assignmentService) {
+	public EmployeeResource(final EmployeeService service, final AssignmentService assignmentService, final ProjectService projectService) {
 		this.employeeService = service;
 		this.assignmentService = assignmentService;
+		this.projectService = projectService;
 	}
 	
 	@GetMapping(value = {"", "/"})
@@ -76,13 +80,18 @@ public class EmployeeResource {
 	}
 	
 	@GetMapping(value = {"/data/employee-project-data/{employeeId}"})
-	public ResponseEntity<DtoCollection<EmployeeProjectData>> findByEmployeeId(@PathVariable("employeeId") final String employeeId) {
+	public ResponseEntity<DtoCollection<EmployeeProjectData>> findByEmployeeProjectDataEmployeeId(@PathVariable("employeeId") final String employeeId) {
 		return new ResponseEntity<>(new DtoCollection<>(this.assignmentService.findByEmployeeId(Integer.parseInt(employeeId))), HttpStatus.OK);
 	}
 	
 	@GetMapping(value = {"/data/department/{departmentId}"})
 	public ResponseEntity<DtoCollection<Employee>> findByDepartmentId(@PathVariable("departmentId") final String departmentId) {
 		return new ResponseEntity<>(new DtoCollection<>(this.employeeService.findByDepartmentId(Integer.parseInt(departmentId))), HttpStatus.OK);
+	}
+	
+	@GetMapping(value = {"/data/manager-project-data/{employeeId}"})
+	public ResponseEntity<DtoCollection<ManagerProjectData>> findManagerProjectDataByEmployeeId(@PathVariable("employeeId") final String employeeId) {
+		return new ResponseEntity<>(new DtoCollection<>(this.projectService.findByEmployeeId(Integer.parseInt(employeeId))), HttpStatus.OK);
 	}
 	
 	
