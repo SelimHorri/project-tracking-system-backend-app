@@ -28,13 +28,13 @@ import com.pfa.pack.model.dto.ProjectCommit;
 import com.pfa.pack.model.dto.ProjectDTO;
 import com.pfa.pack.model.dto.SearchProjectsDto;
 import com.pfa.pack.model.entity.Assignment;
+import com.pfa.pack.model.entity.Credential;
 import com.pfa.pack.model.entity.Employee;
 import com.pfa.pack.model.entity.Project;
-import com.pfa.pack.model.entity.Credential;
 import com.pfa.pack.service.AssignmentService;
+import com.pfa.pack.service.CredentialService;
 import com.pfa.pack.service.EmployeeService;
 import com.pfa.pack.service.ProjectService;
-import com.pfa.pack.service.CredentialService;
 import com.pfa.pack.util.email.EmailUtil;
 import com.pfa.pack.util.sms.Sms;
 import com.pfa.pack.util.sms.SmsUtil;
@@ -539,11 +539,8 @@ public class ManagerController {
 	@GetMapping(value = {"/manager-delete-project"})
 	public String handleManagerDeleteProject(@RequestParam("projectId") final String projectId, final Model model) {
 		
-		this.assignmentService.deleteByProjectId(Integer.parseInt(projectId));
-		logger.warn("assignments with projectId = {} are deleted", projectId);
-		
 		this.projectService.deleteById(Integer.parseInt(projectId));
-		logger.warn("project with its projectId = {} is deleted", projectId);
+		logger.warn("project with its projectId = {} is deleted with all its assignments", projectId);
 		
 		return "redirect:/app/managers/manager-index";
 	}

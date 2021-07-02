@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.Collections;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -58,7 +59,7 @@ public final class Project implements Serializable {
 	private String status;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "project")
+	@OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
 	private Set<Assignment> assignments;
 	
 	public Project() {
