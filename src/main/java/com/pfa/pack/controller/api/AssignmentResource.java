@@ -81,6 +81,11 @@ public class AssignmentResource {
 		return ResponseEntity.ok(new DtoCollection<>(this.assignmentService.findByEmployeeIdAndProjectId(Integer.parseInt(employeeId), Integer.parseInt(projectId))));
 	}
 	
+	@GetMapping(value = {"/data/project-commit/{employeeId}/{projectId}/{commitDate}"})
+	public ResponseEntity<ProjectCommit> findByEmployeeIdAndProjectIdAndCommitDate(@PathVariable("employeeId")final String employeeId, @PathVariable("projectId") String projectId, @PathVariable("commitDate") final String commitDate) {
+		return ResponseEntity.ok(this.assignmentService.findByEmployeeIdAndProjectIdAndCommitDate(Integer.parseInt(employeeId), Integer.parseInt(projectId), LocalDateTime.parse(commitDate, DateTimeFormatter.ofPattern("dd-MM-yyyyHH:mm:ss"))));
+	}
+	
 	
 	
 }
