@@ -55,8 +55,9 @@ public class ProjectResource {
 	}
 	
 	@DeleteMapping(value = {"", "/delete"})
-	public void deleteById(final String projectId) {
+	public ResponseEntity<Boolean> deleteById(final String projectId) {
 		this.projectService.deleteById(Integer.parseInt(projectId));
+		return ResponseEntity.ok(true);
 	}
 	
 	

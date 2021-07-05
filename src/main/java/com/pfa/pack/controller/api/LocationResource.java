@@ -55,8 +55,9 @@ public class LocationResource {
 	}
 	
 	@DeleteMapping(value = {"", "/delete"})
-	public void deleteById(final String locationId) {
+	public ResponseEntity<Boolean> deleteById(final String locationId) {
 		this.locationService.deleteById(Integer.parseInt(locationId));
+		return ResponseEntity.ok(true);
 	}
 	
 	
