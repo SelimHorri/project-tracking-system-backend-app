@@ -24,7 +24,8 @@ public class ExceptionMsgApiHandler {
 			UsernameNotFoundException.class,
 			DateTimeParseException.class,
 			NumberFormatException.class,
-			BadCredentialsException.class
+			BadCredentialsException.class,
+			RuntimeException.class
 		}
 	)
 	public <T extends RuntimeException> ResponseEntity<ExceptionMsg> handleExceptionOutputMsg(final T e) {
