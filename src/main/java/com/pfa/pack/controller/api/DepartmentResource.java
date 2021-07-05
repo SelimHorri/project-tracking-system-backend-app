@@ -54,8 +54,8 @@ public class DepartmentResource {
 		return new ResponseEntity<>(this.departmentService.update(department), HttpStatus.OK);
 	}
 	
-	@DeleteMapping(value = {"", "/delete"})
-	public ResponseEntity<Boolean> deleteById(final String departmentId) {
+	@DeleteMapping(value = {"/{id}", "/delete/{id}"})
+	public ResponseEntity<Boolean> deleteById(@PathVariable("id") final String departmentId) {
 		this.departmentService.deleteById(Integer.parseInt(departmentId));
 		return new ResponseEntity<>(true, HttpStatus.OK);
 	}
