@@ -54,8 +54,8 @@ public class CredentialResource {
 		return new ResponseEntity<>(this.credentialService.update(credential), HttpStatus.OK);
 	}
 	
-	@DeleteMapping(value = {"", "/delete"})
-	public ResponseEntity<Boolean> deleteById(final String credentialId) {
+	@DeleteMapping(value = {"/{id}", "/delete/{id}"})
+	public ResponseEntity<Boolean> deleteById(@PathVariable("id") final String credentialId) {
 		this.credentialService.deleteById(Integer.parseInt(credentialId));
 		return new ResponseEntity<>(true, HttpStatus.OK);
 	}

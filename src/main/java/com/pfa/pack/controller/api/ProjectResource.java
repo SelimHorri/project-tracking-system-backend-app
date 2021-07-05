@@ -54,9 +54,10 @@ public class ProjectResource {
 		return new ResponseEntity<>(this.projectService.update(project), HttpStatus.OK);
 	}
 	
-	@DeleteMapping(value = {"", "/delete"})
-	public void deleteById(final String projectId) {
+	@DeleteMapping(value = {"/{id}", "/delete/{id}"})
+	public ResponseEntity<Boolean> deleteById(@PathVariable("id") String projectId) {
 		this.projectService.deleteById(Integer.parseInt(projectId));
+		return ResponseEntity.ok(true);
 	}
 	
 	

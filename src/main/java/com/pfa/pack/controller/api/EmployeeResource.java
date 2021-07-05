@@ -62,8 +62,8 @@ public class EmployeeResource {
 		return new ResponseEntity<>(this.employeeService.update(employee), HttpStatus.OK);
 	}
 	
-	@DeleteMapping(value = {"", "/delete"})
-	public ResponseEntity<Boolean> deleteById(final String employeeId) {
+	@DeleteMapping(value = {"/{id}", "/delete/{id}"})
+	public ResponseEntity<Boolean> deleteById(@PathVariable("id") final String employeeId) {
 		this.employeeService.deleteById(Integer.parseInt(employeeId));
 		return new ResponseEntity<>(true, HttpStatus.OK);
 	}
