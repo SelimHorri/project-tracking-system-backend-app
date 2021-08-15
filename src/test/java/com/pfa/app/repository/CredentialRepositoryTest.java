@@ -1,4 +1,4 @@
-package com.pfa.pack.repository;
+package com.pfa.app.repository;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

@@ -1,4 +1,4 @@
-package com.pfa.pack;
+package com.pfa.app;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
