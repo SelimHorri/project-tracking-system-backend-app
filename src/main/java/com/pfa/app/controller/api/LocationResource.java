@@ -19,7 +19,7 @@ import com.pfa.app.model.entity.Location;
 import com.pfa.app.service.LocationService;
 
 @RestController
-@RequestMapping(value = {"/app/api/locations"})
+@RequestMapping(value = {"/api/locations"})
 public class LocationResource {
 	
 	private final LocationService locationService;

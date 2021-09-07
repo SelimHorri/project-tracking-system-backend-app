@@ -19,7 +19,7 @@ import com.pfa.app.model.entity.Project;
 import com.pfa.app.service.ProjectService;
 
 @RestController
-@RequestMapping(value = {"/app/api/projects"})
+@RequestMapping(value = {"/api/projects"})
 public class ProjectResource {
 	
 	private final ProjectService projectService;

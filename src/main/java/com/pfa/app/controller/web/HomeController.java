@@ -5,14 +5,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping(value = {"/", "/app"})
+@RequestMapping(path = {"", "/"})
 public class HomeController {
 	
 	/**
 	 * get to entry point
 	 * @return home
 	 */
-	@GetMapping(value = {"", "/"})
+	@GetMapping(path = {"", "/"})
 	public String displayHome() {
 		return "home/home";
 	}

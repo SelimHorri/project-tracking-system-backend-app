@@ -19,7 +19,7 @@ import com.pfa.app.model.entity.Department;
 import com.pfa.app.service.DepartmentService;
 
 @RestController
-@RequestMapping(value = {"/app/api/departments"})
+@RequestMapping(value = {"/api/departments"})
 public class DepartmentResource {
 	
 	private final DepartmentService departmentService;

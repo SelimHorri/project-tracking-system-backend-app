@@ -23,7 +23,7 @@ import com.pfa.app.util.sms.SmsUtil;
 
 @Controller
 @Lazy
-@RequestMapping(value = {"/app/credentials"})
+@RequestMapping(value = {"/credentials"})
 public class CredentialController {
 	
 	private final CredentialService credentialService;

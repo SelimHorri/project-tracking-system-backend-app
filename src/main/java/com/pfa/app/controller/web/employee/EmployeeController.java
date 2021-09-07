@@ -30,7 +30,7 @@ import com.pfa.app.util.sms.Sms;
 import com.pfa.app.util.sms.SmsUtil;
 
 @Controller
-@RequestMapping(value = {"/app/employees"})
+@RequestMapping(value = {"/employees"})
 public class EmployeeController {
 	
 	private final EmployeeService employeeService;

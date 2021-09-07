@@ -23,7 +23,7 @@ import com.pfa.app.model.entity.Assignment;
 import com.pfa.app.service.AssignmentService;
 
 @RestController
-@RequestMapping(value = {"/app/api/assignments"})
+@RequestMapping(value = {"/api/assignments"})
 public class AssignmentResource {
 	
 	private final AssignmentService assignmentService;

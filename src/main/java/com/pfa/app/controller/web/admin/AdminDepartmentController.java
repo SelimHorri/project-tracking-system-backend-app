@@ -17,7 +17,7 @@ import com.pfa.app.service.DepartmentService;
 import com.pfa.app.service.LocationService;
 
 @Controller
-@RequestMapping(value = {"/app/admins/departments"})
+@RequestMapping(value = {"/admins/departments"})
 public class AdminDepartmentController {
 	
 	private final DepartmentService departmentService;

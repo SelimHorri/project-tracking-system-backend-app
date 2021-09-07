@@ -12,7 +12,7 @@ import com.pfa.app.model.dto.AuthenticationResponse;
 import com.pfa.app.service.AuthenticationService;
 
 @RestController
-@RequestMapping(value = {"/app/api/authenticate"})
+@RequestMapping(value = {"/api/authenticate"})
 public class AuthenticationResource {
 	
 	private final AuthenticationService authenticationService;
