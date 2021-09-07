@@ -23,7 +23,7 @@ import com.pfa.app.service.EmployeeService;
 import com.pfa.app.service.ProjectService;
 
 @RestController
-@RequestMapping(value = {"/app/api/employees"})
+@RequestMapping(value = {"/api/employees"})
 public class EmployeeResource {
 	
 	private static final Logger logger = LoggerFactory.getLogger(EmployeeResource.class);

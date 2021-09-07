@@ -18,7 +18,7 @@ import com.pfa.app.model.entity.Location;
 import com.pfa.app.service.LocationService;
 
 @Controller
-@RequestMapping(value = {"/app/admins/locations"})
+@RequestMapping(value = {"/admins/locations"})
 public class AdminLocationController {
 	
 	private final LocationService locationService;

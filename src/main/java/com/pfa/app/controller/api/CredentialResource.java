@@ -19,7 +19,7 @@ import com.pfa.app.model.entity.Credential;
 import com.pfa.app.service.CredentialService;
 
 @RestController
-@RequestMapping(value = {"/app/api/credentials"})
+@RequestMapping(value = {"/api/credentials"})
 public class CredentialResource {
 	
 	private final CredentialService credentialService;

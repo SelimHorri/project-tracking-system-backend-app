@@ -21,7 +21,7 @@ import com.pfa.app.service.CredentialService;
 import com.pfa.app.service.EmployeeService;
 
 @Controller
-@RequestMapping(value = {"/app/admins/employees"})
+@RequestMapping(value = {"/admins/employees"})
 public class AdminEmployeeController {
 	
 	private final EmployeeService employeeService;
