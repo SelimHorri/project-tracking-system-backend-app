@@ -11,7 +11,7 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.pfa</groupId>
-	<artifactId>project-tracking-system</artifactId>
+	<artifactId>project-tracking-system-backend-app</artifactId>
 	<version>9.0</version>
 	<name>Project-Tracking-System</name>
 	<description>Manage projects and their status along with managers and employees</description>
@@ -128,7 +128,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
-		<finalName>project-tracking-system</finalName>
+		<finalName>${project.artifactId}</finalName>
 	</build>
 
 </project>
