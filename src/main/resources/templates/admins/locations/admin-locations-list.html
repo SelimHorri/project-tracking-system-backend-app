@@ -15,7 +15,7 @@
 		
 	<div class='container container-fluid'>
 		
-		<h4><a th:href="@{/app/admins/locations/admin-locations-add}">Add a new location</a></h4>
+		<h4><a th:href="@{/admins/locations/admin-locations-add}">Add a new location</a></h4>
 		
 		<div th:switch="${locations}">
 	    	<h2 th:case="null">No Records yet!</h2>
@@ -36,8 +36,8 @@
 							<td th:text="${l.adr}"></td>
 							<td th:text="${l.postalCode}"></td>
 							<td th:text="${l.city}"></td>
-							<td><a class='btn btn-outline-warning' th:href="@{/app/admins/locations/admin-locations-edit(locationId=${l.locationId})}">Edit</a></td>
-							<td><a class='btn btn-outline-danger' th:href="@{/app/admins/locations/admin-locations-delete(locationId=${l.locationId})}" onClick="if (!(confirm('Do you confirm you want DELETE this location ?'))) return false" >Delete</a></td>
+							<td><a class='btn btn-outline-warning' th:href="@{/admins/locations/admin-locations-edit(locationId=${l.locationId})}">Edit</a></td>
+							<td><a class='btn btn-outline-danger' th:href="@{/admins/locations/admin-locations-delete(locationId=${l.locationId})}" onClick="if (!(confirm('Do you confirm you want DELETE this location ?'))) return false" >Delete</a></td>
 		                </tr>
 	            	</tbody>
 	        	</table>

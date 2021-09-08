@@ -121,7 +121,7 @@ public class AdminEmployeeController {
 		this.credentialService.save(credential);
 		logger.info("Employee with employeeId : {} has been enabled/disabled successfully", credential.getEmployee().getEmployeeId());
 		
-		return "redirect:/app/admins/employees/admin-employees-list";
+		return "redirect:/admins/employees/admin-employees-list";
 	}
 	
 	@GetMapping(value = {"/admin-employees-delete", "/delete"})
@@ -130,7 +130,7 @@ public class AdminEmployeeController {
 		this.employeeService.deleteById(Integer.parseInt(employeeId));
 		logger.info("Employee with employeeId : {} has been removed successfully", employeeId);
 		
-		return "redirect:/app/admins/employees/admin-employees-list";
+		return "redirect:/admins/employees/admin-employees-list";
 	}
 	
 	

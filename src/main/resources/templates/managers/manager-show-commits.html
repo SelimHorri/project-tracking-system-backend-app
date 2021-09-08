@@ -23,7 +23,7 @@
 		<div class='jumbotron ' >
 			
 			<br><br>
-			<h4><a th:href="@{/app/managers/manager-search-commits}" >Search commits</a></h4>
+			<h4><a th:href="@{/managers/manager-search-commits}" >Search commits</a></h4>
 			<br><br>
 			
 			<div align='center' th:each = "c : ${commits}">
@@ -47,7 +47,7 @@
 	  							<!--<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
 							</div>
 						</div>
- 						<a th:href="@{/app/managers/manager-describe-commit(employeeId=${c.employeeId}, projectId=${c.projectId}, commitDate=${c.commitDate})}" class="btn btn-primary">Add comment</a>
+ 						<a th:href="@{/managers/manager-describe-commit(employeeId=${c.employeeId}, projectId=${c.projectId}, commitDate=${c.commitDate})}" class="btn btn-primary">Add comment</a>
  						<!--<div class="card-header"></div> -->
 					</div>
 					

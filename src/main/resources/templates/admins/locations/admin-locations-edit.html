@@ -15,7 +15,7 @@
 	
 	<div class='container container-fluid'>
 		
-		<form class='jumbotron' th:object="${location}" th:action='@{/app/admins/locations/admin-locations-edit}' method='POST'>
+		<form class='jumbotron' th:object="${location}" th:action='@{/admins/locations/admin-locations-edit}' method='POST'>
 			<fieldset>
 				<div class="form-group">
 					<input th:field='*{locationId}' type="hidden" class="form-control col-sm-8" id="inputDefault" />

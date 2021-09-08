@@ -50,14 +50,14 @@
 							<td th:text="${e.startDate}"></td>
 							<td th:text="${e.endDate}"></td>
 							<td th:text="${e.status}"></td>
-							<td><a class='btn btn-outline-warning' th:href="@{/app/employees/employee-show-my-commits(projectId=${e.projectId})}">My commits</a></td>
-							<td><a class='btn btn-outline-success' th:href="@{/app/employees/employee-show-all-commits(projectId=${e.projectId})}">All commits</a></td>
-							<td><a class='btn btn-outline-danger' th:href="@{/app/employees/employee-add-commit(projectId=${e.projectId})}">New commit?</a></td>
+							<td><a class='btn btn-outline-warning' th:href="@{/employees/employee-show-my-commits(projectId=${e.projectId})}">My commits</a></td>
+							<td><a class='btn btn-outline-success' th:href="@{/employees/employee-show-all-commits(projectId=${e.projectId})}">All commits</a></td>
+							<td><a class='btn btn-outline-danger' th:href="@{/employees/employee-add-commit(projectId=${e.projectId})}">New commit?</a></td>
 		                </tr>
 	            	</tbody>
 	        	</table>
 	    	</div>
- 		    	<!--<h4><a th:href="@{/app/employees/employee-all-commits}">Show All Projects commits</a></h4> -->
+ 		    	<!--<h4><a th:href="@{/employees/employee-all-commits}">Show All Projects commits</a></h4> -->
 		</div>
 		
 		<!-- 

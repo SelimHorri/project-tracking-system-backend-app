@@ -15,7 +15,7 @@
 		
 	<div class='container container-fluid'>
 		
-		<form class='jumbotron' th:object='${department}' th:action='@{/app/admins/departments/admin-departments-edit}' method='POST'>
+		<form class='jumbotron' th:object='${department}' th:action='@{/admins/departments/admin-departments-edit}' method='POST'>
 			<fieldset>
 				<div class="form-group">
 					<input th:field='*{departmentId}' type="hidden" class="form-control col-sm-8" placeholder="Enter departmentName..." id="inputDefault" />
