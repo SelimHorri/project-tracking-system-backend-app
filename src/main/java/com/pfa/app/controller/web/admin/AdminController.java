@@ -47,17 +47,17 @@ public class AdminController {
 	
 	@GetMapping(value = {"/locations"})
 	public String displayAdminLocationsList() {
-		return "redirect:/app/admins/locations/admin-locations-list";
+		return "redirect:/admins/locations/admin-locations-list";
 	}
 	
 	@GetMapping(value = {"/departments"})
 	public String displayAdminDepartmentsList() {
-		return "redirect:/app/admins/departments/admin-departments-list";
+		return "redirect:/admins/departments/admin-departments-list";
 	}
 	
 	@GetMapping(value = {"/employees"})
 	public String displayAdminEmployeesList() {
-		return "redirect:/app/admins/employees/admin-employees-list";
+		return "redirect:/admins/employees/admin-employees-list";
 	}
 	
 	

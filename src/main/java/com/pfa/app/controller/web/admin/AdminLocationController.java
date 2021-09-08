@@ -96,7 +96,7 @@ public class AdminLocationController {
 		this.locationService.deleteById(Integer.parseInt(locationId));
 		logger.info("Location with locationId : {} has been removed successfully", locationId);
 		
-		return "redirect:/app/admins/locations/admin-locations-list";
+		return "redirect:/admins/locations/admin-locations-list";
 	}
 	
 	

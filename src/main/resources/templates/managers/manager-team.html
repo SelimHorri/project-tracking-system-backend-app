@@ -43,7 +43,7 @@
 							<td th:text="${e.job}"></td>
 							<td th:text="${e.department.departmentName}"></td>
 							<td th:text="${e.department.location.adr + ', ' + e.department.location.postalCode + ', ' + e.department.location.city}"></td>
- 							<!--<td><div align='center'><a class='btn btn btn-outline-primary' th:href="@{/app/managers/manager-assigned-projects(employeeId=${e.employeeId})}">Show</a></div></td> -->
+ 							<!--<td><div align='center'><a class='btn btn btn-outline-primary' th:href="@{/managers/manager-assigned-projects(employeeId=${e.employeeId})}">Show</a></div></td> -->
 		                </tr>
 	            	</tbody>
 	        	</table>

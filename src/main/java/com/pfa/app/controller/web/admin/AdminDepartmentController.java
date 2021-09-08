@@ -108,7 +108,7 @@ public class AdminDepartmentController {
 		this.departmentService.deleteById(Integer.parseInt(departmentId));
 		logger.info("Department with departmentId : {} has been removed successfully", departmentId);
 		
-		return "redirect:/app/admins/departments/admin-departments-list";
+		return "redirect:/admins/departments/admin-departments-list";
 	}
 	
 	
