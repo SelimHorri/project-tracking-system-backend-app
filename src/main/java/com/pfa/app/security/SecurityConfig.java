@@ -35,14 +35,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.authorizeRequests()
 			// .antMatchers("/app/api/employees/**").hasAnyRole("EMP", "ADMIN")
 			// .antMatchers("/app/api/managers/**").hasAnyRole("MGR", "ADMIN")
-			.antMatchers("/app/employees/**").hasAnyRole("EMP", "MGR")
-			.antMatchers("/app/managers/**").hasAnyRole("MGR")
-			.antMatchers("/app/admins/**").hasAnyRole("ADMIN")
-			.antMatchers("/app/api/**").permitAll()
+			.antMatchers("/employees/**").hasAnyRole("EMP", "MGR")
+			.antMatchers("/managers/**").hasAnyRole("MGR")
+			.antMatchers("/admins/**").hasAnyRole("ADMIN")
+			.antMatchers("/api/**").permitAll()
 			.antMatchers("**/css/**").permitAll()
 			.antMatchers("**/js/**").permitAll()
 			.antMatchers("/h2-console/**").permitAll()
-			.antMatchers("/", "/app").permitAll()
+			.antMatchers("/").permitAll()
 		.and().formLogin();
 		http.headers().frameOptions().sameOrigin(); // h2 db
 	}
