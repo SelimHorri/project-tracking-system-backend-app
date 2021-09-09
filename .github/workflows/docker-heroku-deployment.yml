@@ -40,7 +40,7 @@ jobs:
     - name: Push Docker image
       uses: mr-smithers-excellent/docker-build-push@v5
       with:
-        image: selimhorri/project-tracking-system
+        image: selimhorri/${{ secrets.DOCKER_IMAGE }}
         tags: latest
         registry: docker.io
         username: ${{ secrets.DOCKER_USERNAME }}

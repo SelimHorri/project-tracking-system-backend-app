@@ -1,7 +1,8 @@
+
 version: '3'
 services:
-  project-tracking-system-container:
-    image: selimhorri/project-tracking-system-backend-app:latest
+  project-tracking-system-backend-app:
+    image: selimhorri/project-tracking-system-backend-app
     ports:
       - 8080:8080
     environment:
