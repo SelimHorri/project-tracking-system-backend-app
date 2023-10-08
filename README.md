@@ -4,7 +4,7 @@
 
 ### Testing Goal
 
-The testing goal aims for deleted the `Location` from repository by location ID. Furthermore, If the provided location ID is not exit. The Function should throws an `ObjectNotFoundException`.
+The testing goal aims for deleted the `Location` from repository by location ID. Furthermore, If the provided location ID is not exit. The Function should throw an `ObjectNotFoundException`.
 
 ### Information
 
@@ -74,7 +74,7 @@ Base Choice = (A2, B1, C2)
 
 ### Testing Goal
 
-Verify that the function returns a `ProjectCommitInfoDTO` object when a matching record is found in the repository, and throws an `ObjectNotFoundException` when no matching record is found.
+Ensure that function must returns the details of `Location` when provided a exit Location object. Vice versa, it will throw an ObjectNotFoundException
 
 ### Information
 
