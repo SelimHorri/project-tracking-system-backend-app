@@ -60,4 +60,5 @@ Using **All Combinations (ACoC)** approach will have 12 test cases.
 | **ROW2** | (0, True, False) | (0, False, True)  | (0, False, False) | (1, True, True)    | (1, True, False) |
 | **ROW3** | (1, False, True) | (1, False, False) |                   |                    |                  |
 
+### Test
 ---
