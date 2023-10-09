@@ -62,12 +62,10 @@ Base Choice = (A2, B1, C2)
 
 ### Feasible Test Values / Expected Result
 
-| Test        | Integer | Expected Result                             | 
-|-------------|---------|---------------------------------------------|
-| (-1, False) | -1      | Not Found, Throws `ObjectNotFoundException` |
-| (0, False)  | 0       | Not Found, Throws `ObjectNotFoundException` |
-| (1, True)   | 1       | Found, No Error                             |
-| (4, False)  | 4       | Not Found, Throws `ObjectNotFoundException` |
+| Test        | Integer | Expected Result                                | 
+|-------------|---------|------------------------------------------------|
+| (1, True)   | 1       | Deleted, No Error                              |
+| (4, False)  | 4       | Can't delete, Throws `ObjectNotFoundException` |
 ---
 
 ## Function: `LocationService.update(final Location location)`
@@ -127,10 +125,10 @@ Using **All Combinations (ACoC)** approach will have 4 test cases.
 
 ### Feasible Test Values / Expected Result
 
-| Test           | String | Expected Result  | 
-|----------------|--------|------------------|
-| (null, True)   |        | Not Found, Error |
-| (False, True)  |        | Found, No Error  |
-| (False, False) |        | Not Found, Error |
+| Test           | Location | Expected Result   | 
+|----------------|----------|-------------------|
+| (null, True)   | null     | Not update, Error |
+| (False, True)  | Location | Updated, No Error |
+| (False, False) | Location | Not update, Error |
 
 ---
