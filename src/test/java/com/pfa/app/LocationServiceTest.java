@@ -4,8 +4,6 @@ import com.pfa.app.exception.custom.ObjectNotFoundException;
 import com.pfa.app.model.entity.Location;
 import com.pfa.app.repository.LocationRepository;
 import com.pfa.app.service.LocationService;
-import org.h2.command.dml.MergeUsing;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -15,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.orm.jpa.JpaSystemException;
 
-import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -26,23 +23,11 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 @SpringBootTest
 public class LocationServiceTest {
-//    @Autowired
-//    private LocationService locationService;
 
     @Mock
     private LocationService locationservice;
     @Mock
     private LocationRepository rep;
-
-
-//    @BeforeEach
-//    public void  setupDatabase(){
-//        Location location = new Location();
-//        location.setCity("Angel City");
-//        location.setPostalCode("6789");
-//        location.setAdr("Heaven");
-//        locationService.save(location);
-//    }
 
     @Nested
     class LocationServiceDeleteByIDtest {
